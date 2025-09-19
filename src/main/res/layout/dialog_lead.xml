@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Select Lead"
+            android:textColor="#424546"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="27dp"
+            android:src="@drawable/close_filter" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="#7D7C7C" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            style="@style/CustomRadioButton"
+            android:buttonTint="@color/radio_selected"
+
+            android:fontFamily="@font/roboto_regular"
+            android:id="@+id/radio_social_media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Social Media" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            style="@style/CustomRadioButton"
+            android:buttonTint="@color/radio_selected"
+
+            android:fontFamily="@font/roboto_regular"
+            android:id="@+id/radio_prescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prescription" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            style="@style/CustomRadioButton"
+            android:buttonTint="@color/radio_selected"
+
+            android:fontFamily="@font/roboto_regular"
+            android:id="@+id/radio_gift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gift" />
+
+
+
+    </RadioGroup>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:id="@+id/card_change"
+        android:layout_height="38dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/doctor_main_color"
+        app:cardCornerRadius="12dp">
+
+        <TextView
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="Change"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_medium"/>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="Delivery Status"
+            android:textColor="#424546"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="27dp"
+            android:src="@drawable/close_filter" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="#7D7C7C" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_pending"
+            style="@style/CustomRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:clickable="false"
+            android:alpha="0.5"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Pending" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_confirmed"
+            style="@style/CustomRadioButton"
+            android:clickable="false"
+            android:alpha="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Confirmed" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_picked_up"
+            style="@style/CustomRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Picked Up" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_on_the_way"
+            style="@style/CustomRadioButton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:fontFamily="@font/roboto_regular"
+            android:text="On The Way" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_delivered"
+            style="@style/CustomRadioButton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Delivered" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_cancel"
+            style="@style/CustomRadioButton"
+            android:clickable="false"
+            android:alpha="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Cancel" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_closed"
+            style="@style/CustomRadioButton"
+            android:clickable="false"
+            android:alpha="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_selected"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Closed" />
+
+    </RadioGroup>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_change"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/doctor_main_color"
+        app:cardCornerRadius="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Change"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="visible" />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="150dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="21dp"
+                                android:layout_marginTop="11dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Product Videos"
+                                android:textColor="#424546"
+                                android:textSize="16sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#40000000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="21dp"
+                                android:layout_marginTop="13dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Video Provider"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                app:cardCornerRadius="5dp"
+                                android:id="@+id/card_video_type"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="1dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txt_type"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:gravity="center_vertical"
+                                        android:text="Youtube"
+                                        android:textColor="#B4ABAB"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_marginEnd="6dp"
+                                        android:src="@drawable/arrow_down"
+                                        app:tint="#222222" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="21dp"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Video Link"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                app:cardCornerRadius="5dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="1dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <EditText
+                                        android:background="@android:color/transparent"
+                                        android:id="@+id/edit_video_link"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:gravity="center_vertical"
+                                        android:hint="Video Link"
+                                        android:textColorHint="#B4ABAB"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="17dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:singleLine="true"
+                                android:layout_marginBottom="25dp"
+                                android:layout_marginTop="8dp"
+                                android:text="Use proper link without extra parameter. Don't use short
+share link/embeded iframe code."
+                                android:textColor="#B4ABAB"
+                                android:textSize="9sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

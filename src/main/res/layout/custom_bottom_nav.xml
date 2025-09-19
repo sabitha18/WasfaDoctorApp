@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customBottomNav"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:background="#FAFAFE"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <RelativeLayout
+
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+    <LinearLayout
+
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="68dp">
+
+        <LinearLayout
+            android:id="@+id/lyt_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="-10dp"
+                android:id="@+id/img_home_selected"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:src="@drawable/nav_selection"/>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/nav_home"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Home"
+                android:src="@drawable/nav_doc_home_selected" />
+
+            <TextView
+                android:id="@+id/txt_nav_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/home"
+                android:textColor="@color/doctor_main_color"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyt_med"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="-10dp"
+                android:visibility="invisible"
+                android:id="@+id/img_med_selected"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:src="@drawable/nav_selection"/>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/nav_med"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Home"
+                android:src="@drawable/nav_med" />
+
+            <TextView
+                android:id="@+id/txt_nav_med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/medications"
+                android:textColor="#9E9E9E"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/lyt_new"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Home"
+                android:src="@drawable/nav_med" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/medications"
+                android:textColor="#9E9E9E"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyt_prescriptions"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="-10dp"
+                android:visibility="invisible"
+                android:id="@+id/img_pres_selected"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:src="@drawable/nav_selection"/>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/nav_pres"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Home"
+                android:src="@drawable/nav_rx" />
+
+            <TextView
+                android:id="@+id/txt_nav_pres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/report"
+                android:textColor="#9E9E9E"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyt_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="-10dp"
+                android:id="@+id/img_settings_selected"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:visibility="invisible"
+                android:src="@drawable/nav_selection"/>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/nav_settings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Home"
+                android:src="@drawable/nav_settings" />
+
+            <TextView
+                android:id="@+id/txt_nav_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/settings"
+                android:textColor="#9E9E9E"
+                android:textSize="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/lyt_report"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="-10dp"
+                android:id="@+id/img_report_selected"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:visibility="invisible"
+                android:src="@drawable/nav_selection"/>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/nav_report"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Home"
+                android:src="@drawable/nav_settings" />
+
+            <TextView
+                android:id="@+id/txt_nav_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/settings"
+                android:textColor="#9E9E9E"
+                android:textSize="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lyt_med_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/lyt_all_prod_med"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/prod_bullet"
+                        android:layout_width="18dp"
+                        android:layout_height="27dp"
+                        android:visibility="visible"
+
+                        android:src="@drawable/bullet"
+                        app:tint="#9E9E9E" />
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/prod_bullet_selected"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:src="@drawable/bullet_selected"
+                        android:visibility="gone"
+                        app:tint="#9E9E9E" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_all_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="All Products"
+                    android:textColor="#9E9E9E"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyt_fav_med"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/img_pos_arrow"
+                    android:layout_width="18dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:rotation="270"
+                    android:src="@drawable/arrow_down_menu"
+                    app:tint="#9E9E9E" />
+                <RelativeLayout
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/fav_bullet"
+                        android:layout_width="18dp"
+                        android:layout_height="27dp"
+
+                        android:src="@drawable/bullet"
+                        app:tint="#9E9E9E" />
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/fav_bullet_selected"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:src="@drawable/bullet_selected"
+                        android:visibility="gone"
+                        app:tint="#9E9E9E" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txt_fav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Favorites"
+                    android:textColor="#9E9E9E"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="68dp"
+            app:cardElevation="0dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_height="68dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-20dp"
+            app:strokeColor="@color/white"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="68dp">
+
+            <ImageView
+                android:id="@+id/nav_add"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/nav_add" />
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+</LinearLayout>

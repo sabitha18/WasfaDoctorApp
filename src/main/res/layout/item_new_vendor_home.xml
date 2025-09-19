@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="103dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="#F8F5F5"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:fontFamily="@font/roboto_bold"
+            android:lineSpacingExtra="7sp"
+            android:text="Yellow Rose"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/txt_number"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:fontFamily="@font/roboto_regular"
+            android:lineSpacingExtra="7sp"
+            android:text="+96546365564"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="81dp"
+            app:cardCornerRadius="19dp"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="#5DB245"
+            android:layout_height="19dp">
+            <TextView
+                android:id="@+id/txt_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:lineSpacingExtra="7sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="VEN000034"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

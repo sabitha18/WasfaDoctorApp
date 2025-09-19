@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="active_dot_width">45dp</dimen>
+    <dimen name="inactive_dot_width">16dp</dimen>
+    <dimen name="active_dot_height">6dp</dimen>
+    <dimen name="inactive_dot_height">6dp</dimen>
+    <dimen name="dot_width">45dp</dimen>
+    <dimen name="dot_height">6dp</dimen>
+    <dimen name="peek_height">80dp</dimen>
+    <dimen name="bottom_sheet_collapsed_height">150dp</dimen>
+    <dimen name="bottom_sheet_expanded_height">470dp</dimen>
+</resources>

@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/white"
+            android:elevation="5dp"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_home_menu"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/home_menu" />
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/wasfa_logo" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/home_notif" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="200dp"
+                android:orientation="vertical">
+
+
+                <!--daily operation-->
+                <LinearLayout
+                    android:id="@+id/lyt_daily_operation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="31dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="DAILY OPERATIONAL"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <include
+                        android:id="@+id/page_daily_operation"
+                        layout="@layout/daily_operation" />
+                </LinearLayout>
+                <!--data management-->
+                <LinearLayout
+                    android:id="@+id/lyt_daily_management"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="26dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="DATA MANAGEMENT"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <include
+                        android:id="@+id/page_data_management"
+                        layout="@layout/data_management" />
+                </LinearLayout>
+                <!--general-->
+                <LinearLayout
+                    android:id="@+id/lyt_general"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="21dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="GENERAL"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:id="@+id/card_filter_by_date"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/filter_new" />
+                            <TextView
+                                android:paddingEnd="2dp"
+                                android:singleLine="true"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:id="@+id/txt_filter_by_date"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="center_vertical"
+                                android:hint="Filter by date"
+                                android:textColorHint="#ABB7C2"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/img_filter_reset"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/filter_reset"
+                                app:tint="#000"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                  <include android:id="@+id/page_general"
+                      layout="@layout/general"/>
+                </LinearLayout>
+
+                <!--sales analysis no of sales graph-->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_sales_analytics_no_of_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Sales Analytics"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/chart_no_of_sales"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!--sales analysis apix-->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_sales_analytics_apix"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Sales Analytics"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--doctor performance-->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_doctor_performance"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Doctor Performance"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/chart_docter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--sales hourly basics-->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_sales_hourly_basics"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Sales Hourly Basis"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/chart_sales_hourly_basics"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--monthly sales no of sales and 2 item -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_monthly_no_of_sales_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Monthly Sales"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/chart_monthly_sales_no_of_sales"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--monthly sales 3 item -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_monthly_3_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Monthly Sales"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/chart_monthly_sales"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--monthly cog vs product sales-->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_monthly_with_cog_product_sales"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Monthly Sales"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/barChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--monthly with cog vs sales-->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_monthly_with_cog_vs_sales"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Monthly Sales"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/chart_monthly_sales_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--pie chart-->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:id="@+id/card_revenue_pie_chart"
+                    android:layout_height="352dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Revenue and Sales"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/pie_chart"
+                            android:layout_width="250dp"
+                            android:layout_gravity="center"
+                            android:layout_height="250dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!-- revenue bar chart-->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:id="@+id/card_revenue_bar_chart"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Revenue and Sales"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/chart_bar_revenue"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <!--best seller-->
+                <LinearLayout
+                    android:id="@+id/lyt_best_selling_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Best Selling Products"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txt_best_seller_view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_best_selling_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_best_selling_product" />
+                </LinearLayout>
+                <!--recent orders-->
+                <LinearLayout
+                    android:id="@+id/lyt_recent_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Recent Orders"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txt_all_orders"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="All Orders"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_recent_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_recent_orders_home" />
+                </LinearLayout>
+                <!--new customer-->
+                <LinearLayout
+                    android:id="@+id/lyt_new_customers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="New Customers"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txt_cust_view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_new_customers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_new_customers_home" />
+                </LinearLayout>
+                <!--top search term-->
+                <LinearLayout
+                    android:id="@+id/lyt_top_search_term"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Top Search Term"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_top_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_last_search_home" />
+                </LinearLayout>
+                <!--newly added vendors-->
+                <LinearLayout
+                    android:id="@+id/lyt_newly_added_vendors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Newly Added Vendors"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/new_vendor_view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_new_vendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_new_vendor_home" />
+                </LinearLayout>
+                <!--newly added doctors-->
+                <LinearLayout
+                    android:id="@+id/lyt_newly_added_doctors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Newly Added Doctors"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/influencer_view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_influencer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_new_vendor_home" />
+                </LinearLayout>
+                <!--last search term-->
+                <LinearLayout
+                    android:id="@+id/lyt_last_search_term"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Last Search Term"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_last_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_last_search_home" />
+                </LinearLayout>
+                <!--most seller 2-->
+                <LinearLayout
+                    android:id="@+id/lyt_most_viewed_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="7sp"
+                            android:text="Most Viewed Products"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="View All"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_most_selling_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_best_selling_2_product" />
+                </LinearLayout>
+                <!--conversion rate-->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp"
+                    android:id="@+id/card_conversion_rate"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="2dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="11dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="6sp"
+                            android:text="Conversion Rate"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="#2B000000" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChartConversion"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50F9FEFF"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/rotating_icon"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

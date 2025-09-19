@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Unit price *"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        app:cardCornerRadius="5dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="11dp"
+                        android:layout_marginBottom="1dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:strokeColor="#7D7C7C"
+                        app:strokeWidth="1dp">
+
+                        <EditText
+                            android:id="@+id/edit_unit_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@android:color/transparent"
+                            android:hint="Unit price "
+                            android:singleLine="true"
+                            android:textColorHint="#B4ABAB"
+                            android:textSize="12sp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Discount Date Range"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:id="@+id/card_date_range"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="11dp"
+                        android:layout_marginBottom="1dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:strokeColor="#7D7C7C"
+                        app:strokeWidth="1dp">
+
+                        <TextView
+                            android:id="@+id/txt_date_range"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@android:color/transparent"
+                            android:hint="mm/dd/yy to mm/dd/yy"
+                            android:singleLine="true"
+                            android:textColorHint="#B4ABAB"
+                            android:textSize="12sp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Discount *"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="1dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:strokeColor="#7D7C7C"
+                            app:strokeWidth="1dp">
+
+                            <TextView
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:id="@+id/txt_discount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:background="@android:color/transparent"
+                                android:hint="Discount "
+                                android:singleLine="true"
+                                android:textColorHint="#B4ABAB"
+                                android:textSize="12sp" />
+                        </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            app:cardCornerRadius="5dp"
+                            android:id="@+id/card_discount_type"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="11dp"
+                            android:layout_marginBottom="1dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:strokeColor="#7D7C7C"
+                            app:strokeWidth="1dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/txt_discount_type"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:gravity="center_vertical"
+                                    android:text="Flat"
+                                    android:textColor="#B4ABAB"
+                                    android:textSize="12sp" />
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:src="@drawable/arrow_down"
+                                    app:tint="#222222" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Seller Discount"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                app:cardCornerRadius="5dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="1dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp">
+
+                                <EditText
+                                    android:id="@+id/edit_seller_discount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="0"
+                                    android:inputType="number"
+                                    android:singleLine="true"
+                                    android:textColorHint="#B4ABAB"
+                                    android:textSize="12sp" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Apix Discount"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                app:cardCornerRadius="5dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="11dp"
+                                android:layout_marginBottom="1dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <EditText
+                                        android:id="@+id/edit_apix_discount"
+                                        android:background="@android:color/transparent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:gravity="center_vertical"
+                                        android:hint="0"
+                                        android:textColorHint="#B4ABAB"
+                                        android:textSize="12sp" />
+
+
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Quantity"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                app:cardCornerRadius="5dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="1dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp">
+
+                                <EditText
+                                    android:id="@+id/edit_quantity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="0"
+                                    android:singleLine="true"
+                                    android:textColorHint="#B4ABAB"
+                                    android:textSize="12sp" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Selller SKU"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                app:cardCornerRadius="5dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="11dp"
+                                android:layout_marginBottom="1dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <EditText
+                                        android:id="@+id/edit_seller_sku"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/transparent"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:gravity="center_vertical"
+                                        android:hint=" SKU"
+                                        android:textColorHint="#B4ABAB"
+                                        android:textSize="12sp" />
+
+
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="External link"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="11dp"
+                        android:layout_marginBottom="1dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:strokeColor="#7D7C7C"
+                        app:strokeWidth="1dp">
+
+                        <EditText
+                            android:id="@+id/edit_external_link"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@android:color/transparent"
+                            android:hint="External Link"
+                            android:inputType="textUri"
+                            android:singleLine="true"
+                            android:textColorHint="#B4ABAB"
+                            android:textSize="12sp" />
+                    </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:singleLine="true"
+                        android:text="Leave it blank if you do not use external site link"
+                        android:textColor="#B4ABAB"
+                        android:textSize="9sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="External link button text"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="11dp"
+                        android:layout_marginBottom="1dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:strokeColor="#7D7C7C"
+                        app:strokeWidth="1dp">
+
+                        <EditText
+                            android:id="@+id/edit_external_btn_link"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@android:color/transparent"
+                            android:hint="External link button text"
+                            android:singleLine="true"
+                            android:inputType="textUri"
+                            android:textColorHint="#B4ABAB"
+                            android:textSize="12sp" />
+                    </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:layout_marginBottom="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:singleLine="true"
+                        android:text="Leave it blank if you do not use external site link
+"
+                        android:textColor="#B4ABAB"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

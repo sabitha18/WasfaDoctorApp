@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="#f2f2f2"
+    android:orientation="horizontal">
+
+    <!-- Order ID -->
+    <TextView
+        android:id="@+id/txt_order_id"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/txt_order_date"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <!-- Item Name -->
+    <TextView
+        android:id="@+id/txt_item_name"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <!-- Selling Price -->
+    <TextView
+        android:id="@+id/txt_selling_price"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <!-- Doctor Appreciation -->
+    <TextView
+        android:id="@+id/txt_doctor_appreciation"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <!-- Pharmaceutical -->
+    <TextView
+        android:id="@+id/txt_pharma_status"
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <!-- Cleared -->
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical">
+
+        <Switch
+            android:id="@+id/switch_cleared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:checked="false"
+            android:clickable="false"
+            android:thumbTint="@android:color/white"
+            android:track="@drawable/custom_switch_thumb"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>
+
+

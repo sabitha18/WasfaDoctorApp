@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Top Stroke -->
+    <item>
+        <shape>
+            <solid android:color="#A61C5C" />
+            <corners
+                android:topLeftRadius="38dp"
+                android:topRightRadius="38dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+
+    <!-- Background Shape -->
+    <item android:top="1dp"> <!-- Offset to allow the top stroke -->
+        <shape>
+            <solid android:color="#FFFFFF" /> <!-- Replace with your background color -->
+            <corners
+                android:topLeftRadius="38dp"
+                android:topRightRadius="38dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_blue_600">#A42161</color>
+    <color name="light_blue_900">#A42161</color>
+    <color name="light_blue_A200">#A42161</color>
+    <color name="light_blue_A400">#A42161</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="main_color">#A61C5C</color>
+    <color name="card_bg">#FEFEFE</color>
+    <color name="nav_un_selected">#63424546</color>
+    <color name="nav_selected">#F1892C</color>
+    <color name="shimmer_color">#8A8686</color>
+    <color name="doctor_main_color">#A42161</color>
+    <color name="grid_color">#E9ECEF</color>
+    <color name="green">#35c4a0</color>
+    <color name="doctor_un_selected">#9E9E9E</color>
+</resources>

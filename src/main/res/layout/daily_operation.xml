@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:id="@+id/card_daily_sales"
+                android:layout_height="124dp"
+                android:layout_marginEnd="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_total_sales"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Total Sales"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:id="@+id/txt_total_sales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="8sp"
+                            android:text="0 KD"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Total Sales"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_sales_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Total Sum"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_sales_sum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:id="@+id/card_total_orders"
+                android:layout_height="124dp"
+                android:layout_marginStart="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_total_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Total Orders"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_orders"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Total Orders"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_orders_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Total Count"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_total_orders_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:id="@+id/card_pending_delivery"
+                android:layout_marginEnd="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_pending_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Pending Delivery"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_pending_delivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Pending Delivery"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_pending_delivery_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:id="@+id/card_gross_margin"
+                android:layout_marginStart="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_gross_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Gross Margin"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_gross_margin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Conversion Rate"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_conversion_rate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 %"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:id="@+id/card_net_margin"
+                android:layout_height="124dp"
+                android:layout_marginEnd="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_net_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Net Margin"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:id="@+id/txt_net_margin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="8sp"
+                            android:text="0 KD"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:id="@+id/card_refund_request"
+                android:layout_marginStart="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_refund_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Refund Request"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_refund_request"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Refund Request"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_refund_request_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 %"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:id="@+id/card_approve_order"
+                android:layout_height="124dp"
+                android:layout_marginEnd="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_approve_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Approve Request"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_approve_request"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Approve Request"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_approve_request_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 %"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:id="@+id/card_cancelled_order"
+                android:layout_marginStart="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_cancelled_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Cancelled Orders"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_cancelled_orders"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Cancelled Orders"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_cancelled_orders_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 %"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:id="@+id/card_closed_orders"
+                android:layout_height="124dp"
+                android:layout_marginEnd="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_closed_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Closed Orders"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_closed_orders"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 KD"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Closed Orders"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <TextView
+                                android:id="@+id/txt_closed_orders_nos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:fontFamily="@font/roboto_bold"
+                                android:lineSpacingExtra="8sp"
+                                android:text="0 %"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:visibility="invisible"
+                android:layout_height="124dp"
+                android:id="@+id/card_invisible_one"
+                android:layout_marginStart="4.5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/lyt_total_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/mask_home" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="9dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Total Delivery"
+                            android:textColor="@color/white"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:lineSpacingExtra="8sp"
+                            android:text="0 KD"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="124dp"
+        android:id="@+id/card_invisible_two"
+        android:layout_marginStart="4.5dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/mask_home" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Total Delivery"
+                    android:textColor="@color/white"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:lineSpacingExtra="8sp"
+                    android:text="0 KD"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="124dp"
+        android:id="@+id/card_invisible_three"
+        android:layout_marginStart="4.5dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/mask_home" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Total Delivery"
+                    android:textColor="@color/white"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:lineSpacingExtra="8sp"
+                    android:text="0 KD"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>

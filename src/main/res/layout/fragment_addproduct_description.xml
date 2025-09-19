@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+        <RelativeLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="21dp"
+                                android:layout_marginTop="11dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Product Description"
+                                android:textColor="#424546"
+                                android:textSize="16sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#40000000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="20dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Description"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="7dp"
+                                app:cardCornerRadius="5dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp"
+                                android:layout_height="157dp">
+                                <EditText
+                                    android:id="@+id/edit_desc"
+                                    android:textSize="12sp"
+                                    android:background="@android:color/transparent"
+                                    android:textColorHint="#B4ABAB"
+                                    android:layout_margin="12dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:layout_gravity="center_vertical|top"
+                                    android:gravity="center_vertical|top"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="Description"
+                                    />
+                            </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="14dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="Arabic Description"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="7dp"
+                                app:cardCornerRadius="5dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="38dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeColor="#7D7C7C"
+                                app:strokeWidth="1dp"
+                                android:layout_height="157dp">
+                                <EditText
+                                    android:id="@+id/edit_arabic_desc"
+                                    android:textSize="12sp"
+                                    android:background="@android:color/transparent"
+                                    android:textColorHint="#B4ABAB"
+                                    android:layout_margin="12dp"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:layout_gravity="center_vertical|top"
+                                    android:gravity="center_vertical|top"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="Arabic Description"
+                                    />
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
