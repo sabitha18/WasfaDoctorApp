@@ -279,7 +279,7 @@ class AddMedNewFragment : Fragment() {
         }
         viewModel.cartList.observe(viewLifecycleOwner) { data ->
             binding.progressBarCart.visibility = View.GONE
-
+            binding.progressBar.visibility = View.GONE
             manageCart(data?.cartItems)
 
 

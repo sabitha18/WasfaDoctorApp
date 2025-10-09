@@ -188,11 +188,18 @@ class POSShopDetailsFragment : Fragment() {
             }else{
                 binding.progressBar.visibility = View.VISIBLE
 
-                val request = ApiService.AddCartRequest(
+                val request = ApiService.AddCartRXRequest(
                     productId = AppPreferences.getInstance(requireContext()).getProductId().toString(),
-                    quantity = "1"
+                    quantity = "1",
+                    patientId = AppPreferences.getInstance(requireContext()).getPatientId().toString(),
+                    dose_day = "",
+                    description = "",
+                    dose = "",
+                    course_day = "",
+                    dose_time = "",
+                    course_duration = ""
                 )
-                viewModel.addCartShop(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
+                viewModel.addCartRX(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
             }
 
         }

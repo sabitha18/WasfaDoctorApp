@@ -22,72 +22,30 @@
             android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img_menu"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/menu"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/txt_head"
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/roboto_bold"
-                android:gravity="center"
-                android:text="@string/reports"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="1dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/white">
-
-                <LinearLayout
+                android:orientation="horizontal">
+                <ImageView
+                    android:visibility="visible"
+                    android:id="@+id/img_menu"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/menu"/>
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/search_icon" />
-
-                    <EditText
-                        android:id="@+id/edit_search"
-                        android:background="@android:color/transparent"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="center_vertical"
-                        android:hint="Filter By Item Name"
-                        android:textColorHint="#ABB7C2"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/card_filter"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/icon_filter" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:text="Prescribed RX"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+            </LinearLayout>
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
@@ -116,7 +74,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="OrderID"
+                            android:text="Prescription Id	"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -144,7 +102,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Item Name"
+                            android:text="Doctor Name"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -158,7 +116,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Selling Price after all discounts"
+                            android:text="Item Count"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -172,7 +130,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Doctor Appreciation Amount (KD)"
+                            android:text="Patient Name	"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -183,10 +141,10 @@
                         <TextView
                             android:layout_width="140dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Pharmaceutical"
+                            android:text="Status"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -199,14 +157,13 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Cleared"
+                            android:text="Edit"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
                     </LinearLayout>
-
                     <TextView
                         android:id="@+id/txt_no_data"
                         android:layout_width="wrap_content"
@@ -220,6 +177,7 @@
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:visibility="gone" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_pres"
                         android:layout_width="match_parent"
@@ -274,6 +232,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
-    <include android:id="@+id/page_filter"
-        layout="@layout/fragment_filter_report"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

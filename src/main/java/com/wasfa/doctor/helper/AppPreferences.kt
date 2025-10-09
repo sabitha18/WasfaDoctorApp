@@ -105,6 +105,13 @@ class AppPreferences(context: Context) {
         return preferences.getString("img_status", null)
     }
 
+    fun saveNewRXStatus(service: String?) {
+        preferences.edit().putString("new_rx_status", service).apply()
+    }
+
+    fun getNewRXStatus(): String? {
+        return preferences.getString("new_rx_status", null)
+    }
     fun saveCatImgId(service: String?) {
         preferences.edit().putString("cat_img_id", service).apply()
     }

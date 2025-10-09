@@ -27,6 +27,7 @@ import com.wasfa.doctor.doctor.home.DoctorHomeFragment
 import com.wasfa.doctor.doctor.med.MeditationFragment
 import com.wasfa.doctor.doctor.pres.add.AddPresNewFragment
 import com.wasfa.doctor.doctor.pres.add.DoctorRXFragment
+import com.wasfa.doctor.doctor.report.PrescribedRxFragment
 import com.wasfa.doctor.doctor.report.ReportFragment
 import com.wasfa.doctor.doctor.settings.SettingsFragment
 import com.wasfa.doctor.ui.login.LoginActivity
@@ -51,6 +52,7 @@ class DoctorHomeActivity : AppCompatActivity() {
         loadFragment(DoctorHomeFragment())
 
         AppPreferences.getInstance(this@DoctorHomeActivity).savePatientId("")
+        AppPreferences.getInstance(this@DoctorHomeActivity).saveNewRXStatus("")
         AppPreferences.getInstance(this@DoctorHomeActivity).saveKey("false")
         binding.bottomView.navAdd.setOnClickListener {
             if (isTablet()) {
@@ -60,6 +62,7 @@ class DoctorHomeActivity : AppCompatActivity() {
             }
 
         }
+
         binding.bottomView.lytHome.setOnClickListener {
             if (isTablet()) {
                 manageTabHomeIcon()
@@ -75,6 +78,14 @@ class DoctorHomeActivity : AppCompatActivity() {
             } else {
                 manageMedIcon()
                 loadFragment(MeditationFragment())
+            }
+
+
+        }
+        // report new
+        binding.bottomView.lytReportNew.setOnClickListener {
+            if (isTablet()) {
+                manageTabReportNewIcon()
             }
 
 
@@ -115,6 +126,18 @@ class DoctorHomeActivity : AppCompatActivity() {
 
 
         }
+        binding.bottomView.lytPrescriptionsNew.setOnClickListener {
+            if (isTablet()) {
+                manageTabPresNewIcon()
+                AppPreferences.getInstance(this@DoctorHomeActivity).saveNewRXStatus("new")
+                loadFragment(AddPresNewFragment())
+            } else {
+                managePresIcon()
+                loadFragment(ReportFragment())
+            }
+
+
+        }
         binding.bottomView.lytSettings.setOnClickListener {
 
             if (isTablet()) {
@@ -131,7 +154,6 @@ class DoctorHomeActivity : AppCompatActivity() {
             }
             loadFragment(ReportFragment())
         }
-
         binding.bottomView.lytLogout?.setOnClickListener {
             if (isTablet()) {
                 manageTabLogoutIcon()
@@ -139,8 +161,49 @@ class DoctorHomeActivity : AppCompatActivity() {
             showLogoutPopup()
         }
 
-    }
+        //report section click
+        binding.bottomView.lytPrescribedRx!!.setOnClickListener {
+            binding.bottomView.prescribedMedBulletSelected!!.visibility = View.GONE
+            binding.bottomView.prescribedMedBullet!!.visibility = View.VISIBLE
 
+            binding.bottomView.prescribedRxBullet!!.visibility = View.GONE
+            binding.bottomView.prescribedRxBulletSelected!!.visibility = View.VISIBLE
+
+            binding.bottomView.txtPrescribedRx!!.setTextColor(Color.parseColor("#A61C5C"))
+            binding.bottomView.txtPrescribedMed!!.setTextColor(Color.parseColor("#9E9E9E"))
+            loadFragment(PrescribedRxFragment())
+        }
+        binding.bottomView.lytPrescribedMed!!.setOnClickListener {
+            binding.bottomView.prescribedMedBulletSelected!!.visibility = View.VISIBLE
+            binding.bottomView.prescribedMedBullet!!.visibility = View.GONE
+
+            binding.bottomView.prescribedRxBullet!!.visibility = View.VISIBLE
+            binding.bottomView.prescribedRxBulletSelected!!.visibility = View.GONE
+
+            binding.bottomView.txtPrescribedRx!!.setTextColor(Color.parseColor("#9E9E9E"))
+            binding.bottomView.txtPrescribedMed!!.setTextColor(Color.parseColor("#A61C5C"))
+
+            loadFragment(ReportFragment())
+        }
+
+    }
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val view = currentFocus
+            if (view is EditText) {
+                val outRect = Rect()
+                view.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    view.clearFocus()
+                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
     fun toggleBottomNav() {
         if (isBottomNavVisible) {
             hideBottomNav()
@@ -148,17 +211,14 @@ class DoctorHomeActivity : AppCompatActivity() {
             showBottomNav()
         }
     }
-
     fun showBottomNav() {
         binding.bottomView.customBottomNav.visibility = View.VISIBLE
         isBottomNavVisible = true
     }
-
     fun hideBottomNav() {
         binding.bottomView.customBottomNav.visibility = View.GONE
         isBottomNavVisible = false
     }
-
     private fun showLogoutPopup() {
         val appPreferences = AppPreferences.getInstance(this@DoctorHomeActivity)
         val dialogView = layoutInflater.inflate(R.layout.sheet_log_out, null)
@@ -203,7 +263,6 @@ class DoctorHomeActivity : AppCompatActivity() {
         }
         dialog.show()
     }
-
     fun isTablet(): Boolean {
         val metrics = resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
@@ -212,16 +271,150 @@ class DoctorHomeActivity : AppCompatActivity() {
                 resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     }
 
+    private fun manageHomeIcon() {
+
+        binding.bottomView.lytMedHide!!.visibility = View.GONE
+
+        binding.bottomView.imgHomeSelected.visibility = View.VISIBLE
+        binding.bottomView.navHome.setImageResource(R.drawable.nav_doc_home_selected)
+        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavHome.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+        binding.bottomView.imgMedSelected.visibility = View.INVISIBLE
+        binding.bottomView.navMed.setImageResource(R.drawable.nav_med)
+        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPres.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
+        binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
+        binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavSettings.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+
+    }
+    private fun manageMedIcon() {
+
+        binding.bottomView.lytMedHide!!.visibility = View.GONE
+
+        binding.bottomView.imgMedSelected.visibility = View.VISIBLE
+        binding.bottomView.navMed.setImageResource(R.drawable.nav_med_selected)
+        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+        binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
+        binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
+        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavHome.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPres.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
+        binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
+        binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavSettings.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+    }
+    private fun managePresIcon() {
+
+        binding.bottomView.lytMedHide!!.visibility = View.GONE
+
+        binding.bottomView.imgPresSelected.visibility = View.VISIBLE
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx_selected)
+        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavPres.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+        binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
+        binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
+        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavHome.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgMedSelected.visibility = View.INVISIBLE
+        binding.bottomView.navMed.setImageResource(R.drawable.nav_med)
+        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
+        binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
+        binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavSettings.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+
+    }
+    private fun manageSettingsIcon() {
+
+        binding.bottomView.lytMedHide!!.visibility = View.GONE
+
+        binding.bottomView.imgSettingsSelected.visibility = View.VISIBLE
+        binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings_selected)
+        binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavSettings.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+        binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
+        binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
+        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavHome.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgMedSelected.visibility = View.INVISIBLE
+        binding.bottomView.navMed.setImageResource(R.drawable.nav_med)
+        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPres.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+    }
+
+    //tab click setup
     private fun manageTabHomeIcon() {
 
         binding.bottomView.lytMedHide.visibility = View.GONE
         binding.bottomView.imgPosArrow.rotation = 270f
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
 
         binding.bottomView.lytHome.setBackgroundResource(R.drawable.home_selection_bg)
         binding.bottomView.imgHomeSelected.visibility = View.VISIBLE
         binding.bottomView.navHome.setImageResource(R.drawable.nav_doc_home_selected)
         binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#A42161"))
         binding.bottomView.txtNavHome.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
 
         binding.bottomView.imgPosArrow.imageTintList =
             ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
@@ -264,36 +457,71 @@ class DoctorHomeActivity : AppCompatActivity() {
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
     }
+    private fun manageTabReportNewIcon() {
 
-    private fun manageHomeIcon() {
+        if (binding.bottomView.lytReportHide!!.visibility == View.VISIBLE){
+            binding.bottomView.lytReportHide!!.visibility = View.GONE
+            binding.bottomView.imgReportArrowNew!!.rotation = 270f
+        }else{
+            binding.bottomView.imgReportArrowNew!!.rotation = 0f
+            binding.bottomView.lytReportHide!!.visibility = View.VISIBLE
+        }
+        binding.bottomView.imgReportArrowNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#A61C5C"))
+        binding.bottomView.lytReportNew.setBackgroundResource(R.drawable.home_selection_bg)
+        binding.bottomView.imgReportSelectedNew.visibility = View.VISIBLE
+        binding.bottomView.navReportNew.setImageResource(R.drawable.nav_rx_selected)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
 
-        binding.bottomView.lytMedHide!!.visibility = View.GONE
+        binding.bottomView.lytHome.background = null
+        binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
+        binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
+        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavHome.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
 
-        binding.bottomView.imgHomeSelected.visibility = View.VISIBLE
-        binding.bottomView.navHome.setImageResource(R.drawable.nav_doc_home_selected)
-        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#A42161"))
-        binding.bottomView.txtNavHome.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
-
-        binding.bottomView.imgMedSelected.visibility = View.INVISIBLE
-        binding.bottomView.navMed.setImageResource(R.drawable.nav_med)
-        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
-
+        binding.bottomView.lytPrescriptions.background = null
         binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
-        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_pres)
         binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavPres.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytSettings.background = null
         binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
         binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
         binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavSettings.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.lytLogout?.background = null
+        binding.bottomView.imgLogoutSelected?.visibility = View.INVISIBLE
+        binding.bottomView.navLogout?.setImageResource(R.drawable.log_out_icon)
+        binding.bottomView.navLogout?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavLogout?.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavLogout?.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.lytReport?.background = null
+        binding.bottomView.imgReportSelected?.visibility = View.INVISIBLE
+        binding.bottomView.navReport?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReport?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReport?.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReport?.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
     }
-
     private fun manageTabMedIcon() {
 
         if (binding.bottomView.lytMedHide!!.visibility == View.VISIBLE){
@@ -303,6 +531,10 @@ class DoctorHomeActivity : AppCompatActivity() {
             binding.bottomView.imgPosArrow!!.rotation = 0f
             binding.bottomView.lytMedHide!!.visibility = View.VISIBLE
         }
+
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
+
         binding.bottomView.imgPosArrow?.imageTintList =
             ColorStateList.valueOf(Color.parseColor("#A61C5C"))
         binding.bottomView.lytMed.setBackgroundResource(R.drawable.home_selection_bg)
@@ -311,6 +543,16 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#A42161"))
         binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
 
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
         binding.bottomView.lytHome.background = null
         binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
         binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
@@ -323,6 +565,13 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.navPres.setImageResource(R.drawable.nav_pres)
         binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavPres.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
         binding.bottomView.lytSettings.background = null
@@ -350,64 +599,35 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavReport?.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
     }
-
-    private fun manageMedIcon() {
-
-        binding.bottomView.lytMedHide!!.visibility = View.GONE
-
-        binding.bottomView.imgMedSelected.visibility = View.VISIBLE
-        binding.bottomView.navMed.setImageResource(R.drawable.nav_med_selected)
-        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#A42161"))
-        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
-
-        binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
-        binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
-        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavHome.typeface =
-            ResourcesCompat.getFont(this, R.font.roboto_regular)
-
-        binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
-        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx)
-        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavPres.typeface =
-            ResourcesCompat.getFont(this, R.font.roboto_regular)
-
-        binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
-        binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
-        binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavSettings.typeface =
-            ResourcesCompat.getFont(this, R.font.roboto_regular)
-
-    }
-
-    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
-
-        if (event.action == MotionEvent.ACTION_DOWN) {
-            val view = currentFocus
-            if (view is EditText) {
-                val outRect = Rect()
-                view.getGlobalVisibleRect(outRect)
-                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
-                    view.clearFocus()
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(view.windowToken, 0)
-
-                }
-            }
-        }
-        return super.dispatchTouchEvent(event)
-    }
-
-    private fun manageTabPresIcon() {
+    private fun manageTabPresNewIcon() {
 
         binding.bottomView.imgPosArrow!!.rotation = 270f
         binding.bottomView.lytMedHide!!.visibility = View.GONE
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
 
-        binding.bottomView.lytPrescriptions.setBackgroundResource(R.drawable.home_selection_bg)
-        binding.bottomView.imgPresSelected.visibility = View.VISIBLE
-        binding.bottomView.navPres.setImageResource(R.drawable.nav_prescription)
-        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#A42161"))
-        binding.bottomView.txtNavPres.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
+        binding.bottomView.lytPrescriptionsNew.setBackgroundResource(R.drawable.home_selection_bg)
+        binding.bottomView.imgPresSelectedNew.visibility = View.VISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_prescription)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#A42161"))
+        binding.bottomView.txtNavPresNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytPrescriptions.background = null
+        binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPres.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
 
         binding.bottomView.lytHome.background = null
         binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
@@ -449,40 +669,82 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavReport?.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
     }
+    private fun manageTabPresIcon() {
 
-    private fun managePresIcon() {
-
+        binding.bottomView.imgPosArrow!!.rotation = 270f
         binding.bottomView.lytMedHide!!.visibility = View.GONE
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
 
+        binding.bottomView.lytPrescriptions.setBackgroundResource(R.drawable.home_selection_bg)
         binding.bottomView.imgPresSelected.visibility = View.VISIBLE
-        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx_selected)
+        binding.bottomView.navPres.setImageResource(R.drawable.nav_prescription)
         binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#A42161"))
         binding.bottomView.txtNavPres.typeface = ResourcesCompat.getFont(this, R.font.roboto_medium)
 
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytHome.background = null
         binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
         binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
         binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavHome.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.imgPosArrow?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytMed.background = null
         binding.bottomView.imgMedSelected.visibility = View.INVISIBLE
         binding.bottomView.navMed.setImageResource(R.drawable.nav_med)
         binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.lytSettings.background = null
         binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
         binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
         binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavSettings.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.lytLogout?.background = null
+        binding.bottomView.imgLogoutSelected?.visibility = View.INVISIBLE
+        binding.bottomView.navLogout?.setImageResource(R.drawable.log_out_icon)
+        binding.bottomView.navLogout?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavLogout?.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavLogout?.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.lytReport?.background = null
+        binding.bottomView.imgReportSelected?.visibility = View.INVISIBLE
+        binding.bottomView.navReport?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReport?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReport?.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReport?.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
     }
-
     private fun manageTabSettingsIcon() {
 
         binding.bottomView.imgPosArrow!!.rotation = 270f
         binding.bottomView.lytMedHide!!.visibility = View.GONE
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
 
         binding.bottomView.lytSettings.setBackgroundResource(R.drawable.home_selection_bg)
         binding.bottomView.imgSettingsSelected.visibility = View.VISIBLE
@@ -491,6 +753,23 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavSettings.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_medium)
 
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
+
         binding.bottomView.lytHome.background = null
         binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
         binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
@@ -531,41 +810,12 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavReport?.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
     }
-
-    private fun manageSettingsIcon() {
-
-        binding.bottomView.lytMedHide!!.visibility = View.GONE
-
-        binding.bottomView.imgSettingsSelected.visibility = View.VISIBLE
-        binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings_selected)
-        binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#A42161"))
-        binding.bottomView.txtNavSettings.typeface =
-            ResourcesCompat.getFont(this, R.font.roboto_medium)
-
-        binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
-        binding.bottomView.navHome.setImageResource(R.drawable.nav_doctor_home)
-        binding.bottomView.txtNavHome.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavHome.typeface =
-            ResourcesCompat.getFont(this, R.font.roboto_regular)
-
-        binding.bottomView.imgMedSelected.visibility = View.INVISIBLE
-        binding.bottomView.navMed.setImageResource(R.drawable.nav_med)
-        binding.bottomView.txtNavMed.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavMed.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
-
-        binding.bottomView.imgPresSelected.visibility = View.INVISIBLE
-        binding.bottomView.navPres.setImageResource(R.drawable.nav_rx)
-        binding.bottomView.txtNavPres.setTextColor(Color.parseColor("#9E9E9E"))
-        binding.bottomView.txtNavPres.typeface =
-            ResourcesCompat.getFont(this, R.font.roboto_regular)
-
-    }
-
-
     private fun manageTabLogoutIcon() {
 
         binding.bottomView.imgPosArrow!!.rotation = 270f
         binding.bottomView.lytMedHide!!.visibility = View.GONE
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
 
         binding.bottomView.lytLogout?.setBackgroundResource(R.drawable.home_selection_bg)
         binding.bottomView.imgLogoutSelected?.visibility = View.VISIBLE
@@ -576,12 +826,29 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavLogout?.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
         binding.bottomView.lytSettings.background = null
         binding.bottomView.imgSettingsSelected.visibility = View.INVISIBLE
         binding.bottomView.navSettings.setImageResource(R.drawable.nav_settings)
         binding.bottomView.txtNavSettings.setTextColor(Color.parseColor("#9E9E9E"))
         binding.bottomView.txtNavSettings.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_medium)
+
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
 
         binding.bottomView.lytHome.background = null
         binding.bottomView.imgHomeSelected.visibility = View.INVISIBLE
@@ -614,11 +881,12 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavReport?.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
     }
-
     private fun manageTabReportIcon() {
 
         binding.bottomView.imgPosArrow!!.rotation = 270f
         binding.bottomView.lytMedHide!!.visibility = View.GONE
+        binding.bottomView.lytReportHide.visibility = View.GONE
+        binding.bottomView.imgReportArrowNew.rotation = 270f
 
         binding.bottomView.lytReport?.setBackgroundResource(R.drawable.home_selection_bg)
         binding.bottomView.imgReportSelected?.visibility = View.VISIBLE
@@ -629,6 +897,22 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.txtNavReport?.typeface =
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
+        binding.bottomView.imgReportArrowNew.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.lytReportNew.background = null
+        binding.bottomView.imgReportSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navReportNew?.setImageResource(R.drawable.nav_rx)
+        binding.bottomView.navReportNew?.imageTintList =
+            ColorStateList.valueOf(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavReportNew.typeface = ResourcesCompat.getFont(this, R.font.roboto_regular)
+
+        binding.bottomView.lytPrescriptionsNew.background = null
+        binding.bottomView.imgPresSelectedNew.visibility = View.INVISIBLE
+        binding.bottomView.navPresNew.setImageResource(R.drawable.nav_pres)
+        binding.bottomView.txtNavPresNew.setTextColor(Color.parseColor("#9E9E9E"))
+        binding.bottomView.txtNavPresNew.typeface =
+            ResourcesCompat.getFont(this, R.font.roboto_regular)
 
         binding.bottomView.lytLogout?.background = null
         binding.bottomView.imgLogoutSelected?.visibility = View.INVISIBLE
@@ -669,6 +953,7 @@ class DoctorHomeActivity : AppCompatActivity() {
             ResourcesCompat.getFont(this, R.font.roboto_regular)
 
     }
+
 
     private fun loadFragment(fragment: Fragment) {
 

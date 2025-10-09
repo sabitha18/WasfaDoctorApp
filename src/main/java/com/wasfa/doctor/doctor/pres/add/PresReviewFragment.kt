@@ -35,6 +35,7 @@ import java.io.File
 import com.caverock.androidsvg.SVG
 import android.graphics.Canvas
 import androidx.navigation.fragment.findNavController
+import com.wasfa.doctor.doctor.report.PrescribedRxFragment
 
 class PresReviewFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
@@ -59,6 +60,15 @@ class PresReviewFragment : Fragment() {
             (activity as? DoctorHomeActivity)?.showBottomNav()
         }else{
             (activity as? DoctorHomeActivity)?.hideBottomNav()
+        }
+        val prefs = AppPreferences.getInstance(requireContext())
+
+        if (prefs.getNewRXStatus() == "new"){
+            binding.lytPosRx.visibility = View.GONE
+            binding.lytPosRxNew.visibility = View.VISIBLE
+        }else{
+            binding.lytPosRx.visibility = View.VISIBLE
+            binding.lytPosRxNew.visibility = View.GONE
         }
 
     }
@@ -248,6 +258,18 @@ class PresReviewFragment : Fragment() {
         }
         binding.cardSave.setOnClickListener {
             callSubmitSaveRxApi()
+        }
+        binding.cardSubmitWithCall.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PrescribedRxFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+        binding.cardSubmit.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PrescribedRxFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
     private fun callSubmitSaveRxApi() {

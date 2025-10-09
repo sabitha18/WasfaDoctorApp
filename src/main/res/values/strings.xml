@@ -9,6 +9,7 @@
     <string name="home">Home</string>
     <string name="medications">Medications</string>
     <string name="prescriptions">Prescriptions</string>
+    <string name="prescriptions_new">Prescriptions New</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log out</string>
     <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout ?</string>
