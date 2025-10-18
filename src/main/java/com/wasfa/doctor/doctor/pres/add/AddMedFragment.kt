@@ -538,7 +538,9 @@ class AddMedFragment : Fragment() {
                 dose = txtSelectedDose.text.toString().takeIf { it != "Select" } ?: "",
                 course_day = txtCourseDay.text.toString().takeIf { it != "Select" } ?: "",
                 dose_time = txtDoseTime.text.toString().takeIf { it != "Select" } ?: "",
-                course_duration = txtCourseDuration.text.toString().takeIf { it != "Select" } ?: ""
+                course_duration = txtCourseDuration.text.toString().takeIf { it != "Select" } ?: "",
+                is_edit = "",
+                prescriptionId = ""
             )
 
             viewModel.addCartRX(AppPreferences.getInstance(requireContext()).getToken().toString(),request)

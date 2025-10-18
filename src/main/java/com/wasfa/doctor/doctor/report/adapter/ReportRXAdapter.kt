@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wasfa.doctor.databinding.ItemReportBinding
 import com.wasfa.doctor.databinding.ItemReportRxBinding
+import com.wasfa.doctor.network.response.ListRX
 import com.wasfa.doctor.network.response.Report
 
 class ReportRXAdapter(
-    private val data: MutableList<Report>,
-    private val listener: (Report, String) -> Unit,
+    private val data: MutableList<ListRX>,
+    private val listener: (ListRX, String) -> Unit,
 ) :
     RecyclerView.Adapter<ReportRXAdapter.ViewHolder>() {
 
@@ -21,6 +22,10 @@ class ReportRXAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data!![position])
 
+        holder.itemBinding.lytEdit.setOnClickListener {
+            listener(data[position],"edit")
+        }
+
 
     }
 
@@ -30,21 +35,24 @@ class ReportRXAdapter(
 
     class ViewHolder(var itemBinding: ItemReportRxBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindItem(data: Report) {
-            itemBinding.txtOrderId.text = data?.orderCode
+        fun bindItem(data: ListRX) {
+            itemBinding.txtOrderId.text = data?.prescription_id
             itemBinding.txtOrderDate.text = data?.date
-
+            itemBinding.txtPatientName.text = data?.customer
+            itemBinding.txtItemName.text = data?.doctor
+            itemBinding.txtItemCount.text = data?.product_count
+            itemBinding.txtStatus.text = data?.status_order
 
         }
     }
 
-    fun setProducts(newProducts: List<Report>) {
+    fun setProducts(newProducts: List<ListRX>) {
         data.clear()
         data.addAll(newProducts)
         notifyDataSetChanged()
     }
 
-    fun addProducts(newProducts: List<Report>) {
+    fun addProducts(newProducts: List<ListRX>) {
         val startPosition = data.size
         data.addAll(newProducts)
         notifyItemRangeInserted(startPosition, newProducts.size)

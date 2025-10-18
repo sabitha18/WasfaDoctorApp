@@ -23,7 +23,6 @@ import com.wasfa.doctor.R
 import com.wasfa.doctor.databinding.FragmentPresReviewBinding
 import com.wasfa.doctor.helper.AppPreferences
 import com.wasfa.doctor.network.ApiService
-import com.wasfa.doctor.network.response.CartItem
 import com.wasfa.doctor.network.response.PatientInfo
 import com.wasfa.doctor.network.response.SubmitResponse
 import com.wasfa.doctor.doctor.main.DoctorHomeActivity
@@ -35,9 +34,11 @@ import java.io.File
 import com.caverock.androidsvg.SVG
 import android.graphics.Canvas
 import androidx.navigation.fragment.findNavController
+import com.wasfa.doctor.doctor.pres.adapter.MedicationListPreviewEditAdapter
 import com.wasfa.doctor.doctor.report.PrescribedRxFragment
+import com.wasfa.doctor.network.response.PresDetails
 
-class PresReviewFragment : Fragment() {
+class PresReviewEditFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
@@ -63,16 +64,10 @@ class PresReviewFragment : Fragment() {
         }
         val prefs = AppPreferences.getInstance(requireContext())
 
-        if (prefs.getNewRXStatus() == "new"){
+
             binding.lytPosRx.visibility = View.GONE
             binding.lytPosRxNew.visibility = View.VISIBLE
-        }else if (prefs.getNewRXStatus() == "edit"){
-            binding.lytPosRx.visibility = View.GONE
-            binding.lytPosRxNew.visibility = View.VISIBLE
-        }else{
-            binding.lytPosRx.visibility = View.VISIBLE
-            binding.lytPosRxNew.visibility = View.GONE
-        }
+
 
     }
     private fun setViewModel() {
@@ -95,15 +90,10 @@ class PresReviewFragment : Fragment() {
         }
         viewModel.submitStatus.observe(viewLifecycleOwner) { data ->
             binding.progressBar.visibility = View.GONE
-
-            if (appPreferences.getNewRXStatus() == "new"){
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, PrescribedRxFragment())
-                    .addToBackStack(null)
-                    .commit()
-            }else{
-                generatePrescriptionPdf(data)
-            }
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PrescribedRxFragment())
+                .addToBackStack(null)
+                .commit()
 
         }
         viewModel.submitSaveStatus.observe(viewLifecycleOwner) { message ->
@@ -118,17 +108,20 @@ class PresReviewFragment : Fragment() {
 
         }
 
-        viewModel.cartList.observe(viewLifecycleOwner) { data ->
+        viewModel.presRXNewData.observe(viewLifecycleOwner) { data ->
             println("--------------------------")
             binding.progressBar.visibility = View.GONE
 
-            manageCart(data?.cartItems)
+            manageCart(data?.prescriptionDetails)
             managePatient(data?.patientInfo)
 
         }
 
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getCart(appPreferences.getToken().toString())
+        val request = ApiService.EditPOSDetailsRequest(
+            prescriptionId = appPreferences.getNewRXStatus().toString()
+        )
+        viewModel.getPresRXNewDetailsEdit(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
     }
 
     private fun generatePrescriptionPdf(data: SubmitResponse?) {
@@ -228,12 +221,12 @@ class PresReviewFragment : Fragment() {
     }
 
 
-    private fun manageCart(cartItems: List<CartItem>?) {
+    private fun manageCart(cartItems: List<PresDetails>?) {
 
         binding.recyclerMed.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-            val catAdapter = MedicationListPreviewAdapter(cartItems) { data, type ->
+            val catAdapter = MedicationListPreviewEditAdapter(cartItems) { data, type ->
 
             }
             adapter = catAdapter
@@ -306,32 +299,16 @@ class PresReviewFragment : Fragment() {
     }
     private fun callSubmitRxNewApi(status: String) {
         binding.progressBar.visibility = View.VISIBLE
-
-        if (AppPreferences.getInstance(requireContext()).getNewRXStatus() == "edit"){
-            val request = ApiService.SubmitRXRequest(
-                influencerId = "",
-                customerId = patientId,
-                is_edit = "1",
-                submitWithCustomerCall = status
-            )
-            viewModel.submitRX(
-                AppPreferences.getInstance(requireContext()).getToken().toString(),
-                request
-            )
-        }else{
-            val request = ApiService.SubmitRXRequest(
-                influencerId = "",
-                customerId = patientId,
-                is_edit = "0",
-                submitWithCustomerCall = status
-            )
-            viewModel.submitRX(
-                AppPreferences.getInstance(requireContext()).getToken().toString(),
-                request
-            )
-        }
-
-
+        val request = ApiService.SubmitRXRequest(
+            influencerId = "",
+            customerId = patientId,
+            is_edit = "1",
+            submitWithCustomerCall = status
+        )
+        viewModel.submitRX(
+            AppPreferences.getInstance(requireContext()).getToken().toString(),
+            request
+        )
     }
 
     private fun showPrintPopup() {

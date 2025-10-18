@@ -24,6 +24,9 @@ import com.wasfa.doctor.databinding.FragmentReportBinding
 import com.wasfa.doctor.helper.AppPreferences
 import com.wasfa.doctor.network.ApiService
 import com.wasfa.doctor.doctor.main.DoctorHomeActivity
+import com.wasfa.doctor.doctor.pres.add.AddMedNewFragment
+import com.wasfa.doctor.doctor.pres.add.AddMedPOSNewEditFragment
+import com.wasfa.doctor.doctor.pres.add.AddMedPOSNewFragment
 import com.wasfa.doctor.doctor.report.adapter.FilterClearanceAdapter
 import com.wasfa.doctor.doctor.report.adapter.FilterNewAdapter
 import com.wasfa.doctor.doctor.report.adapter.ReportAdapter
@@ -86,12 +89,7 @@ class PrescribedRxFragment : Fragment() {
                     // No action for the last page
                 } else {
                     viewModel.currentPageReport++
-                    viewModel.loadNextPageReport(
-                        dateFilter,
-                        itemNameSearch,
-                        isPharmaceutical,
-                        clearance
-                    )
+                    viewModel.loadNextPagePrescribedRX()
                     if (binding.progressBar.visibility == View.VISIBLE) {
                         binding.progressBarSmall.visibility = View.GONE
                     } else {
@@ -147,48 +145,18 @@ class PrescribedRxFragment : Fragment() {
         viewModel.reportEvent.observe(viewLifecycleOwner) { message ->
 
             binding.progressBar.visibility = View.GONE
-            if (viewModel.totalPageCountReport == 0) {
-                println("0-0-0-0-0-                  11   "+viewModel.totalPageCountReport)
-                binding.recyclerPres.visibility = View.GONE
-                binding.txtNoData.visibility = View.VISIBLE
-
-            } else {
-                // Show list
-                println("0-0-0-0-0-                  22    " + viewModel.totalPageCountReport)
-                binding.recyclerPres.visibility = View.VISIBLE
-                binding.txtNoData.visibility = View.GONE
-            }
-
-        }
-        viewModel.reportData.observe(viewLifecycleOwner) { data ->
-
             binding.progressBarSmall.visibility = View.GONE
-            if (viewModel.currentPageReport == 1) {
 
-                    // Show list
-                    println("0-0-0-0-0-                  22"+data?.totalPages)
-                    binding.recyclerPres.visibility = View.VISIBLE
-                    binding.txtNoData.visibility = View.GONE
-                    productAdapter.setProducts(data?.prescriptions?.toMutableList() ?: mutableListOf())
-
-
-
-
-            } else {
-                productAdapter.addProducts(data?.prescriptions!!)
-            }
-            try {
-                val totalPages = data?.totalPages
-                if (!totalPages.isNullOrEmpty()) {
-                    viewModel.totalPageCountReport = totalPages.toInt()
-                } else {
-                    // Handle the case where totalPages is empty or null
-                }
-            } catch (e: NumberFormatException) {
-                // Handle the exception if totalPages is still an invalid format
-            }
 
         }
+        viewModel.rxData.observe(viewLifecycleOwner) { data ->
+            val list = data?.list ?: emptyList()
+            if (list.isNotEmpty()) {
+                productAdapter.setProducts(list.toMutableList())
+            }
+        }
+
+
     }
 
     private fun managePresRecyclerView() {
@@ -196,6 +164,13 @@ class PrescribedRxFragment : Fragment() {
         productAdapter = ReportRXAdapter(
             mutableListOf()
         ) { product, type ->
+            AppPreferences.getInstance(requireContext()).saveNewRXStatus(product?.prescription_id)
+            AppPreferences.getInstance(requireContext()).saveFavStatus("1")
+            AppPreferences.getInstance(requireContext()).savePatientId(product?.customerId)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, AddMedPOSNewEditFragment())
+                    .addToBackStack(null)
+                    .commit()
 
         }
 
@@ -210,18 +185,14 @@ class PrescribedRxFragment : Fragment() {
     private fun callReportAPI() {
 
         viewModel.currentPageReport = 1
-        viewModel.clearReportListData()
+        viewModel.clearRXListData()
         val appPreferences = AppPreferences.getInstance(requireContext())
-        val request = ApiService.ReportRequest(
+        val request = ApiService.PrescribedRXRequest(
             page_no = "1",
-            per_page = "5",
-            date = dateFilter,
-            itemNameSearch = itemNameSearch,
-            isPharmaceutical = isPharmaceutical,
-            clearance = clearance
+            per_page = "10"
         )
         binding.progressBar.visibility = View.VISIBLE
 
-        viewModel.getReport(appPreferences.getToken().toString(), request)
+        viewModel.getPrescribedRX(appPreferences.getToken().toString(), request)
     }
 }

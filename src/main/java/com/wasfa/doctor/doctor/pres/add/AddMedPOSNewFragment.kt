@@ -37,7 +37,7 @@ import com.wasfa.doctor.ui.pos.shop.POSShopDetailsFragment
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
 
-class AddMedNewFragment : Fragment() {
+class AddMedPOSNewFragment : Fragment() {
     private var _binding: FragmentAddMedNewBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
@@ -102,35 +102,6 @@ class AddMedNewFragment : Fragment() {
         binding.progressBarCart.visibility = View.VISIBLE
         viewModel.getCart(AppPreferences.getInstance(requireContext()).getToken().toString())
     }
-
-
-//    private fun setUpPagination() {
-//        binding.recyclerProducts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//
-//                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-//                val visibleItemCount = layoutManager.childCount
-//                val totalItemCount = layoutManager.itemCount
-//                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-//
-//                if ( !viewModel.isLastPage()) {
-//                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-//                        && firstVisibleItemPosition >= 0
-//                    ) {
-//                        // Reached end — load next page
-//                        viewModel.currentPage++
-//                        viewModel.loadNextPage(
-//                            "", "", searchValue, selectedInfluencerId, "", "", "", ""
-//                        )
-//                        binding.progressBarSmall.visibility = View.VISIBLE
-//                    }
-//                }
-//            }
-//        })
-//    }
-
-
 
     private fun setUpPagination() {
         binding.recyclerProducts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -282,7 +253,9 @@ class AddMedNewFragment : Fragment() {
         viewModel.cartList.observe(viewLifecycleOwner) { data ->
             binding.progressBarCart.visibility = View.GONE
             binding.progressBar.visibility = View.GONE
+
             manageCart(data?.cartItems)
+           // patientId = data?.patientInfo?.get(0)?.id.toString()
 
 
         }
@@ -329,7 +302,7 @@ class AddMedNewFragment : Fragment() {
             isLoading = false
             binding.progressBarSmall.visibility = View.GONE
             try {
-                val totalPages = data?.totalPages
+                val totalPages = data?.totalPage
                 if (!totalPages.isNullOrEmpty()) {
                     viewModel.totalPageCount = totalPages.toInt()
                 } else {

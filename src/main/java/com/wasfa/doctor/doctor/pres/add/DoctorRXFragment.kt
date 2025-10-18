@@ -204,7 +204,9 @@ class DoctorRXFragment : Fragment() {
                         dose = "",
                         course_day = "",
                         dose_time = "",
-                        course_duration = ""
+                        course_duration = "",
+                        is_edit = "",
+                        prescriptionId = ""
                     )
                     viewModel.addCartRX(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
                 }

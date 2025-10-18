@@ -304,7 +304,8 @@ class AddProductFragment : Fragment() {
                             cog = "",
                             apixMargin = "",
                             influencerrMargin = "",
-                            isFavourite = false
+                            isFavourite = false,
+                            stock_id = ""
                         )
                     )
                 }
@@ -343,7 +344,8 @@ class AddProductFragment : Fragment() {
                             cog = "",
                             apixMargin = "",
                             influencerrMargin = "",
-                            isFavourite = false
+                            isFavourite = false,
+                            stock_id = ""
                         )
                     )
                 }
@@ -380,7 +382,8 @@ class AddProductFragment : Fragment() {
                             cog = "",
                             apixMargin = "",
                             influencerrMargin = "",
-                            isFavourite = false
+                            isFavourite = false,
+                            stock_id = ""
                         )
                     )
                 }

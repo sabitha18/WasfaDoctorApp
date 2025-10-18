@@ -445,10 +445,19 @@ class AddPresNewFragment : Fragment() {
         binding.cardNext.setOnClickListener {
             AppPreferences.getInstance(requireContext()).savePatientId(patientId)
             AppPreferences.getInstance(requireContext()).saveFavStatus("1")
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AddMedNewFragment())
-                .addToBackStack(null)
-                .commit()
+
+//            if(AppPreferences.getInstance(requireContext()).getNewRXStatus() == "new"){
+//                parentFragmentManager.beginTransaction()
+//                    .replace(R.id.fragment_container, AddMedPOSNewFragment())
+//                    .addToBackStack(null)
+//                    .commit()
+//            }else{
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, AddMedNewFragment())
+                    .addToBackStack(null)
+                    .commit()
+
+
         }
         binding.cardViewAllOrder.setOnClickListener {
             AppPreferences.getInstance(requireContext()).savePatientId(patientId)

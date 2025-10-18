@@ -31,9 +31,11 @@ import com.wasfa.doctor.network.response.MediaResponse
 import com.wasfa.doctor.network.response.MedicalRepListResponse
 import com.wasfa.doctor.network.response.OrderDetailsResponse
 import com.wasfa.doctor.network.response.OrderListResponse
+import com.wasfa.doctor.network.response.POSEditRXNewResponse
 import com.wasfa.doctor.network.response.PickUpPointsResponse
 import com.wasfa.doctor.network.response.PresDetailsResponse
 import com.wasfa.doctor.network.response.PresListResponse
+import com.wasfa.doctor.network.response.PrescribedRXResponse
 import com.wasfa.doctor.network.response.ProductDetailsResponse
 import com.wasfa.doctor.network.response.ProductListResponse
 import com.wasfa.doctor.network.response.ProfileData
@@ -60,6 +62,19 @@ import retrofit2.http.Part
 
 
 interface ApiService {
+
+    @POST("chooseProduct")
+    suspend fun chooseProduct(
+        @Header("Authorization") token: String,
+        @Body requestBody: ChooseProductRequest
+    ): Response<ApiResponseNoData<Unit>>
+
+    @POST("prescriptionsList")
+    suspend fun getPrescribedRX(
+        @Header("Authorization") token: String,
+        @Body requestBody: PrescribedRXRequest
+    ): Response<ApiResponse<PrescribedRXResponse>>
+
 
     @GET("getTotalCashCleared")
     suspend fun getTotalCashCleared(@Header("Authorization") token: String): Response<ApiResponse<TotalCashClearedResponse>>
@@ -191,7 +206,10 @@ interface ApiService {
     suspend fun getSegmentsList(@Header("Authorization") token: String): Response<ApiResponse<SegmentResponse>>
 
     @POST("homePage")
-    suspend fun getHomePageDeliveryBoy(@Header("Authorization") token: String,@Body requestBody: HomeRequest): Response<ApiResponse<DeliveryBoyHomePageResponse>>
+    suspend fun getHomePageDeliveryBoy(
+        @Header("Authorization") token: String,
+        @Body requestBody: HomeRequest
+    ): Response<ApiResponse<DeliveryBoyHomePageResponse>>
 
     @GET("countryList")
     suspend fun getCountryList(@Header("Authorization") token: String): Response<ApiResponse<List<CountryListResponse>>>
@@ -432,7 +450,10 @@ interface ApiService {
     ): Response<ApiResponseNoData<Unit>>
 
     @POST("homePage")
-    suspend fun getDocHome(@Header("Authorization") token: String, @Body requestBody: HomeRequest): Response<ApiResponse<HomeDataResponse>>
+    suspend fun getDocHome(
+        @Header("Authorization") token: String,
+        @Body requestBody: HomeRequest
+    ): Response<ApiResponse<HomeDataResponse>>
 
     @POST("prescriptionDetails")
     suspend fun getPresDetails(
@@ -578,6 +599,24 @@ interface ApiService {
     @POST("auth/login")
     suspend fun userLogin(@Body requestBody: LoginRequest): Response<ApiResponse<LoginResponse>>
 
+    @POST("posProductsList")
+    suspend fun getPOSProductList(
+        @Header("Authorization") token: String,
+        @Body requestBody: ProductRequest
+    ): Response<ApiResponse<ProductListResponse>>
+
+    @POST("editPrescriptionDetailsPage")
+    suspend fun getEditPOSDetails(
+        @Header("Authorization") token: String,
+        @Body requestBody: EditPOSDetailsRequest
+    ): Response<ApiResponse<POSEditRXNewResponse>>
+
+    @POST("editPrescriptionProductsList")
+    suspend fun getPOSEditProductList(
+        @Header("Authorization") token: String,
+        @Body requestBody: PosEditRequest
+    ): Response<ApiResponse<ProductListResponse>>
+
     @POST("productsList")
     suspend fun getProductList(
         @Header("Authorization") token: String,
@@ -657,8 +696,9 @@ interface ApiService {
     )
 
     data class HomeRequest(
-        val date : String
+        val date: String
     )
+
     data class ChangePickupStatusRequest(
         val id: String,
         val status: String
@@ -971,7 +1011,9 @@ interface ApiService {
 
     data class SubmitRXRequest(
         val influencerId: String,
-        val customerId: String
+        val customerId: String,
+        val is_edit: String,
+        val submitWithCustomerCall: String
     )
 
     data class UpdateRXCartRequest(
@@ -987,6 +1029,17 @@ interface ApiService {
 
     data class CheckPatientRequest(
         val keyword: String
+    )
+
+    data class PosEditRequest(
+        val prescriptionId: String,
+        val per_page: String,
+        val page_no: String,
+        val keyword: String
+    )
+
+    data class EditPOSDetailsRequest(
+        val prescriptionId: String
     )
 
     data class ProductRequest(
@@ -1026,7 +1079,9 @@ interface ApiService {
         val dose_time: String,
         val description: String,
         val course_day: String,
-        val course_duration: String
+        val course_duration: String,
+        val is_edit: String,
+        val prescriptionId: String
     )
 
     data class ChangeCartRequest(
@@ -1036,6 +1091,17 @@ interface ApiService {
 
     data class CartRemoveRequest(
         val id: String
+    )
+
+    data class ChooseProductRequest(
+        val prescriptionId: String,
+        val apixSku: String,
+        val stockId: String
+    )
+
+    data class PrescribedRXRequest(
+        val per_page: String,
+        val page_no: String
     )
 
     data class AddSegmentRequest(

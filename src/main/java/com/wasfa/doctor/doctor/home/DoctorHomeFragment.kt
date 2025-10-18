@@ -77,7 +77,7 @@ class DoctorHomeFragment : Fragment() {
 
     private fun manageClick() {
 
-        binding.imgFilterReset.setOnClickListener{
+        binding.imgFilterReset.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             binding.txtFilterByDate.text = null
             val request = ApiService.GraphRequest(
@@ -323,9 +323,9 @@ class DoctorHomeFragment : Fragment() {
             binding.txtSalesAnalytics.text =
                 "KD %.3f".format((data?.currentMonthAmount?.toString()?.toDoubleOrNull() ?: 0.0))
 
-            if (!isTablet()){
+            if (!isTablet()) {
                 (activity as? DoctorHomeActivity)?.showBottomNav()
-            }else{
+            } else {
                 (activity as? DoctorHomeActivity)?.hideBottomNav()
             }
 
@@ -340,11 +340,18 @@ class DoctorHomeFragment : Fragment() {
         val request1 = ApiService.HomeRequest(
             date = ""
         )
-        viewModel.getHomeData(appPreferences.getToken().toString(),request1)
+        viewModel.getHomeData(appPreferences.getToken().toString(), request1)
         val request = ApiService.GraphRequest(
             date = ""
         )
         viewModel.getGraph(appPreferences.getToken().toString(), request)
+
+        viewModel.getUserPermissions(appPreferences.getToken().toString())
+
+        viewModel.userPermissionList.observe(viewLifecycleOwner) { data ->
+            appPreferences.saveStaffPermissions(data.permissions)
+
+        }
     }
 
     private fun createDashboardListGraph(data: GraphResponse): List<DashboardItem> {
@@ -376,6 +383,7 @@ class DoctorHomeFragment : Fragment() {
             adapter = catAdapter
         }
     }
+
     fun isTablet(): Boolean {
         val metrics = resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density
@@ -396,7 +404,8 @@ class DoctorHomeFragment : Fragment() {
             val catAdapter = TopSellingPDAdapter(data) { data, type ->
                 AppPreferences.getInstance(requireContext()).saveProductId(data?.id)
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container,
+                    .replace(
+                        R.id.fragment_container,
                         com.wasfa.doctor.doctor.details.MedDetailsFragment()
                     )
                     .addToBackStack(null)

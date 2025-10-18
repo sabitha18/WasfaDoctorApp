@@ -3,7 +3,9 @@ package com.wasfa.doctor.network.response
 data class ProductListResponse(
     val products: List<Products>,
     val totalProductsCount: String,
-    val totalPages: String
+    val totalPages: String,
+    val totalPage: String,
+    val totalRecords: String
 )
 
 data class Products(
@@ -33,5 +35,6 @@ data class Products(
     val cog: String,
     val apixMargin: String,
     val influencerrMargin: String,
-    val isFavourite: Boolean
+    val isFavourite: Boolean,
+    val stock_id: String
 )

@@ -238,7 +238,9 @@ class CartRXSummaryFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         val request = ApiService.SubmitRXRequest(
             influencerId = "",
-            customerId = cust_id
+            customerId = cust_id,
+            is_edit = "",
+            submitWithCustomerCall = ""
         )
         viewModel.submitSaveRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -249,7 +251,9 @@ class CartRXSummaryFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         val request = ApiService.SubmitRXRequest(
             influencerId = "",
-            customerId = cust_id
+            customerId = cust_id,
+            is_edit = "",
+            submitWithCustomerCall = ""
         )
         viewModel.submitRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),

@@ -2,6 +2,10 @@ package com.wasfa.doctor.helper
 
 object PermissionKeys {
 
+
+    /*doctor pos new*/
+    const val POS_NEW_RX = "posnew_management"
+
     /*product*/
 
     const val ADD_NEW_PRODUCT = "add_new_product"

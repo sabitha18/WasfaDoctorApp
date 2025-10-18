@@ -118,6 +118,7 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.bottomView.lytPrescriptions.setOnClickListener {
             if (isTablet()) {
                 manageTabPresIcon()
+                AppPreferences.getInstance(this@DoctorHomeActivity).saveNewRXStatus("old")
                 loadFragment(AddPresNewFragment())
             } else {
                 managePresIcon()

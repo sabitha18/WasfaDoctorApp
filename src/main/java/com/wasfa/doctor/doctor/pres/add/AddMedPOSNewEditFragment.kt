@@ -28,16 +28,16 @@ import com.wasfa.doctor.R
 import com.wasfa.doctor.databinding.FragmentAddMedNewBinding
 import com.wasfa.doctor.helper.AppPreferences
 import com.wasfa.doctor.network.ApiService
-import com.wasfa.doctor.network.response.CartItem
+import com.wasfa.doctor.network.response.PresDetails
 import com.wasfa.doctor.network.response.ProductListResponse
 import com.wasfa.doctor.network.response.Products
-import com.wasfa.doctor.ui.cart.adapter.CartRXAdapter
+import com.wasfa.doctor.ui.cart.adapter.CartRXPOSDetaiilsNewAdapter
 import com.wasfa.doctor.ui.pos.adapter.POSRXListAdapter
 import com.wasfa.doctor.ui.pos.shop.POSShopDetailsFragment
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
 
-class AddMedNewFragment : Fragment() {
+class AddMedPOSNewEditFragment : Fragment() {
     private var _binding: FragmentAddMedNewBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
@@ -99,38 +99,11 @@ class AddMedNewFragment : Fragment() {
         })
     }
     private fun callCartApi() {
-        binding.progressBarCart.visibility = View.VISIBLE
-        viewModel.getCart(AppPreferences.getInstance(requireContext()).getToken().toString())
+        val request = ApiService.EditPOSDetailsRequest(
+            prescriptionId = AppPreferences.getInstance(requireContext()).getNewRXStatus().toString()
+        )
+        viewModel.getPresRXNewDetailsEdit(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
     }
-
-
-//    private fun setUpPagination() {
-//        binding.recyclerProducts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//
-//                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-//                val visibleItemCount = layoutManager.childCount
-//                val totalItemCount = layoutManager.itemCount
-//                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-//
-//                if ( !viewModel.isLastPage()) {
-//                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-//                        && firstVisibleItemPosition >= 0
-//                    ) {
-//                        // Reached end — load next page
-//                        viewModel.currentPage++
-//                        viewModel.loadNextPage(
-//                            "", "", searchValue, selectedInfluencerId, "", "", "", ""
-//                        )
-//                        binding.progressBarSmall.visibility = View.VISIBLE
-//                    }
-//                }
-//            }
-//        })
-//    }
-
-
 
     private fun setUpPagination() {
         binding.recyclerProducts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -177,8 +150,8 @@ class AddMedNewFragment : Fragment() {
                         course_day = "",
                         dose_time = "",
                         course_duration = "",
-                        is_edit = "",
-                        prescriptionId = ""
+                        is_edit = "1",
+                        prescriptionId = AppPreferences.getInstance(requireContext()).getNewRXStatus().toString()
                     )
                     viewModel.addCartRX(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
                 }
@@ -279,22 +252,22 @@ class AddMedNewFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
 
         }
-        viewModel.cartList.observe(viewLifecycleOwner) { data ->
+        viewModel.presRXNewData.observe(viewLifecycleOwner) { data ->
             binding.progressBarCart.visibility = View.GONE
             binding.progressBar.visibility = View.GONE
-            manageCart(data?.cartItems)
+            manageCart(data?.prescriptionDetails)
 
 
         }
         viewModel.deleteCartShopStatus.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = View.VISIBLE
             println("me =--------------")
-            viewModel.getCart(appPreferences.getToken().toString())
+            callCartApi()
 
         }
         viewModel.cartUpdateStatus.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = View.GONE
-            viewModel.getCart(appPreferences.getToken().toString())
+            callCartApi()
 
         }
 
@@ -313,7 +286,13 @@ class AddMedNewFragment : Fragment() {
         viewModel.addCartShopStatus.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = View.GONE
             Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
-            viewModel.getCart(appPreferences.getToken().toString())
+            callCartApi()
+
+        }
+        viewModel.chooseProductStatus.observe(viewLifecycleOwner) { message ->
+            binding.progressBar.visibility = View.GONE
+            Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
+            callCartApi()
 
         }
         viewModel.productEvent.observe(viewLifecycleOwner) { message ->
@@ -347,7 +326,7 @@ class AddMedNewFragment : Fragment() {
         }
 
     }
-    private fun manageCart(cartItems: List<CartItem>?) {
+    private fun manageCart(cartItems: List<PresDetails>?) {
 
         if (cartItems.isNullOrEmpty()) {
             binding.txtNoDataCart.visibility = View.VISIBLE
@@ -359,7 +338,7 @@ class AddMedNewFragment : Fragment() {
             binding.recyclerCart.visibility = View.VISIBLE
             binding.recyclerCart.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                val catAdapter = CartRXAdapter(
+                val catAdapter = CartRXPOSDetaiilsNewAdapter(
                     cartItems,
                     { cart, count ->  //decrement
                         binding.progressBar.visibility = View.VISIBLE
@@ -601,7 +580,7 @@ class AddMedNewFragment : Fragment() {
         }
         binding.cardProceed.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PresReviewFragment())
+                .replace(R.id.fragment_container, PresReviewEditFragment())
                 .addToBackStack(null)
                 .commit()
         }

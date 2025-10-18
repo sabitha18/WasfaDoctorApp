@@ -36,9 +36,11 @@ import com.wasfa.doctor.network.response.MediaResponse
 import com.wasfa.doctor.network.response.MedicalRepListResponse
 import com.wasfa.doctor.network.response.OrderDetailsResponse
 import com.wasfa.doctor.network.response.OrderListResponse
+import com.wasfa.doctor.network.response.POSEditRXNewResponse
 import com.wasfa.doctor.network.response.PickUpPointsResponse
 import com.wasfa.doctor.network.response.PresDetailsResponse
 import com.wasfa.doctor.network.response.PresListResponse
+import com.wasfa.doctor.network.response.PrescribedRXResponse
 import com.wasfa.doctor.network.response.ProductDetailsResponse
 import com.wasfa.doctor.network.response.ProductListResponse
 import com.wasfa.doctor.network.response.ProfileResponse
@@ -166,6 +168,76 @@ class HomeViewModel(private val context: Context) : ViewModel() {
     var totalPageCountReport = 1
     private var loadingReport = false
     fun isLastPageReport() = currentPageReport > totalPageCountReport
+
+    //medical rep list
+
+    private val _chooseProductStatus = MutableLiveData<String>()
+    val chooseProductStatus: LiveData<String> get() = _chooseProductStatus
+
+    fun chooseProductEdit(token: String, request: ApiService.ChooseProductRequest) {
+        viewModelScope.launch {
+            try {
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.chooseProduct("Bearer $token",request)
+                }
+
+                if (response.isSuccessful) {
+                    if (response.body()?.error == true) {
+                        _chooseProductStatus.value = response.body()?.message!!
+
+                    } else {
+
+                        Log.e("*Home Cat*", "Error in response: ${response.body()?.message}")
+                    }
+
+                } else {
+                    Log.e("*Home Cat*", response.message())
+
+                }
+
+            } catch (e: Exception) {
+                Log.e("*Home Cat*", e.message.toString())
+            } finally {
+
+            }
+        }
+    }
+
+    //medical rep list
+
+    private val _presRXNewData = MutableLiveData<POSEditRXNewResponse>()
+    val presRXNewData: LiveData<POSEditRXNewResponse> get() = _presRXNewData
+
+    fun getPresRXNewDetailsEdit(token: String, request: ApiService.EditPOSDetailsRequest) {
+        viewModelScope.launch {
+            try {
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getEditPOSDetails("Bearer $token",request)
+                }
+
+                if (response.isSuccessful) {
+                    if (response.body()?.error == true) {
+                        _presRXNewData.value = response.body()?.data!!
+
+                    } else {
+
+                        Log.e("*Home Cat*", "Error in response: ${response.body()?.message}")
+                    }
+
+                } else {
+                    Log.e("*Home Cat*", response.message())
+
+                }
+
+            } catch (e: Exception) {
+                Log.e("*Home Cat*", e.message.toString())
+            } finally {
+
+            }
+        }
+    }
 
     //medical rep list
 
@@ -1212,7 +1284,9 @@ class HomeViewModel(private val context: Context) : ViewModel() {
         _productListData.value = ProductListResponse(
             totalProductsCount = "0",
             totalPages = "",
-            products = emptyList()
+            products = emptyList(),
+            totalPage = "",
+            totalRecords = ""
         )
     }
 
@@ -1220,7 +1294,9 @@ class HomeViewModel(private val context: Context) : ViewModel() {
         _productListData.value = ProductListResponse(
             totalProductsCount = "0",
             totalPages = "",
-            products = emptyList()
+            products = emptyList(),
+            totalPage = "",
+            totalRecords = ""
         )
     }
 
@@ -1253,6 +1329,160 @@ class HomeViewModel(private val context: Context) : ViewModel() {
                 Log.e("*Home Cat*", e.message.toString())
             } finally {
 
+            }
+        }
+    }
+
+    fun getPOSProductList(token: String, request: ApiService.ProductRequest) {
+        viewModelScope.launch {
+            try {
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getPOSProductList("Bearer $token", request)
+                }
+
+                if (response.isSuccessful) {
+                    if (response.body()?.error == true) {
+                        val data = response.body()?.data
+                        totalPageCount = data?.totalPage!!.toInt()
+                        _productListData.value = data!!
+                        _productEvent.value = response.body()?.message
+                    } else {
+                        // Handle the case where the error field is true
+                        Log.e("*Home Cat*", "Error in response: ${response.body()?.message}")
+                    }
+
+                } else {
+                    _showAlertEvent.value = response.message()
+                    Log.e("*Home Cat*", response.message())
+
+                }
+
+            } catch (e: Exception) {
+                Log.e("*Home Cat*", e.message.toString())
+            } finally {
+
+            }
+        }
+    }
+
+    fun loadPOSNextPage(
+        medicalRep: String,
+        seller: String,
+        searchValue: String,
+        influencerId: String,
+        sku: String,
+        brand: String,
+        isFav: String,
+        isPOS: String
+    ) {
+        if (loading) return
+        loading = true
+
+        viewModelScope.launch {
+            try {
+                val token = AppPreferences.getInstance(context).getToken().toString()
+                val request = ApiService.ProductRequest(
+                    per_page = "4",
+                    page_no = currentPage.toString(),
+                    category = "",
+                    brand = brand,
+                    sku = sku,
+                    seller = seller,
+                    medical_rep_id = medicalRep,
+                    keyword = searchValue,
+                    influencer_id = influencerId,
+                    isFavourite = isFav,
+                    listFrom = isPOS
+                )
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getPOSProductList("Bearer $token", request)
+                }
+
+                if (response.isSuccessful && response.body()?.error == true) {
+                    val data = response.body()?.data
+                    data?.let {
+                        _productListData.value = it
+                        _productEvent.value = response.body()?.message
+                    }
+                } else {
+                    Log.e("HomeViewModel", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Exception: ${e.message}")
+            } finally {
+                loading = false
+            }
+        }
+    }
+
+    fun getPOSEditProductList(token: String, request: ApiService.PosEditRequest) {
+        viewModelScope.launch {
+            try {
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getPOSEditProductList("Bearer $token", request)
+                }
+
+                if (response.isSuccessful) {
+                    if (response.body()?.error == true) {
+                        val data = response.body()?.data
+                        totalPageCount = data?.totalPages!!.toInt()
+                        _productListData.value = data!!
+                        _productEvent.value = response.body()?.message
+                    } else {
+                        // Handle the case where the error field is true
+                        Log.e("*Home Cat*", "Error in response: ${response.body()?.message}")
+                    }
+
+                } else {
+                    _showAlertEvent.value = response.message()
+                    Log.e("*Home Cat*", response.message())
+
+                }
+
+            } catch (e: Exception) {
+                Log.e("*Home Cat*", e.message.toString())
+            } finally {
+
+            }
+        }
+    }
+
+    fun loadPOSEditNextPage(
+        prescriptionId: String
+    ) {
+        if (loading) return
+        loading = true
+
+        viewModelScope.launch {
+            try {
+                val token = AppPreferences.getInstance(context).getToken().toString()
+                val request = ApiService.PosEditRequest(
+                    per_page = "4",
+                    page_no = currentPage.toString(),
+                    keyword = "",
+                    prescriptionId = prescriptionId
+                )
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getPOSEditProductList("Bearer $token", request)
+                }
+
+                if (response.isSuccessful && response.body()?.error == true) {
+                    val data = response.body()?.data
+                    data?.let {
+                        _productListData.value = it
+                        _productEvent.value = response.body()?.message
+                    }
+                } else {
+                    Log.e("HomeViewModel", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Exception: ${e.message}")
+            } finally {
+                loading = false
             }
         }
     }
@@ -1604,6 +1834,111 @@ class HomeViewModel(private val context: Context) : ViewModel() {
             }
         }
     }
+    // prescribed rx data
+
+    private val _rxData = MutableLiveData<PrescribedRXResponse?>()
+    val rxData: MutableLiveData<PrescribedRXResponse?> get() = _rxData
+
+    init {
+        // Initialize with an empty state
+        _rxData.value = PrescribedRXResponse(
+            totalCount = "0",
+            totalPages = "",
+            list = emptyList()
+        )
+    }
+
+    fun clearRXListData() {
+        _rxData.value = PrescribedRXResponse(
+            totalCount = "0",
+            totalPages = "",
+            list = emptyList()
+        )
+    }
+
+    fun getPrescribedRX(token: String, request: ApiService.PrescribedRXRequest) {
+        viewModelScope.launch {
+            try {
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getPrescribedRX("Bearer $token", request)
+                }
+
+                if (response.isSuccessful) {
+                    if (response.body()?.error == false) {
+                        val data = response.body()?.data
+                        totalPageCountReport = data?.totalPages!!.toInt()
+                        _rxData.value = data
+                        println("0-0-0-0-0-      00     "+data?.totalPages)
+                        _reportEvent.value = response.body()?.data?.list?.size.toString()
+                    } else {
+                        // Handle the case where the error field is true
+                        Log.e("*Home Cat*", "Error in response: ${response.body()?.message}")
+                    }
+
+                } else {
+                    _showAlertEvent.value = response.message()
+                    Log.e("*Home Cat*", response.message())
+
+                }
+
+            } catch (e: Exception) {
+                Log.e("*Home Cat*", e.message.toString())
+            } finally {
+
+            }
+        }
+    }
+
+    fun loadNextPagePrescribedRX() {
+        if (loadingReport) return
+        loadingReport = true
+
+        viewModelScope.launch {
+            try {
+                val token = AppPreferences.getInstance(context).getToken().toString()
+                val request = ApiService.PrescribedRXRequest(
+                    per_page = "10",
+                    page_no = currentPageReport.toString()
+                )
+
+                val response = withContext(Dispatchers.IO) {
+                    NetworkClient.apiService.getPrescribedRX("Bearer $token", request)
+                }
+
+                if (response.isSuccessful && response.body()?.error == false) {
+                    val data = response.body()?.data
+                    _reportEvent.value = response.body()?.message
+                    data?.let {
+                        val newList = it.list ?: emptyList()
+
+                        if (newList.isNotEmpty()) {
+                            val currentList = _rxData.value?.list ?: emptyList()
+                            val updatedList = currentList + newList
+                            _rxData.value = _rxData.value?.copy(
+                                list = updatedList,
+                                totalPages = it.totalPages,
+                                totalCount = it.totalCount
+                            )
+                        } else {
+                            // ✅ No new items, just keep old list
+                            _rxData.value = _rxData.value?.copy(
+                                totalPages = it.totalPages,
+                                totalCount = it.totalCount
+                            )
+                        }
+                    }
+                } else {
+                    Log.e("HomeViewModel", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Exception: ${e.message}")
+            } finally {
+                loadingReport = false
+            }
+        }
+    }
+
 
     // report data
 
