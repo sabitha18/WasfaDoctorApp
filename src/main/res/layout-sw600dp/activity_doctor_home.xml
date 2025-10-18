@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/root_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,6 +8,10 @@
     <include
         android:id="@+id/bottom_view"
         layout="@layout/custom_bottom_nav"/>
+    <include
+        android:id="@+id/side_menu"
+        layout="@layout/custom_side_menu"
+        android:visibility="gone"/>
     <!-- Fragment Container -->
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -15,6 +20,12 @@
         android:layout_weight="1"/>
 
     <!-- Custom Bottom Navigation -->
-
+    <View
+        android:id="@+id/dimOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:alpha="0"
+        android:visibility="gone" />
 
 </LinearLayout>

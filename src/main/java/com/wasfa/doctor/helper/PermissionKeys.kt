@@ -5,6 +5,7 @@ object PermissionKeys {
 
     /*doctor pos new*/
     const val POS_NEW_RX = "posnew_management"
+    const val POS_MANAGER = "pos_manager"
 
     /*product*/
 

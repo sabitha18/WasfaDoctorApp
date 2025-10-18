@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!-- Fragment Container -->
-    <FrameLayout
-        android:layout_marginTop="10dp"
-        android:background="#FAFAFE"
-        android:id="@+id/fragment_container"
+    <!-- Main content -->
+    <LinearLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!-- Custom Bottom Navigation -->
+        <!-- Fragment Container -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FAFAFE"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Custom Bottom Navigation -->
+        <include
+            android:id="@+id/bottom_view"
+            layout="@layout/custom_bottom_nav" />
+    </LinearLayout>
+
+    <!-- Dim overlay (semi-transparent black, hidden by default) -->
+    <View
+        android:id="@+id/dimOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:alpha="0"
+        android:visibility="gone" />
+
+    <!-- Custom Side Menu (initially hidden) -->
     <include
-        android:id="@+id/bottom_view"
-        layout="@layout/custom_bottom_nav"/>
+        android:id="@+id/side_menu"
+        layout="@layout/custom_side_menu"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:translationX="-250dp"
+        android:background="@android:color/white"
+        android:elevation="8dp" />
 
-</LinearLayout>
+</FrameLayout>

@@ -21,7 +21,6 @@ import com.wasfa.doctor.R
 import com.wasfa.doctor.databinding.ActivityLoginBinding
 import com.wasfa.doctor.helper.AppPreferences
 import com.wasfa.doctor.network.ApiService
-import com.wasfa.doctor.deliveryboy.DeliveryBoyMainActivity
 import com.wasfa.doctor.doctor.main.DoctorHomeActivity
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory

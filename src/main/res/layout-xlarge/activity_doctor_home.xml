@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/root_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,5 +17,15 @@
 
     <!-- Custom Bottom Navigation -->
 
-
+    <include
+        android:id="@+id/side_menu"
+        layout="@layout/custom_side_menu"
+        android:visibility="gone"/>
+    <View
+        android:id="@+id/dimOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:alpha="0"
+        android:visibility="gone" />
 </LinearLayout>

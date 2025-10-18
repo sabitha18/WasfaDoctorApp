@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import com.wasfa.doctor.databinding.ActivitySplashBinding
 import com.wasfa.doctor.R
 import com.wasfa.doctor.helper.AppPreferences
-import com.wasfa.doctor.deliveryboy.DeliveryBoyMainActivity
 import com.wasfa.doctor.doctor.main.DoctorHomeActivity
 import com.wasfa.doctor.ui.login.LoginActivity
 import com.wasfa.doctor.ui.main.MainActivity

@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,9 @@ import com.wasfa.doctor.doctor.home.adapter.RecentPresListAdapter
 import com.wasfa.doctor.doctor.home.adapter.TopSellingPDAdapter
 import com.wasfa.doctor.doctor.main.DoctorHomeActivity
 import com.wasfa.doctor.doctor.pres.PresDetailsFragment
+import com.wasfa.doctor.helper.PermissionKeys
+import com.wasfa.doctor.helper.PermissionManager
+import com.wasfa.doctor.network.response.UserPermissionsResponse
 import com.wasfa.doctor.ui.login.LoginActivity
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
@@ -69,14 +73,12 @@ class DoctorHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         setViewModel()
         manageClick()
 
     }
 
     private fun manageClick() {
-
         binding.imgFilterReset.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             binding.txtFilterByDate.text = null
@@ -137,11 +139,13 @@ class DoctorHomeFragment : Fragment() {
             }
             popupMenu.show()
         }
-
-
-
         binding.imgMenu.setOnClickListener {
-            (activity as? DoctorHomeActivity)?.toggleBottomNav()
+            if (isTablet()){
+                (activity as? DoctorHomeActivity)?.toggleBottomNav()
+            }else{
+                (activity as? DoctorHomeActivity)?.toggleSideMenu()
+            }
+
         }
     }
 
@@ -350,6 +354,7 @@ class DoctorHomeFragment : Fragment() {
 
         viewModel.userPermissionList.observe(viewLifecycleOwner) { data ->
             appPreferences.saveStaffPermissions(data.permissions)
+            (activity as? DoctorHomeActivity)?.updatePermissionsUI()
 
         }
     }
