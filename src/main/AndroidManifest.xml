@@ -52,7 +52,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".doctor.main.DoctorHomeActivity"
+            android:name=".ui.main.DoctorHomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"

@@ -539,7 +539,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="100dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/card_submit"
@@ -576,7 +576,7 @@
                         android:id="@+id/card_submit_with_call"
                         android:layout_width="match_parent"
                         android:layout_height="38dp"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:visibility="visible"
                         app:cardBackgroundColor="@color/white"

@@ -16,12 +16,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.card.MaterialCardView
-import com.wasfa.doctor.ui.main.MainActivity
 import com.wasfa.doctor.R
 import com.wasfa.doctor.databinding.ActivityLoginBinding
 import com.wasfa.doctor.helper.AppPreferences
 import com.wasfa.doctor.network.ApiService
-import com.wasfa.doctor.doctor.main.DoctorHomeActivity
+import com.wasfa.doctor.ui.main.DoctorHomeActivity
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
 
@@ -95,6 +94,7 @@ class LoginActivity : AppCompatActivity() {
 
             appPreferences.saveToken(data?.token)
             appPreferences.saveLoginType(data?.userDetails?.user_type)
+            appPreferences.saveDoctorType(data?.userDetails?.doctorType)
 
             if (data?.userDetails?.user_type == "influencer") {
                 val intent = Intent(this, DoctorHomeActivity::class.java)

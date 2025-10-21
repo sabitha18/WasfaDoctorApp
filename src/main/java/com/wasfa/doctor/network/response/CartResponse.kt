@@ -33,6 +33,7 @@ data class PatientInfo(
     val email: String,
     val alt_phone: String?,
     val civil_id: String,
+    val civilId: String,
     val dob: String,
     val address: List<AddressItem>,
     val profilePic: String,

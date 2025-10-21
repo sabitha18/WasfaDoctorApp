@@ -213,6 +213,14 @@ class AppPreferences(context: Context) {
     fun getLoginType(): String? {
         return preferences.getString("login_type", null)
     }
+
+    fun saveDoctorType(service: String?) {
+        preferences.edit().putString("doctor_type", service).apply()
+    }
+
+    fun getDoctorType(): String? {
+        return preferences.getString("doctor_type", null)
+    }
     fun saveToken(service: String?) {
         preferences.edit().putString("token", service).apply()
     }

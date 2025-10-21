@@ -12,5 +12,14 @@ data class Prescriptions(
     val medicationsPrescribed: String,
     val description: String,
     val profilePic: String,
-    val patientInfo: List<PatientInfo>
+    val patientInfo: List<PatientInfo>,
+    val customer: String,
+    val customerId: String,
+    val mobile: String,
+    val product_count: String,
+    val doctor: String,
+    val status_order: String,
+    val price_request: String,
+    val call_request: String,
+    val prescription_id: String
 )

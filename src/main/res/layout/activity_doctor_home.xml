@@ -3,15 +3,11 @@
     android:id="@+id/root_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!-- Main content -->
     <LinearLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <!-- Fragment Container -->
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
@@ -19,14 +15,14 @@
             android:layout_weight="1"
             android:background="#FAFAFE"
             android:layout_marginTop="10dp"/>
-
-        <!-- Custom Bottom Navigation -->
         <include
             android:id="@+id/bottom_view"
             layout="@layout/custom_bottom_nav" />
+        <include
+            android:visibility="gone"
+            android:id="@+id/side_tablet_view"
+            layout="@layout/custom_side_nav" />
     </LinearLayout>
-
-    <!-- Dim overlay (semi-transparent black, hidden by default) -->
     <View
         android:id="@+id/dimOverlay"
         android:layout_width="match_parent"
@@ -34,8 +30,6 @@
         android:background="#80000000"
         android:alpha="0"
         android:visibility="gone" />
-
-    <!-- Custom Side Menu (initially hidden) -->
     <include
         android:id="@+id/side_menu"
         layout="@layout/custom_side_menu"
