@@ -1,6 +1,7 @@
 package com.wasfa.doctor.ui.report.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wasfa.doctor.databinding.ItemReportBinding
@@ -10,6 +11,7 @@ import com.wasfa.doctor.network.response.Report
 
 class ReportRXAdapter(
     private val data: MutableList<ListRX>,
+    private val editStatus: String,
     private val listener: (ListRX, String) -> Unit,
 ) :
     RecyclerView.Adapter<ReportRXAdapter.ViewHolder>() {
@@ -22,11 +24,18 @@ class ReportRXAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(data!![position])
 
-        holder.itemBinding.lytEdit.setOnClickListener {
+        holder.itemBinding.imgEdit.setOnClickListener {
             listener(data[position],"edit")
         }
+        holder.itemBinding.imgView.setOnClickListener {
+            listener(data[position],"view")
+        }
 
-
+        if (editStatus == "false"){
+            holder.itemBinding.imgEdit.visibility = View.GONE
+        }else{
+            holder.itemBinding.imgEdit.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount(): Int {

@@ -19,41 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WasfaAdminApp"
         tools:targetApi="31">
-        <activity
-            android:name=".deliveryboy.DeliveryBoyMainActivity"
-            android:exported="false" />
 
-        <activity
-            android:name=".ui.images.ImageListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.add.AddProductActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.category.CategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.category.CategoryAddActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.category.CategoryEditActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.brand.EditBrandActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.brand.AddBrandActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.products.brand.BrandActivity"
-            android:exported="false" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.main.DoctorHomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
@@ -69,15 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.cart.SucessActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

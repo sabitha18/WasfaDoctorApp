@@ -284,7 +284,8 @@ class PresReviewFragment : Fragment() {
             influencerId = "",
             customerId = patientId,
             is_edit = "",
-            submitWithCustomerCall = ""
+            submitWithCustomerCall = "",
+            prescriptionId = ""
         )
         viewModel.submitSaveRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -297,7 +298,8 @@ class PresReviewFragment : Fragment() {
             influencerId = "",
             customerId = patientId,
             is_edit = "",
-            submitWithCustomerCall = ""
+            submitWithCustomerCall = "",
+            prescriptionId = ""
         )
         viewModel.submitRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -312,7 +314,8 @@ class PresReviewFragment : Fragment() {
                 influencerId = "",
                 customerId = patientId,
                 is_edit = "1",
-                submitWithCustomerCall = status
+                submitWithCustomerCall = status,
+                prescriptionId = ""
             )
             viewModel.submitRX(
                 AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -323,7 +326,8 @@ class PresReviewFragment : Fragment() {
                 influencerId = "",
                 customerId = patientId,
                 is_edit = "0",
-                submitWithCustomerCall = status
+                submitWithCustomerCall = status,
+                prescriptionId = ""
             )
             viewModel.submitRX(
                 AppPreferences.getInstance(requireContext()).getToken().toString(),

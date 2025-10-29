@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wasfa.doctor.R
 import com.wasfa.doctor.databinding.FragmentPrescribedRxBinding
@@ -21,6 +22,7 @@ import com.wasfa.doctor.network.ApiService
 import com.wasfa.doctor.ui.main.DoctorHomeActivity
 import com.wasfa.doctor.ui.pres.add.AddMedPOSNewEditFragment
 import com.wasfa.doctor.ui.pres.edit.EditRXFragment
+import com.wasfa.doctor.ui.pres.view.PresViewFragment
 import com.wasfa.doctor.ui.report.adapter.ReportRXAdapter
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
@@ -112,6 +114,14 @@ class PrescribedRxFragment : Fragment() {
         binding.imgMenu.setOnClickListener {
             (activity as? DoctorHomeActivity)?.toggleBottomNav()
         }
+        binding.cardBack.setOnClickListener {
+            val navController = runCatching { findNavController() }.getOrNull()
+            if (navController?.currentDestination != null) {
+                navController.popBackStack()
+            } else {
+                parentFragmentManager.popBackStack()
+            }
+        }
     }
 
 
@@ -150,25 +160,33 @@ class PrescribedRxFragment : Fragment() {
     private fun managePresRecyclerView() {
 
         productAdapter = ReportRXAdapter(
-            mutableListOf()
+            mutableListOf(),
+            AppPreferences.getInstance(requireContext()).getEditStatus().toString()
         ) { product, type ->
-            AppPreferences.getInstance(requireContext()).saveNewRXStatus(product?.prescription_id)
-            AppPreferences.getInstance(requireContext()).saveFavStatus("1")
-            AppPreferences.getInstance(requireContext()).savePatientId(product?.customerId)
 
-           if (isTablet()){
-               parentFragmentManager.beginTransaction()
-                   .replace(R.id.fragment_container, AddMedPOSNewEditFragment())
-                   .addToBackStack(null)
-                   .commit()
-           }else{
-               parentFragmentManager.beginTransaction()
-                   .replace(R.id.fragment_container, EditRXFragment())
-                   .addToBackStack(null)
-                   .commit()
-           }
+            if (type == "view"){
+                AppPreferences.getInstance(requireContext()).saveNewRXStatus(product?.prescription_id)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, PresViewFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }else{
+                AppPreferences.getInstance(requireContext()).saveNewRXStatus(product?.prescription_id)
+                AppPreferences.getInstance(requireContext()).saveFavStatus("1")
+                AppPreferences.getInstance(requireContext()).savePatientId(product?.customerId)
 
-
+                if (isTablet()){
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, AddMedPOSNewEditFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }else{
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, EditRXFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
         }
 
         binding.recyclerPres.apply {

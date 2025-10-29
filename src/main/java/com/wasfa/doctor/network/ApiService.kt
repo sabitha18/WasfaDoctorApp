@@ -1013,7 +1013,8 @@ interface ApiService {
         val influencerId: String,
         val customerId: String,
         val is_edit: String,
-        val submitWithCustomerCall: String
+        val submitWithCustomerCall: String,
+        val prescriptionId: String
     )
 
     data class UpdateRXCartRequest(

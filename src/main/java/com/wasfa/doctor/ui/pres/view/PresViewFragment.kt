@@ -1,4 +1,4 @@
-package com.wasfa.doctor.ui.pres.add
+package com.wasfa.doctor.ui.pres.view
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -38,7 +38,7 @@ import com.wasfa.doctor.ui.pres.adapter.MedicationListPreviewEditAdapter
 import com.wasfa.doctor.ui.report.PrescribedRxFragment
 import com.wasfa.doctor.network.response.PresDetails
 
-class PresReviewEditFragment : Fragment() {
+class PresViewFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
@@ -65,8 +65,9 @@ class PresReviewEditFragment : Fragment() {
         val prefs = AppPreferences.getInstance(requireContext())
 
 
+        binding.txtHead.text = ""
             binding.lytPosRx.visibility = View.GONE
-            binding.lytPosRxNew.visibility = View.VISIBLE
+            binding.lytPosRxNew.visibility = View.GONE
 
 
     }

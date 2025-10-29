@@ -90,12 +90,12 @@ class AppPreferences(context: Context) {
     fun getCategoryId(): String? {
         return preferences.getString("category_id", null)
     }
-    fun saveImgSelectionStatus(service: String?) {
-        preferences.edit().putString("img_selection_status", service).apply()
+    fun saveEditStatus(service: String?) {
+        preferences.edit().putString("edit_status", service).apply()
     }
 
-    fun getImgSelectionStatus(): String? {
-        return preferences.getString("img_selection_status", null)
+    fun getEditStatus(): String? {
+        return preferences.getString("edit_status", null)
     }
     fun saveImgStatus(service: String?) {
         preferences.edit().putString("img_status", service).apply()

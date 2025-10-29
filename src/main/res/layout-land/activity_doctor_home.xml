@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <include
+            android:visibility="gone"
             android:id="@+id/side_tablet_view"
             layout="@layout/custom_side_nav" />
         <FrameLayout
@@ -37,7 +38,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:translationX="-250dp"
-        android:background="@android:color/white"
+        android:background="@android:color/black"
         android:elevation="8dp" />
 
 </FrameLayout>

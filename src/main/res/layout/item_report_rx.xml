@@ -103,14 +103,21 @@
     <LinearLayout
         android:id="@+id/lyt_edit"
         android:layout_width="100dp"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center">
-
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/view_rx" />
         <ImageView
             android:id="@+id/img_edit"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_gravity="center"
             android:src="@drawable/icon_edit" />
     </LinearLayout>

@@ -292,6 +292,12 @@ class AddMedNewFragment : Fragment() {
             viewModel.getCart(appPreferences.getToken().toString())
 
         }
+        viewModel.cartUpdateStatusError.observe(viewLifecycleOwner) { message ->
+            binding.progressBar.visibility = View.GONE
+            viewModel.getCart(appPreferences.getToken().toString())
+            showAlertCustom(message)
+
+        }
         viewModel.cartUpdateStatus.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = View.GONE
             viewModel.getCart(appPreferences.getToken().toString())

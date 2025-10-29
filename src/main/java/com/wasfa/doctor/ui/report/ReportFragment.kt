@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.wasfa.doctor.R
@@ -322,6 +323,14 @@ class ReportFragment : Fragment() {
     }
 
     private fun manageClick() {
+        binding.cardBack.setOnClickListener {
+            val navController = runCatching { findNavController() }.getOrNull()
+            if (navController?.currentDestination != null) {
+                navController.popBackStack()
+            } else {
+                parentFragmentManager.popBackStack()
+            }
+        }
         binding.imgMenu.setOnClickListener {
             (activity as? DoctorHomeActivity)?.toggleBottomNav()
         }

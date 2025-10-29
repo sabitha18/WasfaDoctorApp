@@ -67,17 +67,7 @@ class DoctorHomeActivity : AppCompatActivity() {
         AppPreferences.getInstance(this@DoctorHomeActivity).saveKey("false")
 
 
-        if (isTablet()) {
-            binding.sideTabletView.customBottomNav.visibility = View.VISIBLE
-            binding.bottomView.customBottomNav.visibility = View.GONE
-            binding.sideMenu.customBottomNav.visibility = View.GONE
-            manageTabletClicks()
-        } else {
-            binding.bottomView.customBottomNav.visibility = View.VISIBLE
-            binding.sideTabletView.customBottomNav.visibility = View.GONE
-            manageBottomNavClick()
-            manageSideMenuClick()
-        }
+        handleViewForDevice()
 
 
 
@@ -455,13 +445,39 @@ class DoctorHomeActivity : AppCompatActivity() {
 
     fun updatePermissionsUI() {
         val prefs = AppPreferences.getInstance(this@DoctorHomeActivity)
-        if (prefs.getDoctorType() == "Government"){
-            binding.sideMenu.lytPrescriptionsNew.setVisibleIfPermission(PermissionKeys.POS_NEW_RX)
-            binding.sideTabletView.lytPrescriptionsNew.setVisibleIfPermission(PermissionKeys.POS_NEW_RX)
-        }
-        if (prefs.getDoctorType() == "Private") {
-            binding.sideMenu.lytPrescriptions.setVisibleIfPermission(PermissionKeys.POS_MANAGER)
-            binding.sideTabletView.lytPrescriptions.setVisibleIfPermission(PermissionKeys.POS_MANAGER)
+        val doctorType = prefs.getDoctorType()
+
+        // Hide everything first
+        binding.sideMenu.lytPrescriptions.visibility = View.GONE
+        binding.sideTabletView.lytPrescriptions.visibility = View.GONE
+        binding.sideMenu.lytPrescriptionsNew.visibility = View.GONE
+        binding.sideTabletView.lytPrescriptionsNew.visibility = View.GONE
+
+        when (doctorType) {
+            "Government" -> {
+                if (PermissionManager.hasPermission(PermissionKeys.POS_NEW_RX)) {
+
+                    prefs.saveEditStatus("true")
+                    binding.sideMenu.lytPrescriptionsNew.visibility = View.VISIBLE
+                    binding.sideTabletView.lytPrescriptionsNew.visibility = View.VISIBLE
+                }
+            }
+
+            "Private" -> {
+                if (PermissionManager.hasPermission(PermissionKeys.POS_MANAGER)) {
+                    prefs.saveEditStatus("false")
+                    binding.sideMenu.lytPrescriptions.visibility = View.VISIBLE
+                    binding.sideTabletView.lytPrescriptions.visibility = View.VISIBLE
+                }
+            }
+
+            else -> {
+                prefs.saveEditStatus("false")
+                // doctorType is null or unknown
+                binding.sideMenu.lytPrescriptions.visibility = View.VISIBLE
+                binding.sideTabletView.lytPrescriptions.visibility = View.VISIBLE
+
+            }
         }
     }
 
@@ -512,6 +528,30 @@ class DoctorHomeActivity : AppCompatActivity() {
         settingsTabUnSelected()
         logoutUnSelected()
         reportTabUnSelected()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        handleViewForDevice()
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        handleViewForDevice()
+    }
+
+    private fun handleViewForDevice() {
+        if (isTablet()) {
+            binding.sideTabletView.customBottomNav.visibility = View.VISIBLE
+            binding.bottomView.customBottomNav.visibility = View.GONE
+            binding.sideMenu.customBottomNav.visibility = View.GONE
+            manageTabletClicks()
+        } else {
+            binding.bottomView.customBottomNav.visibility = View.VISIBLE
+            binding.sideTabletView.customBottomNav.visibility = View.GONE
+            manageBottomNavClick()
+            manageSideMenuClick()
+        }
     }
 
     private fun manageSideTabHomeIcon() {

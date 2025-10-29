@@ -783,6 +783,9 @@ class HomeViewModel(private val context: Context) : ViewModel() {
     private val _cartUpdateStatus = MutableLiveData<String>()
     val cartUpdateStatus: LiveData<String> get() = _cartUpdateStatus
 
+    private val _cartUpdateStatusError = MutableLiveData<String>()
+    val cartUpdateStatusError: LiveData<String> get() = _cartUpdateStatusError
+
     fun updateCartRx(token: String, request: ApiService.UpdateRXCartRequest) {
         viewModelScope.launch {
             try {
@@ -796,7 +799,7 @@ class HomeViewModel(private val context: Context) : ViewModel() {
                         _cartUpdateStatus.value = response.body()?.message
 
                     } else {
-                        _cartUpdateStatus.value = response.body()?.message
+                        _cartUpdateStatusError.value = response.body()?.message
                     }
 
                 } else {

@@ -28,11 +28,25 @@
               android:layout_height="wrap_content"
               android:orientation="horizontal">
               <ImageView
-                  android:visibility="visible"
+                  android:visibility="gone"
                   android:id="@+id/img_menu"
                   android:layout_width="24dp"
                   android:layout_height="24dp"
-                  android:src="@drawable/menu"/>
+                  android:src="@drawable/pos_back"/>
+              <com.google.android.material.card.MaterialCardView
+                  android:id="@+id/card_back"
+                  android:layout_width="32dp"
+                  android:layout_height="32dp"
+                  app:cardBackgroundColor="#F7F7F7"
+                  app:cardCornerRadius="10dp">
+
+                  <ImageView
+                      android:layout_width="12dp"
+                      android:layout_height="12dp"
+                      android:layout_gravity="center"
+                      android:src="@drawable/brown_back" />
+              </com.google.android.material.card.MaterialCardView>
+
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -165,7 +179,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Edit"
+                            android:text="View"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"

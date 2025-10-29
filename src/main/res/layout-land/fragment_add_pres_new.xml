@@ -618,72 +618,81 @@
                                     </LinearLayout>
                                 </com.google.android.material.card.MaterialCardView>
 
-                                <com.google.android.material.card.MaterialCardView
-                                    android:id="@+id/card_update"
-                                    android:layout_width="218dp"
-                                    android:layout_height="39dp"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginEnd="6dp"
-                                    android:visibility="gone"
-                                    app:cardBackgroundColor="@color/main_color"
-                                    app:cardCornerRadius="10dp"
-                                    app:strokeWidth="0dp">
-
-                                    <LinearLayout
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+                                    <com.google.android.material.card.MaterialCardView
+                                        android:id="@+id/card_update"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="center"
-                                        android:layout_marginStart="10dp"
-                                        android:layout_marginEnd="10dp"
-                                        android:gravity="center"
-                                        android:orientation="horizontal">
+                                        android:layout_weight="1"
+                                        android:layout_height="39dp"
+                                        android:layout_alignParentStart="true"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginEnd="6dp"
+                                        android:visibility="gone"
+                                        app:cardBackgroundColor="@color/main_color"
+                                        app:cardCornerRadius="10dp"
+                                        app:strokeWidth="0dp">
 
-                                        <TextView
+                                        <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center"
-                                            android:fontFamily="@font/roboto_medium"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
                                             android:gravity="center"
-                                            android:text="Update"
-                                            android:textColor="@color/white"
-                                            android:textSize="18sp" />
-                                    </LinearLayout>
-                                </com.google.android.material.card.MaterialCardView>
+                                            android:orientation="horizontal">
 
-                                <com.google.android.material.card.MaterialCardView
-                                    android:id="@+id/card_next"
-                                    android:layout_width="218dp"
-                                    android:layout_height="39dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginEnd="6dp"
-                                    android:layout_marginStart="10dp"
-                                    android:visibility="gone"
-                                    app:cardBackgroundColor="@color/main_color"
-                                    app:cardCornerRadius="10dp"
-                                    app:strokeWidth="0dp">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:text="Update"
+                                                android:textColor="@color/white"
+                                                android:textSize="18sp" />
+                                        </LinearLayout>
+                                    </com.google.android.material.card.MaterialCardView>
 
-                                    <LinearLayout
+                                    <com.google.android.material.card.MaterialCardView
+                                        android:id="@+id/card_next"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:layout_height="39dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginEnd="6dp"
                                         android:layout_marginStart="10dp"
-                                        android:layout_marginEnd="10dp"
-                                        android:gravity="center"
-                                        android:orientation="horizontal">
+                                        android:visibility="gone"
+                                        app:cardBackgroundColor="@color/main_color"
+                                        app:cardCornerRadius="10dp"
+                                        app:strokeWidth="0dp">
 
-                                        <TextView
+                                        <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center"
-                                            android:fontFamily="@font/roboto_medium"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginEnd="10dp"
                                             android:gravity="center"
-                                            android:text="Next"
-                                            android:textColor="@color/white"
-                                            android:textSize="18sp" />
-                                    </LinearLayout>
-                                </com.google.android.material.card.MaterialCardView>
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:text="Next"
+                                                android:textColor="@color/white"
+                                                android:textSize="18sp" />
+                                        </LinearLayout>
+                                    </com.google.android.material.card.MaterialCardView>
+                                </LinearLayout>
+
                             </RelativeLayout>
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
