@@ -309,6 +309,7 @@ class DoctorHomeActivity : AppCompatActivity() {
         hideDefault()
     }
     fun toggleBottomNav() {
+        println("+++++++++++++++++++++++++++"+isBottomNavVisible)
         if (isBottomNavVisible) {
             hideBottomNav()
         } else {
@@ -367,28 +368,23 @@ class DoctorHomeActivity : AppCompatActivity() {
 
 
     fun showBottomNav() {
-        if (isTablet()){
+        if (isTablet()) {
             binding.sideTabletView.customBottomNav.visibility = View.VISIBLE
             binding.bottomView.customBottomNav.visibility = View.GONE
-        }else{
+        } else {
             binding.sideTabletView.customBottomNav.visibility = View.GONE
             binding.bottomView.customBottomNav.visibility = View.VISIBLE
         }
-
         isBottomNavVisible = true
     }
 
     fun hideBottomNav() {
-        if (isTablet()){
-            binding.sideTabletView.customBottomNav.visibility = View.GONE
-            binding.bottomView.customBottomNav.visibility = View.GONE
-        }else{
-            binding.sideTabletView.customBottomNav.visibility = View.GONE
-            binding.bottomView.customBottomNav.visibility = View.GONE
-        }
-
+        hideSideMenu()
+        binding.sideTabletView.customBottomNav.visibility = View.GONE
+        binding.bottomView.customBottomNav.visibility = View.GONE
         isBottomNavVisible = false
     }
+
 
     private fun showLogoutPopup() {
         val appPreferences = AppPreferences.getInstance(this@DoctorHomeActivity)
@@ -434,6 +430,7 @@ class DoctorHomeActivity : AppCompatActivity() {
         }
         dialog.show()
     }
+
 
     fun isTablet(): Boolean {
         val metrics = resources.displayMetrics
@@ -542,18 +539,24 @@ class DoctorHomeActivity : AppCompatActivity() {
     }
 
     private fun handleViewForDevice() {
-        if (isTablet()) {
-            binding.sideTabletView.customBottomNav.visibility = View.VISIBLE
+        val isTablet = isTablet()
+        val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+        if (isTablet || isLandscape) {
+            // Use side navigation for tablets or landscape mode
+            binding.sideTabletView.customBottomNav.visibility = View.GONE
             binding.bottomView.customBottomNav.visibility = View.GONE
             binding.sideMenu.customBottomNav.visibility = View.GONE
             manageTabletClicks()
         } else {
+            // Use bottom navigation for phones/portrait
             binding.bottomView.customBottomNav.visibility = View.VISIBLE
             binding.sideTabletView.customBottomNav.visibility = View.GONE
             manageBottomNavClick()
             manageSideMenuClick()
         }
     }
+
 
     private fun manageSideTabHomeIcon() {
 

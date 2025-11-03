@@ -1147,8 +1147,8 @@ class HomeViewModel(private val context: Context) : ViewModel() {
     }
 
     // add cart shop
-    private val _addCartShopStatus = MutableLiveData<String>()
-    val addCartShopStatus: LiveData<String> get() = _addCartShopStatus
+    private val _addCartShopStatus = SingleLiveEvent<String>()
+    val addCartShopStatus: SingleLiveEvent<String> get() = _addCartShopStatus
 
     fun addCartRX(token: String, request: ApiService.AddCartRXRequest) {
         viewModelScope.launch {

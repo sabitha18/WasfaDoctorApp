@@ -336,6 +336,7 @@ class DoctorRXFragment : Fragment() {
         }
         viewModel.addCartShopStatus.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = View.GONE
+            Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
             viewModel.getCartCount(appPreferences.getToken().toString())
 
         }

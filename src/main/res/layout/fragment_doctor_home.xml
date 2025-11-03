@@ -29,7 +29,12 @@
                 android:layout_marginTop="40dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
+                <ImageView
+                    android:id="@+id/img_menu_tab"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/menu"
+                    android:visibility="gone" />
                 <ImageView
                     android:id="@+id/img_menu"
                     android:layout_width="24dp"

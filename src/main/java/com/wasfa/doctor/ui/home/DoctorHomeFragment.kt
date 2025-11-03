@@ -143,13 +143,12 @@ class DoctorHomeFragment : Fragment() {
             popupMenu.show()
         }
         binding.imgMenu.setOnClickListener {
-            if (isTablet()){
+                (activity as? DoctorHomeActivity)?.toggleSideMenu()
+        }
+        binding.imgMenuTab.setOnClickListener {
+
                 (activity as? DoctorHomeActivity)?.hideSideMenu()
                 (activity as? DoctorHomeActivity)?.toggleBottomNav()
-            }else{
-                (activity as? DoctorHomeActivity)?.toggleSideMenu()
-            }
-
         }
     }
 

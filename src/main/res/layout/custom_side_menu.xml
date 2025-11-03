@@ -11,7 +11,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="true">
     <LinearLayout
         android:layout_width="290dp"
         android:layout_height="match_parent"
@@ -561,7 +565,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="68dp"
         android:layout_height="68dp"
