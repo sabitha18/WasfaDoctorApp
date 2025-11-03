@@ -61,19 +61,19 @@
             </LinearLayout>
 
             <HorizontalScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
                 android:scrollbars="none">
 
                 <LinearLayout
                     android:gravity="start"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_marginTop="50dp"
                         android:background="#1b1b28"
@@ -94,31 +94,15 @@
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
-
-                        <!-- Date -->
-                        <TextView
-                            android:textAlignment="center"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Date"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
-
                         <!-- Item Name -->
                         <TextView
                             android:textAlignment="center"
-                            android:layout_width="250dp"
+                            android:layout_width="350dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Doctor Name"
+                            android:text="Patient Name"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -139,16 +123,15 @@
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
-
-                        <!-- Doctor Appreciation -->
+                        <!-- Date -->
                         <TextView
                             android:textAlignment="center"
-                            android:layout_width="220dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Patient Name	"
+                            android:text="Date"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
@@ -173,7 +156,7 @@
                         <!-- Cleared -->
                         <TextView
                             android:textAlignment="center"
-                            android:layout_width="100dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:fontFamily="@font/roboto_bold"

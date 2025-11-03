@@ -84,7 +84,7 @@
     <!-- Cleared -->
     <LinearLayout
         android:id="@+id/lyt_edit"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

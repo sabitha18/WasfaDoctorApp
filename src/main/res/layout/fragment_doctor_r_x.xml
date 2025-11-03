@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="center_vertical"
-            android:elevation="5dp"
             android:layout_marginTop="40dp"
+            android:elevation="5dp"
             android:gravity="center_vertical"
 
             android:orientation="horizontal">
@@ -125,11 +125,12 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -141,15 +142,17 @@
                                 android:text="Patient Info"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
+
                             <ImageView
-                                android:visibility="gone"
-                                android:layout_marginTop="2dp"
                                 android:id="@+id/img_tick"
-                                android:layout_marginStart="10dp"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
-                                android:src="@drawable/green_tick_new"/>
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="2dp"
+                                android:src="@drawable/green_tick_new"
+                                android:visibility="gone" />
                         </LinearLayout>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -447,7 +450,7 @@
                                     android:textSize="12sp" />
 
                                 <LinearLayout
-
+                                    android:id="@+id/gender_arrow"
                                     android:layout_width="40dp"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
@@ -712,28 +715,31 @@
                             android:src="@drawable/search_green" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="12dp"
                     android:orientation="horizontal">
+
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_my_list"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/card_my_list"
-                        app:cardBackgroundColor="@color/main_color"
-                        app:strokeWidth="1dp"
-                        app:strokeColor="@color/main_color"
-                        android:layout_weight="1"
                         android:layout_marginEnd="5dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/main_color"
+                        app:cardCornerRadius="5dp"
+                        app:strokeColor="@color/main_color"
+                        app:strokeWidth="1dp">
+
                         <TextView
                             android:id="@+id/txt_my_list"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:fontFamily="@font/roboto_bold"
                             android:gravity="center"
@@ -741,21 +747,23 @@
                             android:textColor="@color/white"
                             android:textSize="16dp" />
                     </com.google.android.material.card.MaterialCardView>
+
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_all_products"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/card_all_products"
-                        app:cardBackgroundColor="@color/white"
-                        app:strokeWidth="1dp"
-                        app:strokeColor="@color/main_color"
-                        android:layout_weight="1"
                         android:layout_marginStart="5dp"
-                        app:cardCornerRadius="5dp">
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="5dp"
+                        app:strokeColor="@color/main_color"
+                        app:strokeWidth="1dp">
+
                         <TextView
                             android:id="@+id/txt_all_products"
-                            android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:fontFamily="@font/roboto_bold"
                             android:gravity="center"
@@ -764,6 +772,7 @@
                             android:textSize="16dp" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

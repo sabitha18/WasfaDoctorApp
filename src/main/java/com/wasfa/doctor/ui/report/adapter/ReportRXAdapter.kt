@@ -32,7 +32,7 @@ class ReportRXAdapter(
         }
 
         if (editStatus == "false"){
-            holder.itemBinding.imgEdit.visibility = View.GONE
+            holder.itemBinding.imgEdit.visibility = View.VISIBLE
         }else{
             holder.itemBinding.imgEdit.visibility = View.VISIBLE
         }
@@ -47,8 +47,7 @@ class ReportRXAdapter(
         fun bindItem(data: ListRX) {
             itemBinding.txtOrderId.text = data?.prescription_id
             itemBinding.txtOrderDate.text = data?.date
-            itemBinding.txtPatientName.text = data?.customer
-            itemBinding.txtItemName.text = data?.doctor
+            itemBinding.txtItemName.text = data?.customer
             itemBinding.txtItemCount.text = data?.product_count
             itemBinding.txtStatus.text = data?.status_order
 

@@ -97,36 +97,20 @@
                             android:ellipsize="end"
                             android:maxLines="1" />
 
-                        <!-- Date -->
-                        <TextView
-                            android:textAlignment="center"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Date"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
-
                         <!-- Item Name -->
                         <TextView
                             android:textAlignment="center"
-                            android:layout_width="250dp"
+                            android:layout_width="350dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Doctor Name"
+                            android:text="Patient Name"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
-
                         <!-- Selling Price -->
                         <TextView
                             android:textAlignment="center"
@@ -141,16 +125,15 @@
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
-
-                        <!-- Doctor Appreciation -->
+                        <!-- Date -->
                         <TextView
                             android:textAlignment="center"
-                            android:layout_width="220dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="Patient Name	"
+                            android:text="Date"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:singleLine="true"

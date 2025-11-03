@@ -87,6 +87,8 @@ class EditRXFragment : Fragment() {
         manageSearch()
 
         binding.txtHeader.visibility = View.GONE
+        binding.genderArrow.visibility = View.GONE
+        binding.lytNationality.visibility = View.GONE
         callRXDetails()
 
     }
@@ -317,7 +319,10 @@ class EditRXFragment : Fragment() {
         binding.txtDob.text = data?.get(0)?.dob
         binding.txtGender.text = data?.get(0)?.gender
         binding.txtNationality.text = data?.get(0)?.nationality
-        binding.editPhone.setText(data?.get(0)?.phone)
+        val phoneNumber = data?.get(0)?.phone ?: ""
+        val cleanNumber = phoneNumber.replace("+965", "")
+        binding.editPhone.setText(cleanNumber)
+
 
         binding.imgTick.visibility = View.VISIBLE
 
@@ -527,12 +532,12 @@ class EditRXFragment : Fragment() {
             AppPreferences.getInstance(requireContext()).saveFavStatus("0")
             callProductAPI("")
         }
-        binding.cardGender.setOnClickListener {
-            showGenderDropdown(binding.cardGender, genderList())
-        }
-        binding.cardNationality.setOnClickListener {
-            showNationalityDropdown(binding.cardNationality, countryList)
-        }
+//        binding.cardGender.setOnClickListener {
+//            showGenderDropdown(binding.cardGender, genderList())
+//        }
+//        binding.cardNationality.setOnClickListener {
+//            showNationalityDropdown(binding.cardNationality, countryList)
+//        }
         binding.imgBack.setOnClickListener {
             if (parentFragmentManager.backStackEntryCount > 0) {
                 parentFragmentManager.popBackStack()

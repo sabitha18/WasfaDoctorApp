@@ -455,20 +455,21 @@ class DoctorHomeActivity : AppCompatActivity() {
 
         when (doctorType) {
             "Government" -> {
+                if (PermissionManager.hasPermission(PermissionKeys.POS_MANAGER)) {
+                    prefs.saveEditStatus("false")
+                    binding.sideMenu.lytPrescriptions.visibility = View.VISIBLE
+                    binding.sideTabletView.lytPrescriptions.visibility = View.VISIBLE
+                }
+            }
+
+            "Private" -> {
                 if (PermissionManager.hasPermission(PermissionKeys.POS_NEW_RX)) {
 
                     prefs.saveEditStatus("true")
                     binding.sideMenu.lytPrescriptionsNew.visibility = View.VISIBLE
                     binding.sideTabletView.lytPrescriptionsNew.visibility = View.VISIBLE
                 }
-            }
 
-            "Private" -> {
-                if (PermissionManager.hasPermission(PermissionKeys.POS_MANAGER)) {
-                    prefs.saveEditStatus("false")
-                    binding.sideMenu.lytPrescriptions.visibility = View.VISIBLE
-                    binding.sideTabletView.lytPrescriptions.visibility = View.VISIBLE
-                }
             }
 
             else -> {
