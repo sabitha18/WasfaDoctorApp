@@ -12,5 +12,6 @@ data class User(
     val email: String,
     val user_type: String,
     val permissions: List<String>,
-    val doctorType: String
+    val doctorType: String,
+    val newPosRx: String
 )

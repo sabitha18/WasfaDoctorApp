@@ -1256,7 +1256,12 @@ class HomeViewModel(private val context: Context) : ViewModel() {
                 if (response.isSuccessful) {
                     Log.e("*Home Cat*","     success     "+response.body())
                     if (response?.body()?.status == "200") {
-                        _loginDetails.value = response?.body()?.data
+                        if (response?.body()?.error == true){
+                            _showAlertEvent.value = response?.body()?.message
+                        }else{
+                            _loginDetails.value = response?.body()?.data
+                        }
+
                         Log.e("*Home Cat*","     200     ")
                     } else {
                         Log.e("*Home Cat*   88      ", response.body()?.status.toString())

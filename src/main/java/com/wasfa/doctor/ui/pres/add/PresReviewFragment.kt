@@ -42,6 +42,7 @@ class PresReviewFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
     var patientId = ""
+    var submitStatus = "false"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,10 +98,15 @@ class PresReviewFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
 
             if (appPreferences.getNewRXStatus() == "new"){
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, PrescribedRxFragment())
-                    .addToBackStack(null)
-                    .commit()
+                if (submitStatus == "true"){
+                    generatePrescriptionPdf(data)
+                }else{
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, PrescribedRxFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+
             }else{
                 generatePrescriptionPdf(data)
             }
@@ -270,10 +276,17 @@ class PresReviewFragment : Fragment() {
             callSubmitSaveRxApi()
         }
         binding.cardSubmitWithCall.setOnClickListener {
+            submitStatus = "false"
             callSubmitRxNewApi("1")
 
         }
         binding.cardSubmit.setOnClickListener {
+            submitStatus = "false"
+            callSubmitRxNewApi("0")
+
+        }
+        binding.cardSendNew.setOnClickListener {
+            submitStatus = "true"
             callSubmitRxNewApi("0")
 
         }

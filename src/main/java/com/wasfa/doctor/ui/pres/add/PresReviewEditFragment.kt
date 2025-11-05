@@ -43,7 +43,7 @@ class PresReviewEditFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
     var patientId = ""
-
+    var submitStatus = "false"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,19 +57,20 @@ class PresReviewEditFragment : Fragment() {
 
         manageClick()
         setViewModel()
-        if (!isTablet()){
+        if (!isTablet()) {
             (activity as? DoctorHomeActivity)?.showBottomNav()
-        }else{
+        } else {
             (activity as? DoctorHomeActivity)?.hideBottomNav()
         }
         val prefs = AppPreferences.getInstance(requireContext())
 
 
-            binding.lytPosRx.visibility = View.GONE
-            binding.lytPosRxNew.visibility = View.VISIBLE
+        binding.lytPosRx.visibility = View.GONE
+        binding.lytPosRxNew.visibility = View.VISIBLE
 
 
     }
+
     private fun setViewModel() {
         val appPreferences = AppPreferences.getInstance(requireContext())
         viewModel = ViewModelProvider(
@@ -90,15 +91,20 @@ class PresReviewEditFragment : Fragment() {
         }
         viewModel.submitStatus.observe(viewLifecycleOwner) { data ->
             binding.progressBar.visibility = View.GONE
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PrescribedRxFragment())
-                .addToBackStack(null)
-                .commit()
+            if (submitStatus == "true") {
+                generatePrescriptionPdf(data)
+            } else {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, PrescribedRxFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+
 
         }
         viewModel.submitSaveStatus.observe(viewLifecycleOwner) { message ->
             binding.progressBar.visibility = View.GONE
-            Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             val intent = Intent(requireContext(), DoctorHomeActivity::class.java)
             startActivity(intent)
 
@@ -121,7 +127,9 @@ class PresReviewEditFragment : Fragment() {
         val request = ApiService.EditPOSDetailsRequest(
             prescriptionId = appPreferences.getNewRXStatus().toString()
         )
-        viewModel.getPresRXNewDetailsEdit(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
+        viewModel.getPresRXNewDetailsEdit(
+            AppPreferences.getInstance(requireContext()).getToken().toString(), request
+        )
     }
 
     private fun generatePrescriptionPdf(data: SubmitResponse?) {
@@ -156,7 +164,6 @@ class PresReviewEditFragment : Fragment() {
     }
 
 
-
     private fun svgToBitmap(svgString: String, width: Int = 200, height: Int = 200): Bitmap? {
         return try {
             val svg = SVG.getFromString(svgString)
@@ -173,9 +180,12 @@ class PresReviewEditFragment : Fragment() {
     }
 
 
-
     private fun openPdf(file: File) {
-        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
+        val uri = FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.provider",
+            file
+        )
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(uri, "application/pdf")
         intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
@@ -188,6 +198,7 @@ class PresReviewEditFragment : Fragment() {
             Toast.makeText(requireContext(), "No PDF viewer found", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun managePatient(patientInfo: List<PatientInfo>?) {
 
         patientId = patientInfo?.get(0)?.id.toString()
@@ -204,11 +215,13 @@ class PresReviewEditFragment : Fragment() {
         val nationality = patientInfo?.getOrNull(0)?.nationality
         binding.txtNationality.text = if (nationality == "0") "" else safeText(nationality)
 
-        binding.txtGovernorate.text = safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.governorateName)
+        binding.txtGovernorate.text =
+            safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.governorateName)
         binding.txtArea.text = safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.areaName)
         binding.txtBlock.text = safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.block)
         binding.txtStreet.text = safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.street)
-        binding.txtBuilding.text = safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.building)
+        binding.txtBuilding.text =
+            safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.building)
         binding.txtFloor.text = safeText(patientInfo?.getOrNull(0)?.address?.getOrNull(0)?.floor)
 
         if (patientInfo?.getOrNull(0)?.address.isNullOrEmpty()) {
@@ -263,14 +276,22 @@ class PresReviewEditFragment : Fragment() {
             callSubmitSaveRxApi()
         }
         binding.cardSubmitWithCall.setOnClickListener {
+            submitStatus = "false"
             callSubmitRxNewApi("1")
 
         }
         binding.cardSubmit.setOnClickListener {
+            submitStatus = "false"
+            callSubmitRxNewApi("0")
+
+        }
+        binding.cardSendNew.setOnClickListener {
+            submitStatus = "true"
             callSubmitRxNewApi("0")
 
         }
     }
+
     private fun callSubmitSaveRxApi() {
         binding.progressBar.visibility = View.VISIBLE
         val request = ApiService.SubmitRXRequest(
@@ -285,6 +306,7 @@ class PresReviewEditFragment : Fragment() {
             request
         )
     }
+
     private fun callSubmitRxApi() {
         binding.progressBar.visibility = View.VISIBLE
         val request = ApiService.SubmitRXRequest(
@@ -299,6 +321,7 @@ class PresReviewEditFragment : Fragment() {
             request
         )
     }
+
     private fun callSubmitRxNewApi(status: String) {
         binding.progressBar.visibility = View.VISIBLE
         val request = ApiService.SubmitRXRequest(
@@ -306,7 +329,8 @@ class PresReviewEditFragment : Fragment() {
             customerId = patientId,
             is_edit = "1",
             submitWithCustomerCall = status,
-            prescriptionId = AppPreferences.getInstance(requireContext()).getNewRXStatus().toString()
+            prescriptionId = AppPreferences.getInstance(requireContext()).getNewRXStatus()
+                .toString()
         )
         viewModel.submitRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -320,7 +344,7 @@ class PresReviewEditFragment : Fragment() {
         // set the custom layout
         val customLayout: View = layoutInflater.inflate(R.layout.popup_print, null)
         builder.setView(customLayout)
-       //val imgClose = customLayout.findViewById<ImageView>(R.id.img_close)
+        //val imgClose = customLayout.findViewById<ImageView>(R.id.img_close)
         val cardPrint = customLayout.findViewById<MaterialCardView>(R.id.card_print)
         lateinit var dialog: AlertDialog
         cardPrint.setOnClickListener {
@@ -333,6 +357,7 @@ class PresReviewEditFragment : Fragment() {
         dialog = builder.create()
         dialog.show()
     }
+
     fun isTablet(): Boolean {
         val metrics = resources.displayMetrics
         val widthDp = metrics.widthPixels / metrics.density

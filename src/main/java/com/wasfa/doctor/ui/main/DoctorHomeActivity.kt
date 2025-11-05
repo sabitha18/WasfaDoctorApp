@@ -451,7 +451,7 @@ class DoctorHomeActivity : AppCompatActivity() {
         binding.sideTabletView.lytPrescriptionsNew.visibility = View.GONE
 
         when (doctorType) {
-            "Government" -> {
+            "0" -> {
                 if (PermissionManager.hasPermission(PermissionKeys.POS_MANAGER)) {
                     prefs.saveEditStatus("false")
                     binding.sideMenu.lytPrescriptions.visibility = View.VISIBLE
@@ -459,7 +459,7 @@ class DoctorHomeActivity : AppCompatActivity() {
                 }
             }
 
-            "Private" -> {
+            "1" -> {
                 if (PermissionManager.hasPermission(PermissionKeys.POS_NEW_RX)) {
 
                     prefs.saveEditStatus("true")

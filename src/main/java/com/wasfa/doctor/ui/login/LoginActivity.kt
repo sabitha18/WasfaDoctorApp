@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
 
             appPreferences.saveToken(data?.token)
             appPreferences.saveLoginType(data?.userDetails?.user_type)
-            appPreferences.saveDoctorType(data?.userDetails?.doctorType)
+            appPreferences.saveDoctorType(data?.userDetails?.newPosRx)
 
             if (data?.userDetails?.user_type == "influencer") {
                 val intent = Intent(this, DoctorHomeActivity::class.java)

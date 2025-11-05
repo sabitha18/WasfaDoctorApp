@@ -62,19 +62,19 @@ class POSRXListAdapter(
             Glide.with(itemBinding.root.context)
                 .load(data?.thumbnail_image)
                 .into(itemBinding.imgProduct)
-//
-//            if (data?.currentStock == "0") {
-//                itemBinding.cardAddCart.isEnabled = false
-//                itemBinding.cardAddCart.alpha = 0.5f
-//                itemBinding.txtStock.text = "Out of stock"
-//                itemBinding.cardStock.visibility = View.VISIBLE
-//                itemBinding.cardStock.setCardBackgroundColor(Color.parseColor("#A61C5C"))
-//            } else {
-//                itemBinding.cardAddCart.isEnabled = true
-//                itemBinding.cardAddCart.alpha = 1.0f
-//                itemBinding.cardAddCart.visibility = View.VISIBLE
-//                itemBinding.cardStock.visibility = View.GONE
-//            }
+
+            if (data?.currentStock == "0") {
+                itemBinding.cardAddCart.isEnabled = true
+                itemBinding.cardAddCart.alpha = 1.0f
+                itemBinding.txtStock.text = "Out of stock"
+                itemBinding.cardStock.visibility = View.VISIBLE
+                itemBinding.cardStock.setCardBackgroundColor(Color.parseColor("#A61C5C"))
+            } else {
+                itemBinding.cardAddCart.isEnabled = true
+                itemBinding.cardAddCart.alpha = 1.0f
+                itemBinding.cardAddCart.visibility = View.VISIBLE
+                itemBinding.cardStock.visibility = View.GONE
+            }
         }
     }
 

@@ -357,6 +357,7 @@ class DoctorHomeFragment : Fragment() {
 
         viewModel.userPermissionList.observe(viewLifecycleOwner) { data ->
             appPreferences.saveStaffPermissions(data.permissions)
+            appPreferences.saveDoctorType(data?.newPosRx)
             (activity as? DoctorHomeActivity)?.updatePermissionsUI()
 
         }
