@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".MyApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"

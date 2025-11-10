@@ -9,20 +9,19 @@ import android.graphics.pdf.PdfDocument
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
+import com.wasfa.doctor.network.response.CartItem
 import com.wasfa.doctor.network.response.DoctorInfo
-import com.wasfa.doctor.network.response.PatientDetailInfo
-import com.wasfa.doctor.network.response.PresDetails
+import com.wasfa.doctor.network.response.PatientInfo
 import java.io.File
 import java.io.FileOutputStream
 
-object PrescriptionPdfHelper {
+object PrescriptionPdfReviewHelper {
 
     fun generatePdf(
         context: Context,
-        cartItems: List<PresDetails>?,
-        patientInfo: List<PatientDetailInfo>?,
+        cartItems: List<CartItem>?,
+        patientInfo: List<PatientInfo>?,
         doctorInfo: List<DoctorInfo>?,
-        logoPath: Bitmap?,
         qrBitmap: Bitmap?
     ): File? {
         val pdfDocument = PdfDocument()
@@ -46,10 +45,10 @@ object PrescriptionPdfHelper {
             isFakeBoldText = true
         }
         // Load logo bitmap from URL and draw it above the title
-        logoPath?.let { bitmap ->
-            val left = (pageInfo.pageWidth - bitmap.width) / 2f
-            canvas.drawBitmap(bitmap, left, 40f, null)
-        }
+//        logoPath?.let { bitmap ->
+//            val left = (pageInfo.pageWidth - bitmap.width) / 2f
+//            canvas.drawBitmap(bitmap, left, 40f, null)
+//        }
 
 
         val title = "RX PRESCRIPTION"
@@ -138,7 +137,7 @@ object PrescriptionPdfHelper {
             // Calculate row height based on the tallest cell
             val cellHeights = values.mapIndexed { i, text ->
                 val colWidth = columns[i + 1] - columns[i] - 10f // 10f padding horizontally
-                calculateStaticLayoutHeight(text, colWidth, textPaint)
+                calculateStaticLayoutHeight(text.toString(), colWidth, textPaint)
             }
             val rowHeight = cellHeights.maxOrNull()?.coerceAtLeast(minDataRowHeight) ?: minDataRowHeight
 
@@ -156,7 +155,8 @@ object PrescriptionPdfHelper {
             values.forEachIndexed { colIndex, text ->
                 val colStartX = columns[colIndex]
                 val colWidth = columns[colIndex + 1] - columns[colIndex] - 10f
-                drawStaticLayoutText(canvas, text, colStartX + 5f, currentY + 5f, colWidth, textPaint)
+                drawStaticLayoutText(canvas,
+                    text.toString(), colStartX + 5f, currentY + 5f, colWidth, textPaint)
             }
 
             currentY += rowHeight

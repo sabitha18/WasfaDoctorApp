@@ -34,7 +34,12 @@ import com.wasfa.doctor.viewmodel.HomeViewModelFactory
 import java.io.File
 import com.caverock.androidsvg.SVG
 import android.graphics.Canvas
+import android.net.Uri
+import android.webkit.WebView
+import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.wasfa.doctor.network.response.CartResponse
+import com.wasfa.doctor.ui.helper.PrescriptionPdfReviewHelper
 import com.wasfa.doctor.ui.report.PrescribedRxFragment
 
 class PresReviewFragment : Fragment() {
@@ -43,6 +48,13 @@ class PresReviewFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     var patientId = ""
     var submitStatus = "false"
+    private var printResponse: CartResponse = CartResponse(
+        cartItems = emptyList(),
+        patientInfo = emptyList(),
+        doctorInfo = emptyList(),
+        qrCode = "",
+        logo = ""
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -131,6 +143,14 @@ class PresReviewFragment : Fragment() {
             manageCart(data?.cartItems)
             managePatient(data?.patientInfo)
 
+            printResponse = CartResponse(
+                cartItems = data?.cartItems ?: emptyList(),
+                patientInfo = data?.patientInfo ?: emptyList(),
+                doctorInfo = data?.doctorInfo ?: emptyList(),
+                qrCode = data?.qrCode ?: "",
+                logo = data?.logo ?: ""
+            )
+
         }
 
         binding.progressBar.visibility = View.VISIBLE
@@ -168,8 +188,6 @@ class PresReviewFragment : Fragment() {
         }.start()
     }
 
-
-
     private fun svgToBitmap(svgString: String, width: Int = 200, height: Int = 200): Bitmap? {
         return try {
             val svg = SVG.getFromString(svgString)
@@ -184,8 +202,6 @@ class PresReviewFragment : Fragment() {
             null
         }
     }
-
-
 
     private fun openPdf(file: File) {
         val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
@@ -286,10 +302,31 @@ class PresReviewFragment : Fragment() {
 
         }
         binding.cardSendNew.setOnClickListener {
-            submitStatus = "true"
-            callSubmitRxNewApi("0")
+            Thread {
+                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
+                val pdfFile = PrescriptionPdfReviewHelper.generatePdf(
+                    requireContext(),
+                    printResponse?.cartItems,
+                    printResponse?.patientInfo,
+                    printResponse?.doctorInfo,
+                    qrBitmap
+                )
 
+                requireActivity().runOnUiThread {
+                    if (pdfFile == null) {
+                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val dialog = PrescriptionPdfDialog(pdfFile) {
+                            callSubmitRxApi()
+                        }
+                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
+                    }
+                }
+            }.start()
         }
+
+
+
     }
     private fun callSubmitSaveRxApi() {
         binding.progressBar.visibility = View.VISIBLE

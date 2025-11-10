@@ -3,7 +3,11 @@ package com.wasfa.doctor.network.response
 
 data class CartResponse(
     val cartItems: List<CartItem>,
-    val patientInfo: List<PatientInfo>
+    val patientInfo: List<PatientInfo>,
+    val logo: String,
+    val qrCode: String,
+    val doctorInfo: List<DoctorInfo>,
+
 )
 
 data class CartItem(

@@ -63,6 +63,7 @@ dependencies {
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
     implementation ("com.github.yalantis:ucrop:2.2.8")
     implementation ("com.github.chrisbanes:PhotoView:2.3.0")
+    implementation ("com.github.mhiew:android-pdf-viewer:3.2.0-beta.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

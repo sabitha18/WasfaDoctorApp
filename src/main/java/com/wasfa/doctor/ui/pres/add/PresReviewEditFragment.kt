@@ -26,7 +26,6 @@ import com.wasfa.doctor.network.ApiService
 import com.wasfa.doctor.network.response.PatientInfo
 import com.wasfa.doctor.network.response.SubmitResponse
 import com.wasfa.doctor.ui.main.DoctorHomeActivity
-import com.wasfa.doctor.ui.pres.adapter.MedicationListPreviewAdapter
 import com.wasfa.doctor.ui.helper.PrescriptionPdfHelper
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
@@ -34,9 +33,11 @@ import java.io.File
 import com.caverock.androidsvg.SVG
 import android.graphics.Canvas
 import androidx.navigation.fragment.findNavController
+import com.wasfa.doctor.network.response.POSEditRXNewResponse
 import com.wasfa.doctor.ui.pres.adapter.MedicationListPreviewEditAdapter
 import com.wasfa.doctor.ui.report.PrescribedRxFragment
 import com.wasfa.doctor.network.response.PresDetails
+import com.wasfa.doctor.ui.helper.PrescriptionPdfDetailsHelper
 
 class PresReviewEditFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
@@ -44,6 +45,11 @@ class PresReviewEditFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     var patientId = ""
     var submitStatus = "false"
+    private var printResponse: POSEditRXNewResponse = POSEditRXNewResponse(
+        prescriptionDetails = emptyList(),
+        patientInfo = emptyList(),
+        doctorInfo = emptyList(),
+    )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -121,6 +127,11 @@ class PresReviewEditFragment : Fragment() {
             manageCart(data?.prescriptionDetails)
             managePatient(data?.patientInfo)
 
+            printResponse = POSEditRXNewResponse(
+                prescriptionDetails = data?.prescriptionDetails ?: emptyList(),
+                patientInfo = data?.patientInfo ?: emptyList(),
+                doctorInfo = data?.doctorInfo ?: emptyList()
+            )
         }
 
         binding.progressBar.visibility = View.VISIBLE
@@ -286,9 +297,26 @@ class PresReviewEditFragment : Fragment() {
 
         }
         binding.cardSendNew.setOnClickListener {
-            submitStatus = "true"
-            callSubmitRxNewApi("0")
+            Thread {
+             //   val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
+                val pdfFile = PrescriptionPdfDetailsHelper.generatePdf(
+                    requireContext(),
+                    printResponse?.prescriptionDetails,
+                    printResponse?.patientInfo,
+                    printResponse?.doctorInfo
+                )
 
+                requireActivity().runOnUiThread {
+                    if (pdfFile == null) {
+                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val dialog = PrescriptionPdfDialog(pdfFile) {
+                            callSubmitRxNewApi("0")
+                        }
+                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
+                    }
+                }
+            }.start()
         }
     }
 
@@ -312,7 +340,7 @@ class PresReviewEditFragment : Fragment() {
         val request = ApiService.SubmitRXRequest(
             influencerId = "",
             customerId = patientId,
-            is_edit = "",
+            is_edit = "1",
             submitWithCustomerCall = "",
             prescriptionId = ""
         )

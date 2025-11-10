@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wasfa.doctor.databinding.TabPosRxBinding
 import com.wasfa.doctor.network.response.Orders
+import com.wasfa.doctor.network.response.Prescriptions
 
 class OrderListAdapter(
-    private val CatList: List<Orders>,
+    private val CatList: List<Prescriptions>,
     private val type: String,
-    private val listener: (Orders, Int) -> Unit
+    private val listener: (Prescriptions, Int) -> Unit
 ) :
     RecyclerView.Adapter<OrderListAdapter.ViewHolder>() {
 
@@ -38,12 +39,12 @@ class OrderListAdapter(
 
     class ViewHolder(var itemBinding: TabPosRxBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindItem(data: Orders) {
-            itemBinding.txtDoctorName.text = "Doctor Name:  "+data?.influencer
-            itemBinding.txtPatientName.text = "Patient Name:  "+data?.patientName
-            itemBinding.txtDate.text = "Date:  "+data?.createdAt
-            itemBinding.txtOrderQuantity.text = "ItemCount: "+data?.productCount
-            itemBinding.txtPresId.text = "Prescription ID: "+data?.prescriptionNo
+        fun bindItem(data: Prescriptions) {
+            itemBinding.txtDoctorName.text = "Doctor Name:  "+data?.doctor
+            itemBinding.txtPatientName.text = "Patient Name:  "+data?.customer
+           // itemBinding.txtDate.text = "Date:  "+data?.createdAt
+            itemBinding.txtOrderQuantity.text = "ItemCount: "+data?.product_count
+            itemBinding.txtPresId.text = "Prescription ID: "+data?.prescription_id
 
 
         }

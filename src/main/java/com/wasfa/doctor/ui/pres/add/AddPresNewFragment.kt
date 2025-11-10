@@ -28,12 +28,11 @@ import com.google.android.material.card.MaterialCardView
 import com.wasfa.doctor.R
 import com.wasfa.doctor.databinding.FragmentAddPresNewBinding
 import com.wasfa.doctor.ui.main.DoctorHomeActivity
-import com.wasfa.doctor.ui.pres.PresDetailsFragment
 import com.wasfa.doctor.ui.pres.PrescriptionFragment
 import com.wasfa.doctor.helper.AppPreferences
 import com.wasfa.doctor.network.ApiService
 import com.wasfa.doctor.network.response.CountryListResponse
-import com.wasfa.doctor.network.response.Orders
+import com.wasfa.doctor.network.response.Prescriptions
 import com.wasfa.doctor.network.response.UserDetails
 import com.wasfa.doctor.ui.model.Cat
 import com.wasfa.doctor.ui.pres.adapter.CountryAdapter
@@ -82,26 +81,16 @@ class AddPresNewFragment : Fragment() {
     private fun callOrderListApi() {
         binding.cardNext.visibility = View.VISIBLE
         binding.progressBarOrder.visibility = View.VISIBLE
-        val request = ApiService.OrderListRequest(
-            area = "",
-            per_page = "3",
+        val appPreferences = AppPreferences.getInstance(requireContext())
+        viewModel.currentPagePres = 1
+        viewModel.clearReportListData()
+        val request = ApiService.PresRequest(
             page_no = "1",
-            search = "",
-            date = "",
-            order_type = "",
-            collected_by_seller = "",
-            zones = "",
-            payment_change = "",
-            payment_method = "",
-            payment_status = "",
-            collected_by = "",
-            delivery_boy = "",
-            delivery_status = "",
-            userId = patientId,
-            IsPrescription = "1",
-            driverCleared = ""
+            per_page = "4",
+            keyword = searchValue,
+            userId = patientId
         )
-        viewModel.getOrderList(AppPreferences.getInstance(requireContext()).getToken().toString(),request)
+        viewModel.getPresList(appPreferences.getToken().toString(), request)
     }
 
     private fun handleEditTexts() {
@@ -197,10 +186,10 @@ class AddPresNewFragment : Fragment() {
             viewModel.getCart(appPreferences.getToken().toString())
 
         }
-        viewModel.orderListData.observe(viewLifecycleOwner) { data ->
+        viewModel.presListData.observe(viewLifecycleOwner) { data ->
 
             binding.progressBarOrder.visibility = View.GONE
-            manageOrderList(data?.orders)
+            manageOrderList(data?.prescriptions)
 
         }
         viewModel.loadingState.observe(viewLifecycleOwner) { isLoading ->
@@ -232,7 +221,7 @@ class AddPresNewFragment : Fragment() {
         }
         viewModel.patientIdStatus.observe(viewLifecycleOwner) { patient_id ->
             binding.progressBar.visibility = View.GONE
-           patientId = patient_id
+            patientId = patient_id
             callOrderListApi()
 
         }
@@ -261,7 +250,7 @@ class AddPresNewFragment : Fragment() {
         viewModel.emptyCart(appPreferences.getToken().toString())
 
     }
-    private fun manageOrderList(data: List<Orders>?){
+    private fun manageOrderList(data: List<Prescriptions>?){
         if (data.isNullOrEmpty()) {
             binding.txtNoDataOrder.visibility = View.VISIBLE
             binding.cardViewAllOrder.visibility = View.GONE
@@ -275,7 +264,7 @@ class AddPresNewFragment : Fragment() {
 
                 val catAdapter = OrderListAdapter(data!!,"doctor") { data, position ->
 
-                    AppPreferences.getInstance(requireContext()).savePresID(data?.prescriptionNo)
+                    AppPreferences.getInstance(requireContext()).savePresID(data?.id)
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container,
                             com.wasfa.doctor.ui.pres.PresDetailsFragment()

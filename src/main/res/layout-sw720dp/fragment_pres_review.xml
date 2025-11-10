@@ -574,7 +574,7 @@
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/roboto_medium"
                                     android:gravity="center"
-                                    android:text="Save &amp; Print"
+                                    android:text="Print"
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />
                             </LinearLayout>
@@ -674,7 +674,7 @@
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/roboto_medium"
                                     android:gravity="center"
-                                    android:text="Save &amp; Print"
+                                    android:text="Print"
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />
                             </LinearLayout>
