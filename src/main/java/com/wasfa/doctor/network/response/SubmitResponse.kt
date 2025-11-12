@@ -5,7 +5,7 @@ data class SubmitResponse (
     val logo: String,
     val qrCode: String,
     val doctorInfo: List<DoctorInfo>,
-    val patientInfo: List<PatientDetailInfo>,
+    val patientInfo: List<PatientInfo>,
     val prescriptionDetails: List<PresDetails>
 )
 data class PresDetails(

@@ -49,6 +49,8 @@ class PresReviewEditFragment : Fragment() {
         prescriptionDetails = emptyList(),
         patientInfo = emptyList(),
         doctorInfo = emptyList(),
+        qrCode = "",
+        logo = ""
     )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -130,7 +132,9 @@ class PresReviewEditFragment : Fragment() {
             printResponse = POSEditRXNewResponse(
                 prescriptionDetails = data?.prescriptionDetails ?: emptyList(),
                 patientInfo = data?.patientInfo ?: emptyList(),
-                doctorInfo = data?.doctorInfo ?: emptyList()
+                doctorInfo = data?.doctorInfo ?: emptyList(),
+                qrCode = data?.qrCode ?: "",
+                logo = data?.logo ?: ""
             )
         }
 
@@ -287,23 +291,26 @@ class PresReviewEditFragment : Fragment() {
             callSubmitSaveRxApi()
         }
         binding.cardSubmitWithCall.setOnClickListener {
-            submitStatus = "false"
-            callSubmitRxNewApi("1")
 
-        }
-        binding.cardSubmit.setOnClickListener {
-            submitStatus = "false"
-            callSubmitRxNewApi("0")
-
-        }
-        binding.cardSendNew.setOnClickListener {
             Thread {
-             //   val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
+                val logoBitmap = try {
+                    Glide.with(requireContext())
+                        .asBitmap()
+                        .load(printResponse?.logo?.replace("\\/", "/"))
+                        .submit(100, 80)
+                        .get()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
+                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
                 val pdfFile = PrescriptionPdfDetailsHelper.generatePdf(
                     requireContext(),
                     printResponse?.prescriptionDetails,
                     printResponse?.patientInfo,
-                    printResponse?.doctorInfo
+                    printResponse?.doctorInfo,
+                    logoBitmap,
+                    qrBitmap
                 )
 
                 requireActivity().runOnUiThread {
@@ -311,6 +318,44 @@ class PresReviewEditFragment : Fragment() {
                         Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
                     } else {
                         val dialog = PrescriptionPdfDialog(pdfFile) {
+                            submitStatus = "false"
+                            callSubmitRxNewApi("1")
+                        }
+                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
+                    }
+                }
+            }.start()
+
+        }
+        binding.cardSubmit.setOnClickListener {
+
+            Thread {
+                val logoBitmap = try {
+                    Glide.with(requireContext())
+                        .asBitmap()
+                        .load(printResponse?.logo?.replace("\\/", "/"))
+                        .submit(100, 80)
+                        .get()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
+                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
+                val pdfFile = PrescriptionPdfDetailsHelper.generatePdf(
+                    requireContext(),
+                    printResponse?.prescriptionDetails,
+                    printResponse?.patientInfo,
+                    printResponse?.doctorInfo,
+                    logoBitmap,
+                    qrBitmap
+                )
+
+                requireActivity().runOnUiThread {
+                    if (pdfFile == null) {
+                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val dialog = PrescriptionPdfDialog(pdfFile) {
+                            submitStatus = "false"
                             callSubmitRxNewApi("0")
                         }
                         dialog.show(parentFragmentManager, "PdfPreviewDialog")
@@ -318,6 +363,7 @@ class PresReviewEditFragment : Fragment() {
                 }
             }.start()
         }
+
     }
 
     private fun callSubmitSaveRxApi() {

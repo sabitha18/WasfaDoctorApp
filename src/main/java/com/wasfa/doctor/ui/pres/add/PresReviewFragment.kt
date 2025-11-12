@@ -110,14 +110,15 @@ class PresReviewFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
 
             if (appPreferences.getNewRXStatus() == "new"){
-                if (submitStatus == "true"){
-                    generatePrescriptionPdf(data)
-                }else{
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, PrescribedRxFragment())
-                        .addToBackStack(null)
-                        .commit()
-                }
+                generatePrescriptionPdf(data)
+//                if (submitStatus == "true"){
+//                    generatePrescriptionPdf(data)
+//                }else{
+//                    parentFragmentManager.beginTransaction()
+//                        .replace(R.id.fragment_container, PrescribedRxFragment())
+//                        .addToBackStack(null)
+//                        .commit()
+//                }
 
             }else{
                 generatePrescriptionPdf(data)
@@ -292,24 +293,26 @@ class PresReviewFragment : Fragment() {
             callSubmitSaveRxApi()
         }
         binding.cardSubmitWithCall.setOnClickListener {
-            submitStatus = "false"
-            callSubmitRxNewApi("1")
 
-        }
-        binding.cardSubmit.setOnClickListener {
-            submitStatus = "false"
-            callSubmitRxNewApi("0")
-
-        }
-        binding.cardSendNew.setOnClickListener {
             Thread {
+                val logoBitmap = try {
+                    Glide.with(requireContext())
+                        .asBitmap()
+                        .load(printResponse?.logo?.replace("\\/", "/"))
+                        .submit(100, 80)
+                        .get()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
                 val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
                 val pdfFile = PrescriptionPdfReviewHelper.generatePdf(
                     requireContext(),
                     printResponse?.cartItems,
                     printResponse?.patientInfo,
                     printResponse?.doctorInfo,
-                    qrBitmap
+                    qrBitmap,
+                    logoBitmap
                 )
 
                 requireActivity().runOnUiThread {
@@ -317,15 +320,50 @@ class PresReviewFragment : Fragment() {
                         Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
                     } else {
                         val dialog = PrescriptionPdfDialog(pdfFile) {
-                            callSubmitRxApi()
+                            submitStatus = "false"
+                            callSubmitRxNewApi("1")
                         }
                         dialog.show(parentFragmentManager, "PdfPreviewDialog")
                     }
                 }
             }.start()
         }
+        binding.cardSubmit.setOnClickListener {
 
+            Thread {
+                val logoBitmap = try {
+                    Glide.with(requireContext())
+                        .asBitmap()
+                        .load(printResponse?.logo?.replace("\\/", "/"))
+                        .submit(100, 80)
+                        .get()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
+                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
+                val pdfFile = PrescriptionPdfReviewHelper.generatePdf(
+                    requireContext(),
+                    printResponse?.cartItems,
+                    printResponse?.patientInfo,
+                    printResponse?.doctorInfo,
+                    qrBitmap,
+                    logoBitmap
+                )
+                requireActivity().runOnUiThread {
+                    if (pdfFile == null) {
+                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val dialog = PrescriptionPdfDialog(pdfFile) {
+                            submitStatus = "false"
+                            callSubmitRxNewApi("0")
+                        }
+                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
+                    }
+                }
+            }.start()
 
+        }
 
     }
     private fun callSubmitSaveRxApi() {

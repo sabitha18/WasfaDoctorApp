@@ -40,6 +40,7 @@ import com.wasfa.doctor.ui.report.PrescribedRxFragment
 import com.wasfa.doctor.network.response.PresDetails
 import com.wasfa.doctor.ui.helper.PrescriptionPdfDetailsHelper
 import com.wasfa.doctor.ui.pres.add.PrescriptionPdfDialog
+import kotlin.math.log
 
 class PresViewFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
@@ -50,6 +51,8 @@ class PresViewFragment : Fragment() {
         prescriptionDetails = emptyList(),
         patientInfo = emptyList(),
         doctorInfo = emptyList(),
+        qrCode = "",
+        logo = ""
     )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -130,7 +133,9 @@ class PresViewFragment : Fragment() {
             printResponse = POSEditRXNewResponse(
                 prescriptionDetails = data?.prescriptionDetails ?: emptyList(),
                 patientInfo = data?.patientInfo ?: emptyList(),
-                doctorInfo = data?.doctorInfo ?: emptyList()
+                doctorInfo = data?.doctorInfo ?: emptyList(),
+                qrCode = data?.qrCode ?: "",
+                logo = data?.logo ?: ""
             )
         }
 
@@ -257,18 +262,18 @@ class PresViewFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        val prefs = AppPreferences.getInstance(requireContext())
-        if (prefs.getKey() == "true") {
-            prefs.saveKey("false")
-            val intent = Intent(requireContext(), DoctorHomeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            startActivity(intent)
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//
+//        val prefs = AppPreferences.getInstance(requireContext())
+//        if (prefs.getKey() == "true") {
+//            prefs.saveKey("false")
+//            val intent = Intent(requireContext(), DoctorHomeActivity::class.java).apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            }
+//            startActivity(intent)
+//        }
+//    }
 
     private fun manageClick() {
         binding.cardBack.setOnClickListener {
@@ -295,29 +300,40 @@ class PresViewFragment : Fragment() {
 
         }
         binding.cardSendNew.setOnClickListener {
-            Thread {
-                //   val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
-                val pdfFile = PrescriptionPdfDetailsHelper.generatePdf(
-                    requireContext(),
-                    printResponse?.prescriptionDetails,
-                    printResponse?.patientInfo,
-                    printResponse?.doctorInfo
-                )
-
-                requireActivity().runOnUiThread {
-                    if (pdfFile == null) {
-                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val dialog = PrescriptionPdfDialog(pdfFile) {
-
-                        }
-                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
-                    }
-                }
-            }.start()
+            generatePrescriptionPdf(printResponse)
         }
     }
 
+    private fun generatePrescriptionPdf(data: POSEditRXNewResponse?) {
+        Thread {
+            val logoBitmap = try {
+                Glide.with(requireContext())
+                    .asBitmap()
+                    .load(data?.logo?.replace("\\/", "/"))
+                    .submit(100, 80)
+                    .get()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+            val qrBitmap = svgToBitmap(data?.qrCode.toString())
+            val pdfFile = PrescriptionPdfHelper.generatePdf(
+                requireContext(),
+                data?.prescriptionDetails,
+                data?.patientInfo,
+                data?.doctorInfo,
+                logoBitmap,    // <-- Pass Bitmap here instead of String
+                qrBitmap
+            )
+
+            pdfFile?.let {
+                // Switch back to Main thread to open PDF
+                requireActivity().runOnUiThread {
+                    openPdf(it)
+                }
+            }
+        }.start()
+    }
     private fun callSubmitSaveRxApi() {
         binding.progressBar.visibility = View.VISIBLE
         val request = ApiService.SubmitRXRequest(

@@ -646,12 +646,12 @@
                                 android:textSize="16sp" />
 
                         </com.google.android.material.card.MaterialCardView>
-
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/card_send_new"
                             android:layout_width="199dp"
                             android:layout_height="46dp"
                             android:layout_marginStart="20dp"
+                            android:visibility="gone"
                             app:cardBackgroundColor="@color/doctor_main_color"
                             app:cardCornerRadius="12dp">
 
@@ -674,12 +674,13 @@
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/roboto_medium"
                                     android:gravity="center"
-                                    android:text="Save &amp; Print"
+                                    android:text="Print"
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />
                             </LinearLayout>
 
                         </com.google.android.material.card.MaterialCardView>
+
                     </LinearLayout>
 
                 </LinearLayout>

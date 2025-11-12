@@ -22,7 +22,8 @@ object PrescriptionPdfReviewHelper {
         cartItems: List<CartItem>?,
         patientInfo: List<PatientInfo>?,
         doctorInfo: List<DoctorInfo>?,
-        qrBitmap: Bitmap?
+        qrBitmap: Bitmap?,
+        logoPath: Bitmap?,
     ): File? {
         val pdfDocument = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size
@@ -45,10 +46,10 @@ object PrescriptionPdfReviewHelper {
             isFakeBoldText = true
         }
         // Load logo bitmap from URL and draw it above the title
-//        logoPath?.let { bitmap ->
-//            val left = (pageInfo.pageWidth - bitmap.width) / 2f
-//            canvas.drawBitmap(bitmap, left, 40f, null)
-//        }
+        logoPath?.let { bitmap ->
+            val left = (pageInfo.pageWidth - bitmap.width) / 2f
+            canvas.drawBitmap(bitmap, left, 40f, null)
+        }
 
 
         val title = "RX PRESCRIPTION"

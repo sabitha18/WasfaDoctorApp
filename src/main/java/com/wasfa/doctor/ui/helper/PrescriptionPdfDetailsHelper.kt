@@ -21,7 +21,9 @@ object PrescriptionPdfDetailsHelper {
         context: Context,
         cartItems: List<PresDetails>?,
         patientInfo: List<PatientInfo>?,
-        doctorInfo: List<DoctorInfo>?
+        doctorInfo: List<DoctorInfo>?,
+        logoPath: Bitmap?,
+        qrBitmap: Bitmap?
     ): File? {
         val pdfDocument = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size
@@ -44,10 +46,10 @@ object PrescriptionPdfDetailsHelper {
             isFakeBoldText = true
         }
         // Load logo bitmap from URL and draw it above the title
-//        logoPath?.let { bitmap ->
-//            val left = (pageInfo.pageWidth - bitmap.width) / 2f
-//            canvas.drawBitmap(bitmap, left, 40f, null)
-//        }
+        logoPath?.let { bitmap ->
+            val left = (pageInfo.pageWidth - bitmap.width) / 2f
+            canvas.drawBitmap(bitmap, left, 40f, null)
+        }
 
 
         val title = "RX PRESCRIPTION"
@@ -171,10 +173,10 @@ object PrescriptionPdfDetailsHelper {
         canvas.drawText("Scan here to receive the Prescription", 300f, footerY + 100f, textPaint)
 
         // Draw barcode if exists
-//        qrBitmap?.let {
-//            val scaled = Bitmap.createScaledBitmap(it, 80, 80, true)
-//            canvas.drawBitmap(scaled, 300f, footerY + 120f, null)
-//        }
+        qrBitmap?.let {
+            val scaled = Bitmap.createScaledBitmap(it, 80, 80, true)
+            canvas.drawBitmap(scaled, 300f, footerY + 120f, null)
+        }
 
         // Footer text right aligned
         val footerText = "Apix Medical"

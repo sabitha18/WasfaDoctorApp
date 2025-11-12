@@ -11,6 +11,7 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import com.wasfa.doctor.network.response.DoctorInfo
 import com.wasfa.doctor.network.response.PatientDetailInfo
+import com.wasfa.doctor.network.response.PatientInfo
 import com.wasfa.doctor.network.response.PresDetails
 import java.io.File
 import java.io.FileOutputStream
@@ -20,7 +21,7 @@ object PrescriptionPdfHelper {
     fun generatePdf(
         context: Context,
         cartItems: List<PresDetails>?,
-        patientInfo: List<PatientDetailInfo>?,
+        patientInfo: List<PatientInfo>?,
         doctorInfo: List<DoctorInfo>?,
         logoPath: Bitmap?,
         qrBitmap: Bitmap?
