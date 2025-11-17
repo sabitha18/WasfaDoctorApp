@@ -225,7 +225,7 @@ class PresViewFragment : Fragment() {
 
         binding.txtPatientName.text = safeText(patientInfo?.getOrNull(0)?.name)
         binding.txtDob.text = safeText(patientInfo?.getOrNull(0)?.dob)
-        binding.txtCivilId.text = safeText(patientInfo?.getOrNull(0)?.civil_id)
+        binding.txtCivilId.text = safeText(patientInfo?.getOrNull(0)?.civilId)
         binding.txtPhone.text = safeText(patientInfo?.getOrNull(0)?.phone)
         binding.txtGender.text = safeText(patientInfo?.getOrNull(0)?.gender)
         val nationality = patientInfo?.getOrNull(0)?.nationality

@@ -39,6 +39,7 @@ import android.webkit.WebView
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.wasfa.doctor.network.response.CartResponse
+import com.wasfa.doctor.ui.helper.PdfViewerFragment
 import com.wasfa.doctor.ui.helper.PrescriptionPdfReviewHelper
 import com.wasfa.doctor.ui.report.PrescribedRxFragment
 
@@ -182,9 +183,22 @@ class PresReviewFragment : Fragment() {
 
             pdfFile?.let {
                 // Switch back to Main thread to open PDF
+//                requireActivity().runOnUiThread {
+//                    openPdf(it)
+//                }
+
                 requireActivity().runOnUiThread {
-                    openPdf(it)
+                    val bundle = Bundle().apply {
+                        putString("pdfPath", it.absolutePath)
+
+                    }
+                    val fragment = PdfViewerFragment().apply { arguments = bundle }
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit()
                 }
+
             }
         }.start()
     }
@@ -294,74 +308,44 @@ class PresReviewFragment : Fragment() {
         }
         binding.cardSubmitWithCall.setOnClickListener {
 
-            Thread {
-                val logoBitmap = try {
-                    Glide.with(requireContext())
-                        .asBitmap()
-                        .load(printResponse?.logo?.replace("\\/", "/"))
-                        .submit(100, 80)
-                        .get()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    null
-                }
-                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
-                val pdfFile = PrescriptionPdfReviewHelper.generatePdf(
-                    requireContext(),
-                    printResponse?.cartItems,
-                    printResponse?.patientInfo,
-                    printResponse?.doctorInfo,
-                    qrBitmap,
-                    logoBitmap
-                )
-
-                requireActivity().runOnUiThread {
-                    if (pdfFile == null) {
-                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val dialog = PrescriptionPdfDialog(pdfFile) {
-                            submitStatus = "false"
-                            callSubmitRxNewApi("1")
-                        }
-                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
-                    }
-                }
-            }.start()
+            submitStatus = "false"
+            callSubmitRxNewApi("1")
         }
         binding.cardSubmit.setOnClickListener {
-
-            Thread {
-                val logoBitmap = try {
-                    Glide.with(requireContext())
-                        .asBitmap()
-                        .load(printResponse?.logo?.replace("\\/", "/"))
-                        .submit(100, 80)
-                        .get()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    null
-                }
-                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
-                val pdfFile = PrescriptionPdfReviewHelper.generatePdf(
-                    requireContext(),
-                    printResponse?.cartItems,
-                    printResponse?.patientInfo,
-                    printResponse?.doctorInfo,
-                    qrBitmap,
-                    logoBitmap
-                )
-                requireActivity().runOnUiThread {
-                    if (pdfFile == null) {
-                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val dialog = PrescriptionPdfDialog(pdfFile) {
-                            submitStatus = "false"
-                            callSubmitRxNewApi("0")
-                        }
-                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
-                    }
-                }
-            }.start()
+            submitStatus = "false"
+            callSubmitRxNewApi("0")
+//            Thread {
+//                val logoBitmap = try {
+//                    Glide.with(requireContext())
+//                        .asBitmap()
+//                        .load(printResponse?.logo?.replace("\\/", "/"))
+//                        .submit(100, 80)
+//                        .get()
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                    null
+//                }
+//                val qrBitmap = svgToBitmap(printResponse?.qrCode.toString())
+//                val pdfFile = PrescriptionPdfReviewHelper.generatePdf(
+//                    requireContext(),
+//                    printResponse?.cartItems,
+//                    printResponse?.patientInfo,
+//                    printResponse?.doctorInfo,
+//                    qrBitmap,
+//                    logoBitmap
+//                )
+//                requireActivity().runOnUiThread {
+//                    if (pdfFile == null) {
+//                        Toast.makeText(requireContext(), "❌ PDF generation failed", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        val dialog = PrescriptionPdfDialog(pdfFile) {
+//                            submitStatus = "false"
+//                            callSubmitRxNewApi("0")
+//                        }
+//                        dialog.show(parentFragmentManager, "PdfPreviewDialog")
+//                    }
+//                }
+//            }.start()
 
         }
 

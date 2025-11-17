@@ -65,6 +65,7 @@ dependencies {
     implementation ("com.github.chrisbanes:PhotoView:2.3.0")
     implementation ("com.github.mhiew:android-pdf-viewer:3.2.0-beta.1")
 
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
