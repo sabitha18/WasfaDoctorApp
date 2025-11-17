@@ -36,6 +36,7 @@ class PresListAdapter(
         fun bindItem(data: Prescriptions) {
             itemBinding.txtCustName.text = data?.name
             itemBinding.txtMedPres.text = data?.medicationsPrescribed
+            itemBinding.txtDate.text = data?.createdAt
             itemBinding.txtMedCondition.text =
                 if (data?.patientInfo?.get(0)?.phone.isNullOrBlank() || data?.patientInfo?.get(0)?.phone == "null") {
                     ""

@@ -215,6 +215,7 @@ class AddPresNewFragment : Fragment() {
                 binding.cardNext.visibility = View.GONE
                 binding.rltBtn.visibility = View.VISIBLE
             }
+            binding.txtPatientName.text = binding.editFullName.text.toString()
            Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
             //56567876
 
@@ -304,6 +305,7 @@ class AddPresNewFragment : Fragment() {
             binding.cardCreate.visibility = View.GONE
             binding.cardUpdate.visibility = View.VISIBLE
 
+            binding.txtPatientName.text = data.get(0)?.name
             binding.editCivilId.setText(data.get(0)?.civilId)
             binding.editAltPhone.setText(data.get(0)?.alternateNumber)
             binding.editFullName.setText(data.get(0)?.name)

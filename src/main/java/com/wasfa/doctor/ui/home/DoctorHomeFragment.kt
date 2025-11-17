@@ -366,7 +366,7 @@ class DoctorHomeFragment : Fragment() {
     private fun createDashboardListGraph(data: GraphResponse): List<DashboardItem> {
         return listOf(
             DashboardItem("Points", data.amount.toString()),
-            DashboardItem("Count Of RX", data.countOfSale.toString()),
+            DashboardItem("RX Count", data.countOfSale.toString()),
             DashboardItem("Pending Points", data.pendingCommission),
             DashboardItem("Redeemed Points", data.completedPayment),
 //            DashboardItem("Refund orders and Amount", data.refundOrders.toString()),

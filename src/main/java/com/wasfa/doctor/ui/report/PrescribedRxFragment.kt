@@ -166,6 +166,8 @@ class PrescribedRxFragment : Fragment() {
 
             if (type == "view"){
                 AppPreferences.getInstance(requireContext()).saveNewRXStatus(product?.prescription_id)
+                AppPreferences.getInstance(requireContext()).saveFavStatus("1")
+                AppPreferences.getInstance(requireContext()).savePatientId(product?.customerId)
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, PresViewFragment())
                     .addToBackStack(null)

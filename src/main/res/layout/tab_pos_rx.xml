@@ -40,16 +40,6 @@
                 android:textColor="#1D1E20"
                 android:textSize="16sp" />
 
-            <TextView
-
-                android:id="@+id/txt_patient_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:singleLine="true"
-                android:text="Patient name : "
-                android:textColor="#1D1E20"
-                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txt_doctor_name"

@@ -21,5 +21,6 @@ data class Prescriptions(
     val status_order: String,
     val price_request: String,
     val call_request: String,
-    val prescription_id: String
+    val prescription_id: String,
+    val createdAt: String
 )

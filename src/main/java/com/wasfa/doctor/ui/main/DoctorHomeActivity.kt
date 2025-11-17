@@ -465,6 +465,9 @@ class DoctorHomeActivity : AppCompatActivity() {
                     prefs.saveEditStatus("true")
                     binding.sideMenu.lytPrescriptionsNew.visibility = View.VISIBLE
                     binding.sideTabletView.lytPrescriptionsNew.visibility = View.VISIBLE
+
+                    binding.sideMenu.lytPrescriptions.visibility = View.VISIBLE
+                    binding.sideTabletView.lytPrescriptions.visibility = View.VISIBLE
                 }
 
             }

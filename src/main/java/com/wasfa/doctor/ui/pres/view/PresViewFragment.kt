@@ -39,7 +39,9 @@ import com.wasfa.doctor.ui.pres.adapter.MedicationListPreviewEditAdapter
 import com.wasfa.doctor.ui.report.PrescribedRxFragment
 import com.wasfa.doctor.network.response.PresDetails
 import com.wasfa.doctor.ui.helper.PrescriptionPdfDetailsHelper
+import com.wasfa.doctor.ui.pres.add.AddMedPOSNewEditFragment
 import com.wasfa.doctor.ui.pres.add.PrescriptionPdfDialog
+import com.wasfa.doctor.ui.pres.edit.EditRXFragment
 import kotlin.math.log
 
 class PresViewFragment : Fragment() {
@@ -81,6 +83,7 @@ class PresViewFragment : Fragment() {
         binding.cardSubmit.visibility = View.GONE
         binding.cardSubmitWithCall.visibility = View.GONE
         binding.cardSendNew.visibility = View.VISIBLE
+        binding.cardEdit.visibility = View.VISIBLE
 
 
     }
@@ -276,6 +279,19 @@ class PresViewFragment : Fragment() {
 //    }
 
     private fun manageClick() {
+        binding.cardEdit.setOnClickListener {
+            if (isTablet()){
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, AddMedPOSNewEditFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }else{
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, EditRXFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
         binding.cardBack.setOnClickListener {
             val navController = runCatching { findNavController() }.getOrNull()
             if (navController?.currentDestination != null) {

@@ -41,8 +41,8 @@ class OrderListAdapter(
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(data: Prescriptions) {
             itemBinding.txtDoctorName.text = "Doctor Name:  "+data?.doctor
-            itemBinding.txtPatientName.text = "Patient Name:  "+data?.customer
-           // itemBinding.txtDate.text = "Date:  "+data?.createdAt
+           // itemBinding.txtPatientName.text = "Patient Name:  "+data?.customer
+            itemBinding.txtDate.text = "Date:  "+data?.createdAt
             itemBinding.txtOrderQuantity.text = "ItemCount: "+data?.product_count
             itemBinding.txtPresId.text = "Prescription ID: "+data?.prescription_id
 
