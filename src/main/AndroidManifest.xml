@@ -28,6 +28,7 @@
         <activity
             android:name=".ui.main.DoctorHomeActivity"
             android:exported="true"
+            android:screenOrientation="fullSensor"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
         <activity

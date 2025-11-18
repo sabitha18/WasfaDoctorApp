@@ -32,7 +32,10 @@ object PrescriptionPdfHelper {
         patientInfo: List<PatientInfo>?,
         doctorInfo: List<DoctorInfo>?,
         logoPath: Bitmap?,
-        qrBitmap: Bitmap?
+        qrBitmap: Bitmap?,
+        clinic: String?,
+        designation: String?,
+        id: String?
     ): File? {
         val pdfDocument = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size
@@ -70,7 +73,7 @@ object PrescriptionPdfHelper {
         val topY = 50f
         val lineTopY = 80f + titlePaint.textSize + 22f + 10f
         val title = "RX PRESCRIPTION"
-        val companyName = "Apix Medical"
+        val companyName = clinic.toString()
 
 // Draw logo on top-right corner
         logoPath?.let { bitmap ->
@@ -344,7 +347,7 @@ object PrescriptionPdfHelper {
         canvas.drawText(doctor?.name ?: "-", leftX, footerTopY + 18f, textPaint)
 
         canvas.drawText("RX Id:", leftX, footerTopY + 40f, boldPaint)
-        canvas.drawText(doctor?.id ?: "-", leftX, footerTopY + 40f + 18f, textPaint)
+        canvas.drawText(id ?: "-", leftX, footerTopY + 40f + 18f, textPaint)
 
 
 // -------- RIGHT SIDE (top-right) --------
@@ -356,7 +359,7 @@ object PrescriptionPdfHelper {
         )
 
         canvas.drawText(
-            doctor?.type ?: "-",
+            designation ?: "-",
             pageInfo.pageWidth - 40f,
             footerTopY + 20f,
             textPaint.apply { textAlign = Paint.Align.RIGHT }

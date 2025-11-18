@@ -54,7 +54,10 @@ class PresViewFragment : Fragment() {
         patientInfo = emptyList(),
         doctorInfo = emptyList(),
         qrCode = "",
-        logo = ""
+        logo = "",
+        clinicName = "",
+        designation = "",
+        id = ""
     )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -138,7 +141,10 @@ class PresViewFragment : Fragment() {
                 patientInfo = data?.patientInfo ?: emptyList(),
                 doctorInfo = data?.doctorInfo ?: emptyList(),
                 qrCode = data?.qrCode ?: "",
-                logo = data?.logo ?: ""
+                logo = data?.logo ?: "",
+                clinicName = data?.clinicName ?: "",
+                designation = data?.designation ?: "",
+                id = data?.id ?: ""
             )
         }
 
@@ -170,7 +176,10 @@ class PresViewFragment : Fragment() {
                 data?.patientInfo,
                 data?.doctorInfo,
                 logoBitmap,    // <-- Pass Bitmap here instead of String
-                qrBitmap
+                qrBitmap,
+                data?.clinicName,
+                data?.designation,
+                data?.id
             )
 
             pdfFile?.let {
@@ -339,7 +348,10 @@ class PresViewFragment : Fragment() {
                 data?.patientInfo,
                 data?.doctorInfo,
                 logoBitmap,    // <-- Pass Bitmap here instead of String
-                qrBitmap
+                qrBitmap,
+                data?.clinicName,
+                data?.designation,
+                data?.id
             )
 
             pdfFile?.let {

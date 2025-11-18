@@ -54,7 +54,10 @@ class PdfViewerFragment : Fragment() {
 
 
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PrescribedRxFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         binding.btnPrint.setOnClickListener {

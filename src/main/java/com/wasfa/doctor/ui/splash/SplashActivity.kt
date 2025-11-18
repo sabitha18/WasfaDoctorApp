@@ -81,7 +81,10 @@ class SplashActivity : AppCompatActivity() {
                 data?.patientInfo,
                 data?.doctorInfo,
                 logoBitmap,    // <-- Pass Bitmap here instead of String
-                qrBitmap
+                qrBitmap,
+                data?.clinicName,
+                data?.designation,
+                data?.id
             )
 
             pdfFile?.let {
@@ -106,6 +109,8 @@ class SplashActivity : AppCompatActivity() {
             id = "123",
             logo = "", // you can put a sample URL if you want to load an image
             qrCode = "https://dummy-qr",
+            clinicName = "",
+            designation = "",
             doctorInfo = listOf(
                 DoctorInfo(
                     id = "1",

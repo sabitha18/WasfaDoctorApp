@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit
 
 object NetworkClient {
 
-    //private const val BASE_URL = "https://apixrx.com/api/v2/"
+    private const val BASE_URL = "https://apixrx.com/api/v2/"
 
-   private const val BASE_URL = "https://stagging.apixrx.com/api/v2/"
+  // private const val BASE_URL = "https://stagging.apixrx.com/api/v2/"
      const val IMAGE_URL = "https://stagging.apixrx.com/api/v2/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {

@@ -39,6 +39,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:visibility="gone"
             android:layout_marginStart="1dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="1dp"
@@ -84,9 +85,10 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_add_new_pres"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="38dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             app:cardBackgroundColor="#F7EBF0"
             app:cardCornerRadius="12dp">
 
@@ -127,7 +129,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             tools:itemCount="3"
             tools:listitem="@layout/item_pres"
             android:id="@+id/recycler_pres"/>

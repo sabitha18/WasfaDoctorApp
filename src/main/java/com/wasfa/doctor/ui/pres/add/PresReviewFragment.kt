@@ -178,7 +178,10 @@ class PresReviewFragment : Fragment() {
                 data?.patientInfo,
                 data?.doctorInfo,
                 logoBitmap,    // <-- Pass Bitmap here instead of String
-                qrBitmap
+                qrBitmap,
+                data?.clinicName,
+                data?.designation,
+                data?.id
             )
 
             pdfFile?.let {
