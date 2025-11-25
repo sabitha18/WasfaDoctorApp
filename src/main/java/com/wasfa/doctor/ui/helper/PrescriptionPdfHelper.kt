@@ -196,10 +196,62 @@ object PrescriptionPdfHelper {
 
 
         // Table setup
-        val columns = floatArrayOf(30f, 60f, 220f, 260f, 300f, 355f, 410f, 555f) // Columns X coords
+        val columns = floatArrayOf(30f, 60f, 220f, 260f, 300f, 355f, 410f, 555f)
+
         val headerRowHeight = 40f
         val minDataRowHeight = 40f
-        var tableTop = 220f
+        // ======== Instructions Centered Above Dose–Time–Course–Notes ========
+
+// ======== PERFECT INSTRUCTION BOX (NO GAP, SHARED BORDER) ========
+
+// Centers of the 4 headers
+        val doseCenter = (columns[3] + columns[4]) / 2f
+        val addNotesCenter = (columns[6] + columns[7]) / 2f
+
+
+
+// Center of the instruction box
+        val instructionCenterX = (doseCenter + addNotesCenter) / 2f
+
+// Instruction box top position
+        val instructionTop = 230f
+        val instructionBottom = instructionTop + 35f   // Height of box
+
+// Draw instruction box LEFT + RIGHT + TOP border (NO BOTTOM BORDER)
+        val instructionBorderPaint = Paint().apply {
+            color = Color.parseColor("#dadada")
+            strokeWidth = 1.2f
+            style = Paint.Style.STROKE
+        }
+
+// Left border
+        canvas.drawLine(columns[3], instructionTop, columns[3], instructionBottom, instructionBorderPaint)
+// Right border
+        canvas.drawLine(columns[7], instructionTop, columns[7], instructionBottom, instructionBorderPaint)
+
+// Top border
+        canvas.drawLine(columns[3], instructionTop, columns[7], instructionTop, instructionBorderPaint)
+
+
+// Draw Instruction text centered
+        val instructionPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#4e4e4e")
+            textSize = 14f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            textAlign = Paint.Align.CENTER
+        }
+
+        canvas.drawText(
+            " Instruction / تعليمات ",
+            instructionCenterX,
+            instructionTop + 22f,      // vertically centered text
+            instructionPaint
+        )
+
+// IMPORTANT: table top = SAME LINE as instruction bottom
+        val tableTop = instructionBottom   // <-- NO GAP
+
+
 
         val headers = listOf("Sl No", "Product Name", "QTY", "Dose", "Time", "Course", "Additional Notes")
 
@@ -259,11 +311,12 @@ object PrescriptionPdfHelper {
                 "${rowIndex + 1}",
                 item.productName ?: "-",
                 item.quantity ?: "-",
-                item.dose ?: "-",
+                buildDoseText(item),
                 item.dose_time ?: "-",
-                item.course_duration ?: "-",
+                buildCourseText(item),
                 item.description ?: "-"
             )
+
 
             // Calculate row height based on the tallest cell
             val cellHeights = values.mapIndexed { i, text ->
@@ -367,40 +420,41 @@ object PrescriptionPdfHelper {
 
 
 // -------- CENTER QR --------
+        // -------- CENTER QR & Text --------
         qrBitmap?.let {
-            val size = 120
-            val qr = Bitmap.createScaledBitmap(it, size, size, true)
+            val qrSize = 120
+            val qr = Bitmap.createScaledBitmap(it, qrSize, qrSize, true)
 
-            canvas.drawBitmap(
-                qr,
-                centerX - (size / 2f),
-                footerTopY + 60f,
-                null
-            )
+            // Text setup
+            val scanText = "Scan here to receive your Prescription"
+            val scanPaint = TextPaint(textPaint).apply {
+                textAlign = Paint.Align.LEFT
+                textSize = 14f
+            }
+
+            // Measure text width
+            val textWidth = scanPaint.measureText(scanText)
+
+            // Gap between text and QR
+            val gap = 20f
+
+            // Total width of text + gap + QR
+            val totalWidth = textWidth + gap + qrSize
+
+            // Start X to center both horizontally
+            val startX = (pageInfo.pageWidth - totalWidth) / 2f
+
+            // Y position: align QR at bottom with some padding
+            val bottomPadding = 40f
+            val qrY = pageInfo.pageHeight - qrSize - bottomPadding
+            val textY = qrY + qrSize / 2f + scanPaint.textSize / 2f  // vertically centered with QR
+
+            // Draw text
+            canvas.drawText(scanText, startX, textY, scanPaint)
+
+            // Draw QR after text + gap
+            canvas.drawBitmap(qr, startX + textWidth + gap, qrY, null)
         }
-
-// "Scan here" text under QR
-        val scanPaint = TextPaint(textPaint).apply {
-            textAlign = Paint.Align.CENTER
-            textSize = 14f
-        }
-
-        canvas.drawText(
-            "Scan here to receive your Prescription",
-            centerX,
-            footerTopY + 60f + 150f,
-            scanPaint
-        )
-
-
-        // Footer text right aligned
-        val footerText = "Apix Medical"
-        val footerPaint = Paint(textPaint).apply {
-            color = Color.BLUE
-            textSize = 12f
-            textAlign = Paint.Align.RIGHT
-        }
-        canvas.drawText(footerText, pageInfo.pageWidth - 20f, pageInfo.pageHeight - 40f, footerPaint)
 
         pdfDocument.finishPage(page)
 
@@ -414,6 +468,20 @@ object PrescriptionPdfHelper {
         } finally {
             pdfDocument.close()
         }
+    }
+    private fun buildDoseText(item: PresDetails): String {
+        val dose = item.dose?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+        val doseday = item.doseday?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+
+        val doseParts = listOfNotNull( dose, doseday)
+        return doseParts.joinToString(" per ")
+    }
+
+    private fun buildCourseText(item: PresDetails): String {
+        val duration = item.course_duration?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+        val day = item.course_day?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+
+        return listOfNotNull("for ",duration, day).joinToString(" ") // e.g., "3 Week"
     }
 
     private fun getCircularBitmap(bitmap: Bitmap): Bitmap {

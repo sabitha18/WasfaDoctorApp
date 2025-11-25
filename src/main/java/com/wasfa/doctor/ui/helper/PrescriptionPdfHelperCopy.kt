@@ -4,11 +4,18 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.DashPathEffect
 import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
+import androidx.annotation.RequiresApi
 import com.wasfa.doctor.network.response.DoctorInfo
 import com.wasfa.doctor.network.response.PatientDetailInfo
 import com.wasfa.doctor.network.response.PatientInfo
@@ -18,22 +25,30 @@ import java.io.FileOutputStream
 
 object PrescriptionPdfHelperCopy {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun generatePdf(
         context: Context,
         cartItems: List<PresDetails>?,
         patientInfo: List<PatientInfo>?,
         doctorInfo: List<DoctorInfo>?,
         logoPath: Bitmap?,
-        qrBitmap: Bitmap?
+        qrBitmap: Bitmap?,
+        clinic: String?,
+        designation: String?,
+        id: String?
     ): File? {
         val pdfDocument = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size
         val page = pdfDocument.startPage(pageInfo)
         val canvas = page.canvas
-
+        val density = context.resources.displayMetrics.density
         val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.BLACK
             textSize = 12f
+        }
+        val textPaintRow = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.BLACK
+            textSize = 10f
         }
 
         val boldPaint = TextPaint(textPaint).apply {
@@ -41,31 +56,144 @@ object PrescriptionPdfHelperCopy {
             textSize = 12f
         }
 
-        // Title
-        val titlePaint = TextPaint(textPaint).apply {
+// Paints
+        val titlePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#2c3e50")
+            textSize = 20f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        }
+
+        val companyPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#b4b4b4")
             textSize = 16f
             isFakeBoldText = true
         }
-        // Load logo bitmap from URL and draw it above the title
+
+// Layout positions
+        val topY = 50f
+        val lineTopY = 80f + titlePaint.textSize + 22f + 10f
+        val title = "RX PRESCRIPTION"
+        val companyName = clinic.toString()
+
+// Draw logo on top-right corner
         logoPath?.let { bitmap ->
-            val left = (pageInfo.pageWidth - bitmap.width) / 2f
-            canvas.drawBitmap(bitmap, left, 40f, null)
+            val density = context.resources.displayMetrics.density
+
+            val logoSize = (25 * density).toInt()
+            val scaledLogo = Bitmap.createScaledBitmap(bitmap, logoSize, logoSize, true)
+            val circularLogo = getCircularBitmap(scaledLogo)
+
+            // Move everything 10dp upward
+            val offsetTop = 8 * density
+
+            // Title + subtitle center
+            val titleY = topY + titlePaint.textSize
+            val subtitleY = titleY + companyPaint.textSize + 8f
+            val blockCenterY = (titleY + subtitleY) / 2f
+
+            // Updated logo Y (10dp up)
+            val logoY = blockCenterY - logoSize / 2f - offsetTop
+            val logoX = pageInfo.pageWidth - logoSize - 40f
+
+            // Draw logo
+            canvas.drawBitmap(circularLogo, logoX, logoY, null)
+
+            // Logo border
+            val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.LTGRAY
+                style = Paint.Style.STROKE
+                strokeWidth = 0.5f * density
+            }
+
+            val cx = logoX + logoSize / 2f
+            val cy = logoY + logoSize / 2f
+            canvas.drawCircle(cx, cy, logoSize / 2f, borderPaint)
+
+            // ----- Powered by Apix (also moved up!) -----
+            val powerText = "Powered by Apix"
+            val powerPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.LTGRAY
+                textSize = 10f
+                textAlign = Paint.Align.CENTER
+            }
+
+            // Move the text 10dp up along with logo
+            canvas.drawText(
+                powerText,
+                cx,                                  // centered
+                cy + (logoSize / 2f) + 15f,   // text moved 10dp up
+                powerPaint
+            )
         }
 
 
-        val title = "RX PRESCRIPTION"
+// Draw title centered
         val titleWidth = titlePaint.measureText(title)
-        canvas.drawText(title, (pageInfo.pageWidth - titleWidth) / 2f, 160f, titlePaint)
+        canvas.drawText(title, (pageInfo.pageWidth - titleWidth) / 2f, topY + titlePaint.textSize, titlePaint)
+
+// Draw company name centered below title
+        val companyWidth = companyPaint.measureText(companyName)
+        canvas.drawText(companyName, (pageInfo.pageWidth - companyWidth) / 2f, topY + titlePaint.textSize + 28f, companyPaint)
+
+        //draw line
+
+
+        val linePaint = Paint().apply {
+            color = Color.parseColor("#dadada")
+            strokeWidth = 0.5f * density   // 2dp height
+            style = Paint.Style.STROKE
+        }
+
+        canvas.drawLine(
+            20f,           // start X (little padding from left)
+            lineTopY,      // Y
+            pageInfo.pageWidth - 20f,   // end X (padding right)
+            lineTopY,
+            linePaint
+        )
+
 
         // Patient info
-        val patient = patientInfo?.getOrNull(0)
-        canvas.drawText("Patient Name: ", 30f, 210f, boldPaint)
-        canvas.drawText("Age: ", 250f, 210f, boldPaint)
-        canvas.drawText("Civil ID: ", 400f, 210f, boldPaint)
+        // --- Patient Info Row ---
+        val rowY = lineTopY + 40f   // start below the line
 
-        canvas.drawText(patient?.name ?: "-", 110f, 210f, textPaint)
-        canvas.drawText(patient?.dob ?: "-", 280f, 210f, textPaint)
-        canvas.drawText(patient?.civilId ?: "-", 460f, 210f, textPaint)
+        val labelPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.BLACK
+            textSize = 12f
+            isFakeBoldText = true
+        }
+
+        val valuePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.DKGRAY
+            textSize = 12f
+        }
+
+// Column positions based on your screenshot
+        val col1X = 30f     // Patient Name
+        val col2X = 200f    // Age
+        val col3X = 300f    // Civil ID
+        val col4X = 420f    // Nationality
+        val col5X = 520f    // Gender
+
+        val patient = patientInfo?.getOrNull(0)
+
+// ---- LABELS ----
+        canvas.drawText("Patient Name :", col1X, rowY, labelPaint)
+        canvas.drawText("Age :",          col2X, rowY, labelPaint)
+        canvas.drawText("Civil ID :",     col3X, rowY, labelPaint)
+        canvas.drawText("Nationality :",  col4X, rowY, labelPaint)
+        canvas.drawText("Gender :",       col5X, rowY, labelPaint)
+
+// ---- VALUES (placed slightly below labels) ----
+        val valueY = rowY + 16f
+
+        canvas.drawText(patient?.name ?: "-",         col1X, valueY, valuePaint)
+        val age = calculateAge(patient?.dob ?: "")
+        canvas.drawText(age, col2X, valueY, valuePaint)
+        canvas.drawText(patient?.civilId ?: "-",      col3X, valueY, valuePaint)
+        canvas.drawText(patient?.nationality ?: "-",  col4X, valueY, valuePaint)
+        canvas.drawText(patient?.gender ?: "-",       col5X, valueY, valuePaint)
+
 
         // Table setup
         val columns = floatArrayOf(30f, 60f, 220f, 260f, 300f, 355f, 410f, 555f) // Columns X coords
@@ -77,21 +205,22 @@ object PrescriptionPdfHelperCopy {
 
         // Draw header row background (optional)
         val headerBackgroundPaint = Paint().apply {
-            color = Color.LTGRAY
+            color = Color.parseColor("#f1f1f1")
             style = Paint.Style.FILL
             textAlign = Paint.Align.CENTER
         }
         canvas.drawRect(columns[0], tableTop, columns.last(), tableTop + headerRowHeight, headerBackgroundPaint)
 
         // Draw headers
-        // Draw headers
         headers.forEachIndexed { i, headerText ->
             val colStartX = columns[i]
             val colWidth = columns[i + 1] - columns[i]
 
             val headerTextPaint = TextPaint(boldPaint).apply {
+                color = Color.parseColor("#4e4e4e")
                 textAlign = Paint.Align.LEFT  // Important: Let StaticLayout handle the alignment, not textAlign
-                textSize = 12f
+                textSize = 10f
+                typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
             }
 
             val staticLayout = StaticLayout.Builder.obtain(
@@ -111,7 +240,7 @@ object PrescriptionPdfHelperCopy {
 
         // Draw header borders
         val borderPaint = Paint().apply {
-            color = Color.BLACK
+            color = Color.parseColor("#dadada")
             strokeWidth = 1f
             style = Paint.Style.STROKE
             isAntiAlias = true
@@ -157,26 +286,112 @@ object PrescriptionPdfHelperCopy {
             values.forEachIndexed { colIndex, text ->
                 val colStartX = columns[colIndex]
                 val colWidth = columns[colIndex + 1] - columns[colIndex] - 10f
-                drawStaticLayoutText(canvas, text, colStartX + 5f, currentY + 5f, colWidth, textPaint)
+
+                // Bold only Product Name (column index 1)
+                val paintToUse = if (colIndex == 1) {
+                    TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+                        color = textPaint.color
+                        textSize = textPaintRow.textSize
+                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                    }
+                } else {
+                    textPaintRow
+                }
+
+                drawStaticLayoutText(
+                    canvas,
+                    text,
+                    colStartX + 5f,
+                    currentY + 5f,
+                    colWidth,
+                    paintToUse
+                )
             }
+
 
             currentY += rowHeight
         }
 
-        // Footer with doctor info
-        val footerY = currentY + 40f +40f
-        val doctor = doctorInfo?.getOrNull(0)
-        canvas.drawText("Prescribed by: ${doctor?.name ?: "-"}", 50f, footerY, boldPaint)
-        canvas.drawText("RX Id: ${doctor?.id ?: "-"}", 50f, footerY + 20f, boldPaint)
-        canvas.drawText(doctor?.name ?: "-", 50f, footerY + 50f, textPaint)
-        canvas.drawText(doctor?.type ?: "-", 50f, footerY + 70f, textPaint)
-        canvas.drawText("Scan here to receive the Prescription", 300f, footerY + 100f, textPaint)
 
-        // Draw barcode if exists
-        qrBitmap?.let {
-            val scaled = Bitmap.createScaledBitmap(it, 80, 80, true)
-            canvas.drawBitmap(scaled, 300f, footerY + 120f, null)
+        // --- Draw dashed line below table ---
+        val dashPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.parseColor("#dadada")   // light gray
+            strokeWidth = 0.5f * density
+            style = Paint.Style.STROKE
+            pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f) // 10px dash, 10px gap
         }
+
+// Add 20dp top space before dashed line
+        val dashedLineY = currentY + (15f * density)
+
+// Draw dashed line
+        canvas.drawLine(
+            10f,
+            dashedLineY,
+            pageInfo.pageWidth - 10f,
+            dashedLineY,
+            dashPaint
+        )
+
+
+        // ======== FOOTER EXACTLY LIKE SCREENSHOT ========
+        val footerTopY = currentY + 60f
+        val leftX = 40f
+        val rightX = pageInfo.pageWidth - 180f      // Right block X
+        val centerX = pageInfo.pageWidth / 2f       // QR center
+
+        val doctor = doctorInfo?.getOrNull(0)
+
+// -------- LEFT SIDE --------
+        canvas.drawText("Prescribed by:", leftX, footerTopY, boldPaint)
+        canvas.drawText(doctor?.name ?: "-", leftX, footerTopY + 18f, textPaint)
+
+        canvas.drawText("RX Id:", leftX, footerTopY + 40f, boldPaint)
+        canvas.drawText(id ?: "-", leftX, footerTopY + 40f + 18f, textPaint)
+
+
+// -------- RIGHT SIDE (top-right) --------
+        canvas.drawText(
+            doctor?.name ?: "-",
+            pageInfo.pageWidth - 40f,
+            footerTopY,
+            boldPaint.apply { textAlign = Paint.Align.RIGHT }
+        )
+
+        canvas.drawText(
+            designation ?: "-",
+            pageInfo.pageWidth - 40f,
+            footerTopY + 20f,
+            textPaint.apply { textAlign = Paint.Align.RIGHT }
+        )
+
+
+// -------- CENTER QR --------
+        qrBitmap?.let {
+            val size = 120
+            val qr = Bitmap.createScaledBitmap(it, size, size, true)
+
+            canvas.drawBitmap(
+                qr,
+                centerX - (size / 2f),
+                footerTopY + 60f,
+                null
+            )
+        }
+
+// "Scan here" text under QR
+        val scanPaint = TextPaint(textPaint).apply {
+            textAlign = Paint.Align.CENTER
+            textSize = 14f
+        }
+
+        canvas.drawText(
+            "Scan here to receive your Prescription",
+            centerX,
+            footerTopY + 60f + 150f,
+            scanPaint
+        )
+
 
         // Footer text right aligned
         val footerText = "Apix Medical"
@@ -201,6 +416,25 @@ object PrescriptionPdfHelperCopy {
         }
     }
 
+    private fun getCircularBitmap(bitmap: Bitmap): Bitmap {
+        val size = minOf(bitmap.width, bitmap.height)
+        val output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+
+        val canvas = Canvas(output)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        val rect = Rect(0, 0, size, size)
+
+        // Draw circle mask
+        canvas.drawARGB(0, 0, 0, 0)
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint)
+
+        // Set Xfer mode to overlay bitmap inside circle
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(bitmap, null, rect, paint)
+
+        return output
+    }
+
     private fun calculateStaticLayoutHeight(text: String, maxWidth: Float, paint: TextPaint): Float {
         val staticLayout = StaticLayout.Builder.obtain(text, 0, text.length, paint, maxWidth.toInt())
             .setAlignment(Layout.Alignment.ALIGN_CENTER) // left align text inside cells
@@ -219,4 +453,26 @@ object PrescriptionPdfHelperCopy {
         staticLayout.draw(canvas)
         canvas.restore()
     }
+    private fun drawCircularBorder(canvas: Canvas, cx: Float, cy: Float, radius: Float) {
+        val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.GRAY       // grey border
+            style = Paint.Style.STROKE
+            strokeWidth = 1f * canvas.density  // 1dp border
+        }
+        canvas.drawCircle(cx, cy, radius, borderPaint)
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun calculateAge(dobString: String): String {
+        return try {
+            val formatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val dob = java.time.LocalDate.parse(dobString, formatter)
+            val today = java.time.LocalDate.now()
+
+            val age = java.time.Period.between(dob, today).years
+            age.toString()
+        } catch (e: Exception) {
+            "-"
+        }
+    }
+
 }
