@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        handleTimer()
+       handleTimer()
 //        val dummyData = getDummySubmitResponse()
 //        generatePrescriptionPdf(dummyData)
 

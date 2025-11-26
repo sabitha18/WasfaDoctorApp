@@ -46,6 +46,10 @@ object PrescriptionPdfHelper {
             color = Color.BLACK
             textSize = 12f
         }
+        val textPaintTextScan = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.BLACK
+            textSize = 8f
+        }
         val textPaintRow = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.BLACK
             textSize = 10f
@@ -420,41 +424,57 @@ object PrescriptionPdfHelper {
 
 
 // -------- CENTER QR --------
-        // -------- CENTER QR & Text --------
         qrBitmap?.let {
             val qrSize = 120
             val qr = Bitmap.createScaledBitmap(it, qrSize, qrSize, true)
 
-            // Text setup
+            // Text (two lines)
             val scanText = "Scan here to receive your Prescription"
-            val scanPaint = TextPaint(textPaint).apply {
+            val scanPaint = TextPaint(textPaintTextScan).apply {
                 textAlign = Paint.Align.LEFT
-                textSize = 14f
+                textSize = 10f
             }
 
-            // Measure text width
-            val textWidth = scanPaint.measureText(scanText)
+            // Max width of the text box (depends on your layout)
+            val maxTextWidth = 70  // you can adjust this
 
-            // Gap between text and QR
-            val gap = 20f
+            // Create StaticLayout for multiline text
+            val staticLayout = StaticLayout.Builder.obtain(
+                scanText, 0, scanText.length, scanPaint, maxTextWidth
+            )
+                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                .setLineSpacing(0f, 1f)
+                .setIncludePad(false)
+                .build()
 
-            // Total width of text + gap + QR
-            val totalWidth = textWidth + gap + qrSize
+            val textWidth = staticLayout.width.toFloat()
+            val textHeight = staticLayout.height.toFloat()
 
-            // Start X to center both horizontally
-            val startX = (pageInfo.pageWidth - totalWidth) / 2f
+            val gap = 10f
 
-            // Y position: align QR at bottom with some padding
+            // Center QR only
+            val qrStartX = (pageInfo.pageWidth - qrSize) / 2f
+
+            // Move text to left of QR
+            val groupStartX = qrStartX - (textWidth + gap)
+
             val bottomPadding = 40f
             val qrY = pageInfo.pageHeight - qrSize - bottomPadding
-            val textY = qrY + qrSize / 2f + scanPaint.textSize / 2f  // vertically centered with QR
 
-            // Draw text
-            canvas.drawText(scanText, startX, textY, scanPaint)
+            // Vertically center the text block relative to QR
+            val textY = qrY + (qrSize / 2f) - (textHeight / 2f)
 
-            // Draw QR after text + gap
-            canvas.drawBitmap(qr, startX + textWidth + gap, qrY, null)
+            // Draw multiline text
+            canvas.save()
+            canvas.translate(groupStartX, textY)
+            staticLayout.draw(canvas)
+            canvas.restore()
+
+            // Draw QR
+            canvas.drawBitmap(qr, qrStartX, qrY, null)
         }
+
+
 
         pdfDocument.finishPage(page)
 
@@ -473,8 +493,8 @@ object PrescriptionPdfHelper {
         val dose = item.dose?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
         val doseday = item.doseday?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
 
-        val doseParts = listOfNotNull( dose, doseday)
-        return doseParts.joinToString(" per ")
+        val doseParts = listOfNotNull( doseday,dose)
+        return doseParts.joinToString(" dose ")
     }
 
     private fun buildCourseText(item: PresDetails): String {
