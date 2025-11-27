@@ -59,9 +59,9 @@ class PdfViewerFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
+binding.btnPrint.visibility = View.GONE
         binding.btnPrint.setOnClickListener {
-            pdfFile?.let { printPdf(it) }
+
         }
 
         binding.btnShare.setOnClickListener {
@@ -69,30 +69,7 @@ class PdfViewerFragment : Fragment() {
         }
 
         binding.cardSave.setOnClickListener {
-            try {
-                val sourceFile = pdfFile // your generated PDF File
-                if (sourceFile != null && sourceFile.exists()) {
-                    val downloadsDir =
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    val destFile = File(downloadsDir, sourceFile.name)
-
-                    sourceFile.copyTo(destFile, overwrite = true)
-
-                    Toast.makeText(requireContext(), "PDF saved to Downloads", Toast.LENGTH_SHORT)
-                        .show()
-
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, PrescribedRxFragment())
-                        .addToBackStack(null)
-                        .commit()
-                } else {
-                    Toast.makeText(requireContext(), "PDF file not found", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(requireContext(), "Failed to save PDF", Toast.LENGTH_SHORT).show()
-            }
+            pdfFile?.let { printPdf(it) }
         }
 
         binding.cardClose.setOnClickListener {

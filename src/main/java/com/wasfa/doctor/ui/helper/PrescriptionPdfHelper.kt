@@ -200,7 +200,7 @@ object PrescriptionPdfHelper {
 
 
         // Table setup
-        val columns = floatArrayOf(30f, 60f, 220f, 260f, 300f, 355f, 410f, 555f)
+        val columns = floatArrayOf(30f, 60f, 220f, 260f, 340f, 395f, 450f, 595f)
 
         val headerRowHeight = 40f
         val minDataRowHeight = 40f
