@@ -42,7 +42,7 @@ class MedicationListAdapter(
             itemBinding.txtProductName.text = data?.productName
             itemBinding.txtPrize.text = data?.unitPrice
             itemBinding.txtStoreName.text = ""
-            itemBinding.txtDose.text = formatText(data?.dose, data?.doseday, data?.dose_time)
+            itemBinding.txtDose.text = formatText(data?.doseday, data?.dose, data?.dose_time)
             itemBinding.txtCourse.text = formatText(data?.course_day, data?.course_duration)
         }
 

@@ -52,10 +52,10 @@ class MedicationListPreviewEditAdapter(
 //            } else null
 
 
-            val doseUnit = listOfNotNull(doseday, "").joinToString(" ")
+            val doseUnit = listOfNotNull(dose, "").joinToString(" ")
 
 
-            val otherParts = listOfNotNull(dose, doseTime).joinToString(" / ")
+            val otherParts = listOfNotNull(doseday, doseTime).joinToString(" / ")
 
 
             itemBinding.txtDose.text = listOfNotNull(

@@ -204,12 +204,12 @@ class DoctorRXCartEditFragment : Fragment() {
                         val request = ApiService.UpdateRXCartRequest(
                             id = cart?.id.toString(),
                             quantity = cart?.quantity.toString(),
-                            dose = doseValue,
+                            dose = cart?.dose ?: "",
                             dose_time = cart?.dose_time ?: "",
                             course_day = cart?.course_day ?: "",
                             description = cart?.description ?: "",
                             course_duration = cart?.course_duration ?: "",
-                            dose_day = cart?.doseday ?: ""
+                            dose_day = doseValue
                         )
                         viewModel.updateCartRx(
                             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -238,12 +238,12 @@ class DoctorRXCartEditFragment : Fragment() {
                         val request = ApiService.UpdateRXCartRequest(
                             id = cart?.id.toString(),
                             quantity = cart?.quantity.toString(),
-                            dose = cart?.dose ?: "",
+                            dose = dayValue,
                             dose_time = cart?.dose_time ?: "",
                             course_day = cart?.course_day ?: "",
                             description = cart?.description ?: "",
                             course_duration = cart?.course_duration ?: "",
-                            dose_day = dayValue
+                            dose_day = cart?.doseday ?: ""
                         )
                         viewModel.updateCartRx(
                             AppPreferences.getInstance(requireContext()).getToken().toString(),

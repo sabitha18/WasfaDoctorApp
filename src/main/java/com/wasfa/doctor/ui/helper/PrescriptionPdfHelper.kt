@@ -490,8 +490,8 @@ object PrescriptionPdfHelper {
         }
     }
     private fun buildDoseText(item: PresDetails): String {
-        val dose = item.dose?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
-        val doseday = item.doseday?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+        val dose = item.doseday?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+        val doseday = item.dose?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
 
         val doseParts = listOfNotNull( doseday,dose)
         return doseParts.joinToString(" dose ")

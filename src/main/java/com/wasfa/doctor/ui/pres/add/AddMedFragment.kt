@@ -533,9 +533,9 @@ class AddMedFragment : Fragment() {
                 productId = data?.id.toString(),
                 quantity = "1",
                 patientId = AppPreferences.getInstance(requireContext()).getPatientId().toString(),
-                dose_day = txtDoseSelectedDay.text.toString().takeIf { it != "Select" } ?: "",
+                dose_day = txtSelectedDose.text.toString().takeIf { it != "Select" } ?: "",
                 description = editNotes.text.toString(),
-                dose = txtSelectedDose.text.toString().takeIf { it != "Select" } ?: "",
+                dose = txtDoseSelectedDay.text.toString().takeIf { it != "Select" } ?: "",
                 course_day = txtCourseDay.text.toString().takeIf { it != "Select" } ?: "",
                 dose_time = txtDoseTime.text.toString().takeIf { it != "Select" } ?: "",
                 course_duration = txtCourseDuration.text.toString().takeIf { it != "Select" } ?: "",
@@ -617,7 +617,7 @@ class AddMedFragment : Fragment() {
     }
 
     private fun showCourseDayDropdown() {
-        val doses = listOf("Day", "Weak", "Month")
+        val doses = listOf("Day", "Week", "Month")
         val popup = android.widget.PopupMenu(requireContext(), cardCourseDay)
         doses.forEachIndexed { index, dose ->
             popup.menu.add(0, index, index, dose)

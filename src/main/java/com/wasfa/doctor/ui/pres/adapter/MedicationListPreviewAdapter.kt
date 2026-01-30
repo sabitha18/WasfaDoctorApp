@@ -41,8 +41,8 @@ class MedicationListPreviewAdapter(
             itemBinding.txtProductName.text = data?.productName
             itemBinding.txtPrize.text = data?.unitPrice
             itemBinding.txtNotes.text = data?.description
-            val dose = data?.dose?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
-            val doseday = data?.doseday?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+            val dose = data?.doseday?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
+            val doseday = data?.dose?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
             val doseTime =
                 data?.dose_time?.takeIf { !it.isNullOrBlank() && it.lowercase() != "null" }
 

@@ -151,13 +151,13 @@ class CartRXAdapter(
                 .into(itemBinding.imdProduct)
 
             itemBinding.txtCount.text = data?.quantity.toString()
-            itemBinding.txtSelectedDose.text = data?.dose ?: "Select"
+            itemBinding.txtSelectedDose.text = data?.doseday ?: "Select"
             itemBinding.txtPdName.text = data?.productName
             itemBinding.txtPrize.text = data?.unitPrice.toString()
             itemBinding.editNotes.text =
                 if (data?.description.isNullOrBlank() || data.description == "null") "" else data.description
 
-            itemBinding.txtDoseSelectedDay.text = data?.doseday ?: "Select"
+            itemBinding.txtDoseSelectedDay.text = data?.dose ?: "Select"
             itemBinding.txtDoseTime.text = data?.dose_time ?: "Select"
             itemBinding.txtCourseDay.text = data?.course_day ?: "Select"
             itemBinding.txtCourseDuration.text = data?.course_duration ?: "Select"
@@ -217,7 +217,7 @@ class CartRXAdapter(
         }
 
         private fun showCourseDayDropdown(cartItem: CartItem) {
-            val doses = listOf("Day", "Weak", "Month")
+            val doses = listOf("Day", "Week", "Month")
             val popup = android.widget.PopupMenu(itemView.context, itemBinding.cardCourseDay)
             doses.forEachIndexed { index, dose ->
                 popup.menu.add(0, index, index, dose)
