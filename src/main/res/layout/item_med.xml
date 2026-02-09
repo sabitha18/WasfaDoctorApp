@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="168dp"
+    android:layout_height="150dp"
     android:layout_marginStart="1dp"
     android:layout_marginTop="1dp"
     android:layout_marginEnd="1dp"
@@ -49,35 +49,26 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="20dp"
-                        app:cardCornerRadius="50dp"
-                        app:cardBackgroundColor="@color/white"
-                        android:layout_height="20dp">
-                        <ImageView
-                            android:id="@+id/img_seller"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            />
-                    </com.google.android.material.card.MaterialCardView>
-
-
                     <TextView
                         android:layout_weight="1"
-                        android:id="@+id/txt_store_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Store Name"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:maxLines="3"
+                        android:minHeight="35dp"
+                        android:id="@+id/txt_product_name"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="15sp" />
+
+
                     <Switch
                         android:id="@+id/switch_fav"
                         android:layout_width="wrap_content"
@@ -89,19 +80,10 @@
                         android:track="@drawable/custom_switch_thumb" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:maxLines="2"
-                    android:minHeight="35dp"
-                    android:id="@+id/txt_product_name"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

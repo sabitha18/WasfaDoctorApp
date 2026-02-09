@@ -50,6 +50,7 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Email Address"
+                    android:textColor="@color/black"
                     android:textSize="13dp" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -67,16 +68,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
+                        android:textColor="@color/black"
                         android:background="@android:color/transparent"
                         android:hint="Enter your email address"
                         android:textColorHint="#C1C1C1"
-                        android:textSize="13dp" />
+                        android:textSize="14sp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Password"
@@ -105,10 +108,11 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@android:color/transparent"
                             android:hint="Enter your password"
                             android:textColorHint="#C1C1C1"
-                            android:textSize="13dp" />
+                            android:textSize="14sp" />
 
                         <ImageView
                             android:id="@+id/img_hide_pass"

@@ -95,6 +95,9 @@ class MeditationFragment : Fragment() {
 
     private fun handleFilterClick() {
 
+        binding.pageFilter.cardFilterSeller.visibility = View.GONE
+        binding.pageFilter.cardFilterMedicalRep.visibility = View.GONE
+
         if (AppPreferences.getInstance(requireContext()).getLoginType() == "influencer"){
             binding.pageFilter.cardFilterInfluencer.visibility = View.GONE
         }else{
@@ -412,8 +415,8 @@ class MeditationFragment : Fragment() {
 
         viewModel.getInfluencerList(appPreferences.getToken().toString())
         viewModel.getBrandList(appPreferences.getToken().toString(),request)
-        viewModel.getSellerList(appPreferences.getToken().toString())
-        viewModel.getMedicalRepList(appPreferences.getToken().toString())
+//        viewModel.getSellerList(appPreferences.getToken().toString())
+//        viewModel.getMedicalRepList(appPreferences.getToken().toString())
     }
     fun isTablet(): Boolean {
         val metrics = resources.displayMetrics

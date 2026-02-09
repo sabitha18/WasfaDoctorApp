@@ -52,17 +52,14 @@ class MedAdapter(
 
             itemBinding.txtPrize.text = data.basePrice
             itemBinding.txtProductName.text = data.name
-            itemBinding.txtStoreName.text = data.sellerName
+
 
             Glide.with(itemBinding.root.context)
                 .load(data.thumbnail_image)
                 .into(itemBinding.imgProduct)
 
             val logoUrl = data.sellerLogo
-            Glide.with(itemBinding.root.context)
-                .load(logoUrl)
-                .error(R.drawable.wasfa_logo)
-                .into(itemBinding.imgSeller)
+
 
 
             itemBinding.txtStock.text =  data.currentStock
