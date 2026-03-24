@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
@@ -151,20 +152,28 @@ class CartRXAdapter(
                 .into(itemBinding.imdProduct)
 
             itemBinding.txtCount.text = data?.quantity.toString()
-            itemBinding.txtSelectedDose.text = data?.doseday ?: "Select"
+
+            setTextOrHint(itemBinding.txtSelectedDose, data?.doseday)
             itemBinding.txtPdName.text = data?.productName
             itemBinding.txtPrize.text = data?.unitPrice.toString()
             itemBinding.editNotes.text =
                 if (data?.description.isNullOrBlank() || data.description == "null") "" else data.description
 
-            itemBinding.txtDoseSelectedDay.text = data?.dose ?: "Select"
-            itemBinding.txtDoseTime.text = data?.dose_time ?: "Select"
-            itemBinding.txtCourseDay.text = data?.course_day ?: "Select"
-            itemBinding.txtCourseDuration.text = data?.course_duration ?: "Select"
+            setTextOrHint(itemBinding.txtDoseSelectedDay, data?.dose)
+            setTextOrHint(itemBinding.txtDoseTime, data?.dose_time)
+            setTextOrHint(itemBinding.txtCourseDay, data?.course_day)
+            setTextOrHint(itemBinding.txtCourseDuration, data?.course_duration)
 
 
         }
-
+        fun setTextOrHint(view: TextView, value: String?) {
+            if (value.isNullOrEmpty()) {
+                view.text = ""
+                view.hint = "Select"
+            } else {
+                view.text = value
+            }
+        }
         private fun showDoseDropdown(cartItem: CartItem) {
             val doses = listOf("Daily", "Weekly", "Monthly")
             val popup = android.widget.PopupMenu(itemView.context, itemBinding.cardDose)

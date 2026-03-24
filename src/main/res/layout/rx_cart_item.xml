@@ -193,8 +193,9 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_regular"
                                 android:singleLine="true"
-                                android:text="Select"
-                                android:textColor="#B4ABAB" />
+                                android:hint="Select"
+                                android:textColor="@color/black"
+                                android:textColorHint="#B4ABAB" />
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -241,8 +242,9 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_regular"
                                 android:singleLine="true"
-                                android:text="Select"
-                                android:textColor="#B4ABAB" />
+                                android:hint="Select"
+                                android:textColor="@color/black"
+                                android:textColorHint="#B4ABAB" />
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -297,8 +299,9 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_regular"
                                 android:singleLine="true"
-                                android:text="Select"
-                                android:textColor="#B4ABAB" />
+                                android:hint="Select"
+                                android:textColor="@color/black"
+                                android:textColorHint="#B4ABAB" />
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -345,8 +348,9 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_regular"
                                 android:singleLine="true"
-                                android:text="Select"
-                                android:textColor="#B4ABAB" />
+                                android:hint="Select"
+                                android:textColor="@color/black"
+                                android:textColorHint="#B4ABAB" />
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -401,8 +405,9 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_regular"
                                 android:singleLine="true"
-                                android:text="Select"
-                                android:textColor="#B4ABAB" />
+                                android:hint="Select"
+                                android:textColor="@color/black"
+                                android:textColorHint="#B4ABAB" />
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -450,6 +455,7 @@
                                 android:gravity="center_vertical"
                                 android:hint="Additional Notes"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="14dp" />
                         </LinearLayout>

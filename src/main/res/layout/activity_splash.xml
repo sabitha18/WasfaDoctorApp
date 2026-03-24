@@ -12,5 +12,5 @@
       android:layout_height="150dp"
       android:layout_gravity="center"
       android:scaleType="centerCrop"
-      android:src="@drawable/wasfa_logo"/>
+      android:src="@drawable/wasfa_logo_new"/>
 </FrameLayout>

@@ -34,14 +34,11 @@ import com.wasfa.doctor.viewmodel.HomeViewModelFactory
 import java.io.File
 import com.caverock.androidsvg.SVG
 import android.graphics.Canvas
-import android.net.Uri
-import android.webkit.WebView
-import android.widget.Button
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.wasfa.doctor.network.response.CartResponse
 import com.wasfa.doctor.ui.helper.PdfViewerFragment
-import com.wasfa.doctor.ui.helper.PrescriptionPdfReviewHelper
-import com.wasfa.doctor.ui.report.PrescribedRxFragment
 
 class PresReviewFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
@@ -159,6 +156,7 @@ class PresReviewFragment : Fragment() {
         viewModel.getCart(appPreferences.getToken().toString())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun generatePrescriptionPdf(data: SubmitResponse?) {
         Thread {
             val logoBitmap = try {
@@ -181,7 +179,9 @@ class PresReviewFragment : Fragment() {
                 qrBitmap,
                 data?.clinicName,
                 data?.designation,
-                data?.id
+                data?.id,
+                data?.doctor_new_note,
+                data?.items_new
             )
 
             pdfFile?.let {
@@ -360,7 +360,9 @@ class PresReviewFragment : Fragment() {
             customerId = patientId,
             is_edit = "",
             submitWithCustomerCall = "",
-            prescriptionId = ""
+            prescriptionId = "",
+            doctor_new_note = binding.editDoctorNotes.text.toString(),
+            items_new = binding.editEnterValue.text.toString(),
         )
         viewModel.submitSaveRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -374,7 +376,9 @@ class PresReviewFragment : Fragment() {
             customerId = patientId,
             is_edit = "",
             submitWithCustomerCall = "",
-            prescriptionId = ""
+            prescriptionId = "",
+            doctor_new_note = binding.editDoctorNotes.text.toString(),
+            items_new = binding.editEnterValue.text.toString(),
         )
         viewModel.submitRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -390,7 +394,9 @@ class PresReviewFragment : Fragment() {
                 customerId = patientId,
                 is_edit = "1",
                 submitWithCustomerCall = status,
-                prescriptionId = ""
+                prescriptionId = "",
+                doctor_new_note = binding.editDoctorNotes.text.toString(),
+                items_new = binding.editEnterValue.text.toString(),
             )
             viewModel.submitRX(
                 AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -402,7 +408,9 @@ class PresReviewFragment : Fragment() {
                 customerId = patientId,
                 is_edit = "0",
                 submitWithCustomerCall = status,
-                prescriptionId = ""
+                prescriptionId = "",
+                doctor_new_note = binding.editDoctorNotes.text.toString(),
+                items_new = binding.editEnterValue.text.toString(),
             )
             viewModel.submitRX(
                 AppPreferences.getInstance(requireContext()).getToken().toString(),

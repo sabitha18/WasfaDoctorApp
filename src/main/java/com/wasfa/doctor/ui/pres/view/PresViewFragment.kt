@@ -26,23 +26,21 @@ import com.wasfa.doctor.network.ApiService
 import com.wasfa.doctor.network.response.PatientInfo
 import com.wasfa.doctor.network.response.SubmitResponse
 import com.wasfa.doctor.ui.main.DoctorHomeActivity
-import com.wasfa.doctor.ui.pres.adapter.MedicationListPreviewAdapter
 import com.wasfa.doctor.ui.helper.PrescriptionPdfHelper
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
 import java.io.File
 import com.caverock.androidsvg.SVG
 import android.graphics.Canvas
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.wasfa.doctor.network.response.POSEditRXNewResponse
 import com.wasfa.doctor.ui.pres.adapter.MedicationListPreviewEditAdapter
 import com.wasfa.doctor.ui.report.PrescribedRxFragment
 import com.wasfa.doctor.network.response.PresDetails
-import com.wasfa.doctor.ui.helper.PrescriptionPdfDetailsHelper
 import com.wasfa.doctor.ui.pres.add.AddMedPOSNewEditFragment
-import com.wasfa.doctor.ui.pres.add.PrescriptionPdfDialog
 import com.wasfa.doctor.ui.pres.edit.EditRXFragment
-import kotlin.math.log
 
 class PresViewFragment : Fragment() {
     private var _binding: FragmentPresReviewBinding? = null
@@ -57,7 +55,9 @@ class PresViewFragment : Fragment() {
         logo = "",
         clinicName = "",
         designation = "",
-        id = ""
+        id = "",
+        items_new = "",
+        doctor_new_note = ""
     )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -135,6 +135,8 @@ class PresViewFragment : Fragment() {
 
             manageCart(data?.prescriptionDetails)
             managePatient(data?.patientInfo)
+            binding.editDoctorNotes.setText(data?.doctor_new_note)
+            binding.editEnterValue.setText(data?.items_new)
 
             printResponse = POSEditRXNewResponse(
                 prescriptionDetails = data?.prescriptionDetails ?: emptyList(),
@@ -144,7 +146,9 @@ class PresViewFragment : Fragment() {
                 logo = data?.logo ?: "",
                 clinicName = data?.clinicName ?: "",
                 designation = data?.designation ?: "",
-                id = data?.id ?: ""
+                id = data?.id ?: "",
+                doctor_new_note = data?.doctor_new_note ?: "",
+                items_new = data?.items_new ?: ""
             )
         }
 
@@ -157,6 +161,7 @@ class PresViewFragment : Fragment() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun generatePrescriptionPdf(data: SubmitResponse?) {
         Thread {
             val logoBitmap = try {
@@ -179,7 +184,9 @@ class PresViewFragment : Fragment() {
                 qrBitmap,
                 data?.clinicName,
                 data?.designation,
-                data?.id
+                data?.id,
+                data?.doctor_new_note,
+                data?.items_new
             )
 
             pdfFile?.let {
@@ -351,7 +358,9 @@ class PresViewFragment : Fragment() {
                 qrBitmap,
                 data?.clinicName,
                 data?.designation,
-                data?.id
+                data?.id,
+                data?.doctor_new_note,
+                data?.items_new
             )
 
             pdfFile?.let {
@@ -369,7 +378,9 @@ class PresViewFragment : Fragment() {
             customerId = patientId,
             is_edit = "",
             submitWithCustomerCall = "",
-            prescriptionId = ""
+            prescriptionId = "",
+            doctor_new_note = binding.editDoctorNotes.text.toString(),
+            items_new = binding.editEnterValue.text.toString(),
         )
         viewModel.submitSaveRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -384,7 +395,10 @@ class PresViewFragment : Fragment() {
             customerId = patientId,
             is_edit = "",
             submitWithCustomerCall = "",
-            prescriptionId = ""
+            prescriptionId = "",
+            doctor_new_note = binding.editDoctorNotes.text.toString(),
+            items_new = binding.editEnterValue.text.toString(),
+
         )
         viewModel.submitRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),
@@ -400,7 +414,9 @@ class PresViewFragment : Fragment() {
             is_edit = "1",
             submitWithCustomerCall = status,
             prescriptionId = AppPreferences.getInstance(requireContext()).getNewRXStatus()
-                .toString()
+                .toString(),
+            doctor_new_note = binding.editDoctorNotes.text.toString(),
+            items_new = binding.editEnterValue.text.toString(),
         )
         viewModel.submitRX(
             AppPreferences.getInstance(requireContext()).getToken().toString(),

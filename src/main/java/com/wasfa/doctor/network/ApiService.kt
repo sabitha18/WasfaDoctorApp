@@ -1014,7 +1014,9 @@ interface ApiService {
         val customerId: String,
         val is_edit: String,
         val submitWithCustomerCall: String,
-        val prescriptionId: String
+        val prescriptionId: String,
+        val doctor_new_note: String,
+        val items_new: String
     )
 
     data class UpdateRXCartRequest(

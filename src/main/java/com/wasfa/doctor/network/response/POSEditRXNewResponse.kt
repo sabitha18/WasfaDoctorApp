@@ -8,5 +8,7 @@ data class POSEditRXNewResponse (
     val qrCode: String,
     val logo: String,
     val clinicName: String,
-    val designation: String
+    val designation: String,
+    val items_new: String,
+    val doctor_new_note: String
 )

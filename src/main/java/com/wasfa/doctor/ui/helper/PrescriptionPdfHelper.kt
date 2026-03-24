@@ -17,7 +17,6 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import androidx.annotation.RequiresApi
 import com.wasfa.doctor.network.response.DoctorInfo
-import com.wasfa.doctor.network.response.PatientDetailInfo
 import com.wasfa.doctor.network.response.PatientInfo
 import com.wasfa.doctor.network.response.PresDetails
 import java.io.File
@@ -35,8 +34,11 @@ object PrescriptionPdfHelper {
         qrBitmap: Bitmap?,
         clinic: String?,
         designation: String?,
-        id: String?
-    ): File? {
+        id: String?,
+        doctorNewNote: String?,
+        itemsNew: String?,
+
+        ): File? {
         val pdfDocument = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size
         val page = pdfDocument.startPage(pageInfo)
@@ -370,6 +372,128 @@ object PrescriptionPdfHelper {
         }
 
 
+        if (!itemsNew.isNullOrBlank()) {
+
+            val newRowIndex = dataRows.size // next serial number
+
+            val values = listOf(
+                "${newRowIndex + 1}",   // Serial number
+                itemsNew,               // Product Name
+                "",                     // QTY empty
+                "",                     // Dose empty
+                "",                     // Time empty
+                "",                     // Course empty
+                ""                      // Notes empty
+            )
+
+            // Calculate row height
+            val cellHeights = values.mapIndexed { i, text ->
+                val colWidth = columns[i + 1] - columns[i] - 10f
+                calculateStaticLayoutHeight(text, colWidth, textPaintRow)
+            }
+
+            val rowHeight = cellHeights.maxOrNull()?.coerceAtLeast(minDataRowHeight)
+                ?: minDataRowHeight
+
+            // Optional alternate background
+            if (newRowIndex % 2 == 1) {
+                val bgPaint = Paint().apply {
+                    color = Color.parseColor("#F5F5F5")
+                    style = Paint.Style.FILL
+                }
+                canvas.drawRect(columns[0], currentY, columns.last(), currentY + rowHeight, bgPaint)
+            }
+
+            // Draw borders
+            canvas.drawRect(columns[0], currentY, columns.last(), currentY + rowHeight, borderPaint)
+            columns.forEach { x ->
+                canvas.drawLine(x, currentY, x, currentY + rowHeight, borderPaint)
+            }
+
+            // Draw text
+            values.forEachIndexed { colIndex, text ->
+                val colStartX = columns[colIndex]
+                val colWidth = columns[colIndex + 1] - columns[colIndex] - 10f
+
+                val paintToUse = if (colIndex == 1) {
+                    TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+                        color = textPaintRow.color
+                        textSize = textPaintRow.textSize
+                        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                    }
+                } else {
+                    textPaintRow
+                }
+
+                drawStaticLayoutText(
+                    canvas,
+                    text,
+                    colStartX + 5f,
+                    currentY + 5f,
+                    colWidth,
+                    paintToUse
+                )
+            }
+
+            currentY += rowHeight
+        }
+        val notesText = "Notes: ${doctorNewNote}"
+
+// Text paint
+        val notesTextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.BLACK
+            textSize = 11f
+        }
+
+// Box width
+        val notesLeft = 30f
+        val notesRight = pageInfo.pageWidth - 30f
+        val textWidth = (notesRight - notesLeft - 20f).toInt() // padding
+
+// Create multiline layout
+        val notesLayout = StaticLayout.Builder.obtain(
+            notesText,
+            0,
+            notesText.length,
+            notesTextPaint,
+            textWidth
+        )
+            .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+            .setLineSpacing(0f, 1.2f)
+            .setIncludePad(false)
+            .build()
+
+// Dynamic height based on content
+        val paddingVertical = 30f
+
+        val minHeight = 20f * density
+        val notesHeight = maxOf(
+            notesLayout.height + paddingVertical,
+            minHeight
+        )
+
+        val notesTopY = currentY + (20f * density)
+        val notesBottom = notesTopY + notesHeight
+
+// ===== Background =====
+        val bgPaint = Paint().apply {
+            color = Color.parseColor("#FAFAFA")
+            style = Paint.Style.FILL
+        }
+        canvas.drawRect(notesLeft, notesTopY, notesRight, notesBottom, bgPaint)
+
+// ===== Border =====
+
+        canvas.drawRect(notesLeft, notesTopY, notesRight, notesBottom, borderPaint)
+
+// ===== Draw Text =====
+        canvas.save()
+        canvas.translate(notesLeft + 10f, notesTopY + 10f)
+        notesLayout.draw(canvas)
+        canvas.restore()
+
+// 👉 IMPORTANT: update currentY if needed
+        currentY = notesBottom
         // --- Draw dashed line below table ---
         val dashPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.parseColor("#dadada")   // light gray

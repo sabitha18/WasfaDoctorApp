@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -157,10 +158,12 @@ class DoctorHomeActivity : AppCompatActivity() {
             loadFragment(ReportFragment())
         }
     }
-
+    private fun showPermissionDenied() {
+        Toast.makeText(this, "You don’t have permission", Toast.LENGTH_SHORT).show()
+    }
     private fun manageBottomNavClick() {
         binding.bottomView.navAdd.setOnClickListener {
-            loadFragment(DoctorRXFragment())
+            openRxBasedOnPermission()
         }
         binding.bottomView.lytHome.setOnClickListener {
             manageHomeIcon()
@@ -179,7 +182,35 @@ class DoctorHomeActivity : AppCompatActivity() {
             loadFragment(SettingsFragment())
         }
     }
+    private fun openRxBasedOnPermission() {
+        val prefs = AppPreferences.getInstance(this@DoctorHomeActivity)
 
+        when (prefs.getDoctorType()) {
+
+            "1" -> {
+                if (PermissionManager.hasPermission(PermissionKeys.POS_NEW_RX)) {
+                    prefs.saveNewRXStatus("new")
+                    loadFragment(DoctorRXFragment())
+                } else {
+                    showPermissionDenied()
+                }
+            }
+
+            "0" -> {
+                if (PermissionManager.hasPermission(PermissionKeys.POS_MANAGER)) {
+                    prefs.saveNewRXStatus("old")
+                    loadFragment(DoctorRXFragment())
+                } else {
+                    showPermissionDenied()
+                }
+            }
+
+            else -> {
+                prefs.saveNewRXStatus("old")
+                loadFragment(DoctorRXFragment())
+            }
+        }
+    }
     private fun manageSideMenuClick() {
         binding.sideMenu.lytHome.setOnClickListener {
             manageHomeIcon()

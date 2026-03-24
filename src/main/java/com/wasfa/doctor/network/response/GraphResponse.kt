@@ -2,13 +2,17 @@ package com.wasfa.doctor.network.response
 
 data class GraphResponse(
     val num_of_sale_value: List<String>,
+    val num_of_sale_rx_value: List<String>,
     val weekdays: List<String>,
     val totalPrescriptions: String,
     val mostlyPrescibed: String,
     val amount: String,
+    val RxCount: String,
     val countOfSale: String,
     val pendingCommission: String,
+
     val completedPayment: String,
+    val patientsCount: String,
     val refundOrders: String,
     val refundAmount: String,
     val currentMonthAmount: String,

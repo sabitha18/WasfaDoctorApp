@@ -583,7 +583,68 @@
 
 
                     </LinearLayout>
-
+                    <TextView
+                        android:id="@+id/txt_enter_values"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Enter Values:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_enter_value_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="15dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="9dp"
+                        app:strokeColor="#7D7C7C"
+                        app:strokeWidth="1dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/edit_enter_value"
+                            android:hint="Enter value"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:singleLine="true"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="14sp"/>
+                    </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:id="@+id/txt_doctor_notes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Doctor Notes:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_doctor_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="15dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="9dp"
+                        app:strokeColor="#7D7C7C"
+                        app:strokeWidth="1dp">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/edit_doctor_notes"
+                            android:hint="Enter notes..."
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:singleLine="true"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="14sp"/>
+                    </com.google.android.material.card.MaterialCardView>
                     <LinearLayout
                         android:visibility="visible"
                         android:id="@+id/lyt_pos_rx_new"

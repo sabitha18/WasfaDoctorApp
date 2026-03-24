@@ -313,6 +313,7 @@ class DoctorHomeFragment : Fragment() {
         viewModel.graphData.observe(viewLifecycleOwner) { data ->
             binding.progressBar.visibility = View.GONE
             setupLineChart(data)
+            setupLineChartRX(data)
             binding.txtSalesAnalytics.text =
                 "KD %.3f".format((data?.currentMonthAmount?.toString()?.toDoubleOrNull() ?: 0.0))
             val dashboardList = createDashboardListGraph(data)
@@ -366,9 +367,11 @@ class DoctorHomeFragment : Fragment() {
     private fun createDashboardListGraph(data: GraphResponse): List<DashboardItem> {
         return listOf(
             DashboardItem("Points", data.amount.toString()),
-            DashboardItem("RX Count", data.countOfSale.toString()),
+            DashboardItem("RX Count", data.RxCount.toString()),
             DashboardItem("Pending Points", data.pendingCommission),
             DashboardItem("Redeemed Points", data.completedPayment),
+            DashboardItem("Order Count", data.countOfSale),
+            DashboardItem("Patients", data.patientsCount),
 //            DashboardItem("Refund orders and Amount", data.refundOrders.toString()),
         )
     }
@@ -483,6 +486,86 @@ class DoctorHomeFragment : Fragment() {
 // Set custom range and granularity
         yAxis.axisMinimum = 0f      // Start at 0.0
         yAxis.axisMaximum = data.num_of_sale_value.maxOrNull()?.toFloat()?.plus(0.5f) ?: 2f
+        yAxis.granularity = 0.1f    // Step every 0.1
+        yAxis.labelCount = 11       // Total labels: 0.0 to 1.0
+
+// Optional: format to show 1 decimal place
+        yAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return String.format("%.1f", value)
+            }
+        }
+        lineChart.axisRight.isEnabled = false
+
+        val marker = CustomMarkerView(requireContext(), R.layout.custom_marker, data.weekdays)
+        marker.chartView = lineChart
+        lineChart.marker = marker
+
+
+        // Hide Legend and Description
+        lineChart.legend.isEnabled = false
+        lineChart.description.isEnabled = false
+
+        // Refresh the chart
+        lineChart.invalidate()
+    }
+    private fun setupLineChartRX(data: GraphResponse) {
+        val lineChart = binding.chartNoOfRx
+
+        val entries = mutableListOf<Entry>()
+        data.num_of_sale_rx_value.forEachIndexed { index, value ->
+            entries.add(Entry(index.toFloat(), value.toFloatOrNull() ?: 0f))
+        }
+
+        val dataSet = LineDataSet(entries, "Sample Data")
+
+        // Enable cubic bezier mode for a smooth wave-like curve
+        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+
+        // Enable gradient fill
+        dataSet.setDrawFilled(true)
+
+        // Set the gradient drawable
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.chart_gradient)
+        dataSet.fillDrawable = drawable
+
+        // Customizing line chart appearance
+        dataSet.color = ContextCompat.getColor(requireContext(), R.color.doctor_main_color)
+
+        dataSet.setDrawCircles(false)
+        dataSet.lineWidth = 2f
+        dataSet.setDrawValues(false)
+
+        val lineData = LineData(dataSet)
+        lineChart.data = lineData
+
+        // Configure X-Axis
+        val xAxis = lineChart.xAxis
+        xAxis.setDrawGridLines(false)  // No vertical grid lines
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawLabels(true)  // ✅ Show X-axis labels
+        xAxis.granularity = 1f // Ensure labels are shown for each point
+        xAxis.textColor = Color.BLACK // Customize text color if needed
+        xAxis.textSize = 12f
+
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val index = value.toInt()
+                return if (index in data.weekdays.indices) data.weekdays[index].substring(5) else "" // e.g. "04-01"
+            }
+        }
+
+        val yAxis = lineChart.axisLeft
+        yAxis.setDrawLabels(true)
+        yAxis.setDrawAxisLine(false)
+        yAxis.setDrawGridLines(true)
+        yAxis.gridColor = ContextCompat.getColor(requireContext(), R.color.grid_color)
+        yAxis.gridLineWidth = 1f
+        yAxis.enableGridDashedLine(10f, 10f, 0f)
+
+// Set custom range and granularity
+        yAxis.axisMinimum = 0f      // Start at 0.0
+        yAxis.axisMaximum = data.num_of_sale_rx_value.maxOrNull()?.toFloat()?.plus(0.5f) ?: 2f
         yAxis.granularity = 0.1f    // Step every 0.1
         yAxis.labelCount = 11       // Total labels: 0.0 to 1.0
 

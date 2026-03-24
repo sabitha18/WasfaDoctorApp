@@ -8,7 +8,9 @@ data class SubmitResponse (
     val patientInfo: List<PatientInfo>,
     val prescriptionDetails: List<PresDetails>,
     val clinicName: String,
-    val designation: String
+    val designation: String,
+    val items_new: String,
+    val doctor_new_note: String
 )
 data class PresDetails(
     val id: String,

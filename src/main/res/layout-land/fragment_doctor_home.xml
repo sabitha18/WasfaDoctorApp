@@ -176,7 +176,14 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp" />
 
-
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_no_of_rx"
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="30dp" />
             <TextView
                 android:id="@+id/txt_top_sell"
                 android:layout_width="wrap_content"
