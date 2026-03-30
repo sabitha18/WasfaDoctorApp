@@ -13,7 +13,8 @@ data class ListRX(
     val doctor: String,
     val customerId: String,
     val status_order: String,
-    val date: String
+    val date: String,
+    val edited: String
 
 )
 

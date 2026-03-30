@@ -1,5 +1,6 @@
 package com.wasfa.doctor.ui.report.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +51,19 @@ class ReportRXAdapter(
             itemBinding.txtItemName.text = data?.customer
             itemBinding.txtItemCount.text = data?.product_count
             itemBinding.txtStatus.text = data?.status_order
+            if (data?.status_order == "Pending"){
+                itemBinding.txtStatus.setTextColor(Color.parseColor("#000000"))
+
+            }else{
+                itemBinding.txtStatus.setTextColor(Color.parseColor("#34c0f2"))
+            }
+
+
+            if (data?.edited == "false"){
+                itemBinding.txtOrderEditedStatus.visibility = View.INVISIBLE
+            }else{
+                itemBinding.txtOrderEditedStatus.visibility = View.VISIBLE
+            }
 
         }
     }

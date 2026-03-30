@@ -75,12 +75,18 @@ class PresReviewFragment : Fragment() {
         val prefs = AppPreferences.getInstance(requireContext())
 
         if (prefs.getNewRXStatus() == "new"){
+            binding.editDoctorNotes.isEnabled = true
+            binding.editEnterValue.isEnabled = true
             binding.lytPosRx.visibility = View.GONE
             binding.lytPosRxNew.visibility = View.VISIBLE
         }else if (prefs.getNewRXStatus() == "edit"){
+            binding.editDoctorNotes.isEnabled = true
+            binding.editEnterValue.isEnabled = true
             binding.lytPosRx.visibility = View.GONE
             binding.lytPosRxNew.visibility = View.VISIBLE
         }else{
+            binding.editDoctorNotes.isEnabled = false
+            binding.editEnterValue.isEnabled = false
             binding.lytPosRx.visibility = View.VISIBLE
             binding.lytPosRxNew.visibility = View.GONE
         }

@@ -83,11 +83,11 @@
 
                         <!-- Order ID -->
                         <TextView
-                            android:layout_width="120dp"
+                            android:layout_width="170dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:textAlignment="center"
-                            android:layout_marginStart="10dp"
+
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
                             android:text="Prescription Id"
@@ -143,7 +143,7 @@
                         <!-- Pharmaceutical -->
                         <TextView
                             android:textAlignment="center"
-                            android:layout_width="140dp"
+                            android:layout_width="170dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginEnd="10dp"
