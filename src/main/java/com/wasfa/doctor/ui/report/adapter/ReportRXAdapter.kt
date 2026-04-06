@@ -32,11 +32,17 @@ class ReportRXAdapter(
             listener(data[position],"view")
         }
 
-        if (editStatus == "false"){
-            holder.itemBinding.imgEdit.visibility = View.VISIBLE
+        if (data[position].status_order == "Partially Ordered" || data[position].status_order == "Ordered"){
+            holder.itemBinding.imgEdit.visibility = View.GONE
         }else{
             holder.itemBinding.imgEdit.visibility = View.VISIBLE
         }
+//
+//        if (editStatus == "false"){
+//            holder.itemBinding.imgEdit.visibility = View.VISIBLE
+//        }else{
+//            holder.itemBinding.imgEdit.visibility = View.VISIBLE
+//        }
     }
 
     override fun getItemCount(): Int {
