@@ -76,6 +76,7 @@
                     android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:hint="Search"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/roboto_regular"
                     android:textColorHint="#AEAEAE"
                     android:textSize="16dp" />

@@ -188,6 +188,7 @@
                                     android:hint="1"
                                     android:singleLine="true"
                                     android:textColorHint="#B4ABAB"
+                                    android:textColor="@color/black"
                                     android:textSize="12sp" />
                             </com.google.android.material.card.MaterialCardView>
 
@@ -619,6 +620,7 @@
                                     android:background="@android:color/transparent"
                                     android:hint="Discount"
                                     android:singleLine="true"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                             </com.google.android.material.card.MaterialCardView>

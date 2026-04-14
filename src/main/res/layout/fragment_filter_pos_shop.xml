@@ -144,6 +144,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:hint="Search By SKU"
+                        android:textColor="@color/black"
                         android:textColorHint="#B4ABAB"
                         android:textSize="12sp" />
 
@@ -178,6 +179,7 @@
                         android:gravity="center_vertical"
                         android:hint="Search by Products"
                         android:textColorHint="#B4ABAB"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -229,12 +231,32 @@
                         android:visibility="gone"
                         android:id="@+id/card_filter_by_brand_hide"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="300dp"
                         android:orientation="vertical">
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="#40000000"/>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_height="35dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="5dp"
+
+                            app:strokeColor="#7D7C7C"
+                            app:strokeWidth="1dp">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/edit_brand_search"
+                                android:hint="search brand"
+                                android:background="@android:color/transparent"
+                                android:textSize="12sp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"/>
+                        </com.google.android.material.card.MaterialCardView>
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_margin="10dp"

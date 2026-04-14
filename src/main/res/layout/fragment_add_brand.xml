@@ -167,6 +167,7 @@
                                 android:background="@android:color/transparent"
                                 android:hint="Name"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
                         </com.google.android.material.card.MaterialCardView>
@@ -201,6 +202,7 @@
                                 android:background="@android:color/transparent"
                                 android:hint="Arabic Name "
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
                         </com.google.android.material.card.MaterialCardView>
@@ -290,6 +292,7 @@
                                 android:background="@android:color/transparent"
                                 android:hint="Meta Title"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
                         </com.google.android.material.card.MaterialCardView>
@@ -323,6 +326,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="Meta Description"
+                                android:textColor="@color/black"
                                 />
                         </com.google.android.material.card.MaterialCardView>
                         <TextView
@@ -355,6 +359,7 @@
                                 android:background="@android:color/transparent"
                                 android:hint="Arabic Meta Title"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
                         </com.google.android.material.card.MaterialCardView>
@@ -388,6 +393,7 @@
                                 android:gravity="center_vertical|top"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/black"
                                 android:hint="Arabic Meta Description"
                                 />
                         </com.google.android.material.card.MaterialCardView>

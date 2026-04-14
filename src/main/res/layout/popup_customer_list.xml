@@ -34,6 +34,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
                 android:hint="Search "
+                android:textColor="@color/black"
                 android:singleLine="true"
                 android:textColorHint="#B4ABAB"
                 android:textSize="12sp" />

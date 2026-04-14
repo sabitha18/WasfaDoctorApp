@@ -153,7 +153,7 @@ class HomeViewModel(private val context: Context) : ViewModel() {
     // brand
     var currentPageBrand = 1
     var totalPageCountBrand = 1
-    private var loadingBrand = false
+    var loadingBrand = false
     fun isLastPageBrand() = currentPageBrand > totalPageCountBrand
 
 
@@ -330,71 +330,44 @@ class HomeViewModel(private val context: Context) : ViewModel() {
     }
 
 
-    fun loadNextPageBrand() {
-        if (loadingBrand) return
-        loadingBrand= true
+
+
+    fun getBrandList(token: String, request: ApiService.BrandRequestNew) {
+        if (loadingBrand || isLastPageBrand()) return   // 🔥 prevent duplicate calls
+
+        loadingBrand = true
 
         viewModelScope.launch {
             try {
-                val token = AppPreferences.getInstance(context).getToken().toString()
-                val request = ApiService.BrandRequest(
-                    per_page = "4",
-                    page_no = currentPageBrand.toString()
-                )
-
                 val response = withContext(Dispatchers.IO) {
                     NetworkClient.apiService.getBrandList("Bearer $token", request)
                 }
 
-                if (response.isSuccessful && response.body()?.error == false) {
-                    val data = response.body()?.data
-                    data?.let {
-                        _brandList.value = it
-                        _productEvent.value = response.body()?.message
-                    }
-                } else {
-                    Log.e("HomeViewModel", "Error: ${response.message()}")
-                }
-            } catch (e: Exception) {
-                Log.e("HomeViewModel", "Exception: ${e.message}")
-            } finally {
-                loadingBrand= false
-            }
-        }
-    }
-
-    fun getBrandList(token: String,request: ApiService.BrandRequest) {
-        viewModelScope.launch {
-            try {
-
-                val response = withContext(Dispatchers.IO) {
-                    NetworkClient.apiService.getBrandList("Bearer $token",request)
-                }
-
                 if (response.isSuccessful) {
                     if (response.body()?.error == false) {
+
                         val data = response.body()?.data
-                        totalPageCountBrand= data?.totalPages!!.toInt()
-                        _brandList.value = data!!
-                        _productEvent.value = response.body()?.message
+                        totalPageCountBrand = data?.totalPages?.toInt() ?: 1
+
+                        // 🔥 append instead of replace
+                        _brandList.value = data
+
+                        currentPageBrand++   // 🔥 move to next page
+
                     } else {
-                        // Handle the case where the error field is true
-                        Log.e("*Home Cat*", "Error in response: ${response.body()?.message}")
+                        Log.e("*Brand*", "Error: ${response.body()?.message}")
                     }
-
                 } else {
-                    Log.e("*Home Cat*", response.message())
-
+                    Log.e("*Brand*", response.message())
                 }
 
             } catch (e: Exception) {
-                Log.e("*Home Cat*", e.message.toString())
+                Log.e("*Brand*", e.message.toString())
             } finally {
-
+                loadingBrand = false
             }
         }
     }
-
 
     //influencer list
 

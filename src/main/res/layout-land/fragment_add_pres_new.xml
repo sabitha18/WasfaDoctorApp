@@ -363,6 +363,7 @@
                                         android:background="@android:color/transparent"
                                         android:gravity="center_vertical"
                                         android:hint="DOB"
+                                        android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:textColorHint="#B4ABAB"
                                         android:textSize="12sp" />

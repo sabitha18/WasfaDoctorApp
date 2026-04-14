@@ -178,6 +178,7 @@
                                             android:gravity="center_vertical"
                                             android:hint="Search influencer"
                                             android:singleLine="true"
+                                            android:textColor="@color/black"
                                             android:textColorHint="#B4ABAB"
                                             android:textSize="12sp" />
 
@@ -220,7 +221,8 @@
                                             android:hint="Search Products"
                                             android:singleLine="true"
                                             android:textColorHint="#B4ABAB"
-                                            android:textSize="12sp" />
+                                            android:textSize="12sp"
+                                            android:textColor="@color/black"/>
 
                                         <ImageView
                                             android:layout_width="24dp"

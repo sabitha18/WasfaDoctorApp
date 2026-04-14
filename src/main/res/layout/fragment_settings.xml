@@ -104,7 +104,8 @@
                         android:fontFamily="@font/roboto_regular"
                         android:hint="name"
                         android:singleLine="true"
-                        android:textColor="#544C4C"
+                        android:textColorHint="#544C4C"
+                        android:textColor="@color/black"
                         android:textSize="14dp" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -137,7 +138,8 @@
                         android:fontFamily="@font/roboto_regular"
                         android:hint="email"
                         android:singleLine="true"
-                        android:textColor="#544C4C"
+                        android:textColorHint="#544C4C"
+                        android:textColor="@color/black"
                         android:textSize="14dp" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -172,7 +174,8 @@
                         android:hint="phone number"
                         android:inputType="phone"
                         android:singleLine="true"
-                        android:textColor="#544C4C"
+                        android:textColorHint="#544C4C"
+                        android:textColor="@color/black"
                         android:textSize="14dp" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -206,7 +209,8 @@
                         android:hint="alternative number"
                         android:inputType="phone"
                         android:singleLine="true"
-                        android:textColor="#544C4C"
+                        android:textColorHint="#544C4C"
+                        android:textColor="@color/black"
                         android:textSize="14dp" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -286,7 +290,8 @@
                             android:inputType="number"
                             android:singleLine="true"
                             android:text="civil id"
-                            android:textColor="#544C4C"
+                            android:textColorHint="#544C4C"
+                            android:textColor="@color/black"
                             android:textSize="14dp" />
 
 

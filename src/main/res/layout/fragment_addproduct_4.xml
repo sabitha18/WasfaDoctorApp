@@ -95,6 +95,7 @@
                                     android:background="@android:color/transparent"
                                     android:hint="Meta Title"
                                     android:singleLine="true"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                             </com.google.android.material.card.MaterialCardView>
@@ -130,6 +131,7 @@
                                     android:background="@android:color/transparent"
                                     android:hint="Arabic Meta Title"
                                     android:singleLine="true"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                             </com.google.android.material.card.MaterialCardView>
@@ -164,6 +166,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Description"
+                                    android:textColor="@color/black"
                                     />
                             </com.google.android.material.card.MaterialCardView>
                             <TextView
@@ -198,6 +201,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Arabic Description"
+                                    android:textColor="@color/black"
                                     />
                             </com.google.android.material.card.MaterialCardView>
                             <TextView

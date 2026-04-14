@@ -141,6 +141,7 @@
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="center_vertical"
                             android:hint="Select Lead"
+                            android:textColor="@color/black"
                             android:textColorHint="#B4ABAB"
                             android:textSize="12sp" />
 
@@ -180,6 +181,7 @@
                             android:gravity="center_vertical"
                             android:hint="Select Delivery Staff"
                             android:textColorHint="#B4ABAB"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
 
                         <ImageView
@@ -213,6 +215,7 @@
                         android:gravity="center_vertical"
                         android:hint="Search Booklet No"
                         android:textColorHint="#B4ABAB"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -238,6 +241,7 @@
                         android:gravity="center_vertical"
                         android:hint="Search Prescriptions Id"
                         android:textColorHint="#B4ABAB"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -267,6 +271,7 @@
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="center_vertical"
                             android:hint="Select Influencer"
+                            android:textColor="@color/black"
                             android:textColorHint="#B4ABAB"
                             android:textSize="12sp" />
 
@@ -415,6 +420,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:hint="Additional Notes"
                         android:padding="10dp"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -443,6 +449,7 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="Internal Notes"
+                        android:textColor="@color/black"
                         android:padding="10dp"
                         android:textSize="14sp" />
                 </com.google.android.material.card.MaterialCardView>

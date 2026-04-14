@@ -209,6 +209,7 @@
                                     android:fontFamily="@font/roboto_regular"
                                     android:gravity="center_vertical"
                                     android:hint="Contact Number"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -249,6 +250,7 @@
                                 android:background="@android:color/transparent"
                                 android:hint="Civil ID"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
                         </com.google.android.material.card.MaterialCardView>
@@ -287,6 +289,7 @@
                                 android:background="@android:color/transparent"
                                 android:hint="Full Name"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
                         </com.google.android.material.card.MaterialCardView>
@@ -325,6 +328,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:background="@android:color/transparent"
                                 android:hint="Email"
+                                android:textColor="@color/black"
                                 android:singleLine="true"
                                 android:textColorHint="#B4ABAB"
                                 android:textSize="12sp" />
@@ -373,6 +377,7 @@
                                     android:background="@android:color/transparent"
                                     android:hint="DOB"
                                     android:singleLine="true"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                                 <LinearLayout
@@ -580,6 +585,7 @@
                                     android:fontFamily="@font/roboto_regular"
                                     android:gravity="center_vertical"
                                     android:hint="Alternative Number"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -683,6 +689,7 @@
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="center_vertical"
                             android:hint="Search Products"
+                            android:textColor="@color/black"
                             android:textColorHint="#B4ABAB"
                             android:textSize="12sp" />
 

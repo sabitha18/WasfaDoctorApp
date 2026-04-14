@@ -145,6 +145,7 @@
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center_vertical"
                                         android:hint="Video Link"
+                                        android:textColor="@color/black"
                                         android:textColorHint="#B4ABAB"
                                         android:textSize="12sp" />
 

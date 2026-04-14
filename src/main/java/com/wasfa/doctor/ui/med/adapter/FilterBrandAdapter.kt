@@ -7,36 +7,36 @@ import com.wasfa.doctor.databinding.ItemFilterDeliveryStaffBinding
 import com.wasfa.doctor.network.response.Brands
 
 class FilterBrandAdapter(
-    private val CatList: List<Brands>?,
+    private val list: MutableList<Brands>,
     private val listener: (Brands, Int) -> Unit
-) :
-    RecyclerView.Adapter<FilterBrandAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<FilterBrandAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemFilterDeliveryStaffBinding.inflate(
+        val binding = ItemFilterDeliveryStaffBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ViewHolder(v)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(CatList!![position])
+        val item = list[position]
+
+        holder.bindItem(item)
 
         holder.itemView.setOnClickListener {
-            listener(CatList!![position], position)
+            listener(item, position)
         }
     }
 
-    override fun getItemCount(): Int {
-        return CatList!!.size
-    }
+    override fun getItemCount(): Int = list.size
 
-    class ViewHolder(var itemBinding: ItemFilterDeliveryStaffBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
+    class ViewHolder(private val binding: ItemFilterDeliveryStaffBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
         fun bindItem(data: Brands) {
-            itemBinding.itemName.text = data?.name
+            binding.itemName.text = data.name
         }
     }
 }

@@ -17,12 +17,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.wasfa.doctor.R
@@ -43,6 +46,9 @@ import com.wasfa.doctor.ui.med.adapter.FilterMedicalRepAdapter
 import com.wasfa.doctor.ui.med.adapter.FilterSellerAdapter
 import com.wasfa.doctor.viewmodel.HomeViewModel
 import com.wasfa.doctor.viewmodel.HomeViewModelFactory
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class AddMedFragment : Fragment() {
@@ -75,6 +81,10 @@ class AddMedFragment : Fragment() {
     private var selectedBrandId: String = ""
     private var selectedSellerId: String = ""
     private var selectedMedicalRepId: String = ""
+    private val brandList = mutableListOf<Brands>()
+    private lateinit var brandAdapter: FilterBrandAdapter
+    private var currentSearchQuery = ""
+    private var searchJob: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,9 +103,73 @@ class AddMedFragment : Fragment() {
         callProductAPI("POS")
         manageSearch()
         handleFilterClick()
+
+        setupBrandAdapter()
+
+        viewModel.currentPageBrand = 1
+        brandList.clear()
+        brandAdapter.notifyDataSetChanged()
+
+        setBrandPagination()
+        loadNextPage(currentSearchQuery)
+    }
+    private fun setBrandPagination() {
+
+        binding.pageFilter.recyclerFilterByBrand.clearOnScrollListeners() // 🔥 FIX
+
+        binding.pageFilter.recyclerFilterByBrand.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (!viewModel.loadingBrand &&
+                    !viewModel.isLastPageBrand() &&
+                    (visibleItemCount + firstVisibleItemPosition >= totalItemCount)
+                ) {
+                    loadNextPage(currentSearchQuery)
+                }
+            }
+        })
+
+    }
+    private fun loadNextPage(search: String = "") {
+
+        if (viewModel.loadingBrand || viewModel.isLastPageBrand()) return
+
+        val request = ApiService.BrandRequestNew(
+            per_page = "20",
+            page_no = viewModel.currentPageBrand.toString(),
+            search = search
+            )
+
+        viewModel.getBrandList(
+            AppPreferences.getInstance(requireContext()).getToken().toString(),
+            request
+        )
     }
     private fun handleFilterClick() {
+        binding.pageFilter.editBrandSearch.addTextChangedListener { text ->
 
+            searchJob?.cancel()
+
+            searchJob = lifecycleScope.launch {
+                delay(500) // wait for typing
+
+                currentSearchQuery = text.toString().trim()
+
+                viewModel.currentPageBrand = 1
+                brandList.clear()
+                brandAdapter.notifyDataSetChanged()
+
+                loadNextPage(currentSearchQuery)
+            }
+        }
         if (AppPreferences.getInstance(requireContext()).getLoginType() == "influencer"){
             binding.pageFilter.cardFilterInfluencer.visibility = View.GONE
         }else{
@@ -318,7 +392,13 @@ class AddMedFragment : Fragment() {
             manageInfluencerFilter(data)
         }
         viewModel.brandList.observe(viewLifecycleOwner) { data ->
-            manageBrandFilter(data?.brands)
+
+            val newList = data?.brands ?: emptyList()
+
+            val start = brandList.size
+            brandList.addAll(newList)
+
+            brandAdapter.notifyItemRangeInserted(start, newList.size)
         }
         viewModel.sellerList.observe(viewLifecycleOwner) { data ->
             manageSellerFilter(data)
@@ -326,15 +406,23 @@ class AddMedFragment : Fragment() {
         viewModel.medicalRepList.observe(viewLifecycleOwner) { data ->
             manageMedicalRepFilter(data)
         }
-        val request = ApiService.BrandRequest(
-            per_page = "1000",
-            page_no = "1"
-        )
+
         viewModel.getInfluencerList(appPreferences.getToken().toString())
-        viewModel.getBrandList(appPreferences.getToken().toString(),request)
         viewModel.getSellerList(appPreferences.getToken().toString())
         viewModel.getMedicalRepList(appPreferences.getToken().toString())
 
+    }
+    private fun setupBrandAdapter() {
+        brandAdapter = FilterBrandAdapter(brandList) { data, position ->
+            selectedBrandId = data.id.toString()
+            binding.pageFilter.txtFilterByBrand.text = data.name
+            closeBrand()
+        }
+
+        binding.pageFilter.recyclerFilterByBrand.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = brandAdapter
+        }
     }
     fun isTablet(): Boolean {
         val metrics = resources.displayMetrics
@@ -376,19 +464,6 @@ class AddMedFragment : Fragment() {
     private fun closeSeller() {
         binding.pageFilter.imgFilterBySeller.rotation = 0f
         binding.pageFilter.cardFilterBySellerHide.visibility = View.GONE
-    }
-    private fun manageBrandFilter(data: List<Brands>?) {
-        binding.pageFilter.recyclerFilterByBrand.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-            val catAdapter = FilterBrandAdapter(data) { data, position ->
-
-                selectedBrandId = data?.id.toString()
-                binding.pageFilter.txtFilterByBrand.text = data?.name
-                closeBrand()
-            }
-            adapter = catAdapter
-        }
     }
     private fun closeBrand() {
         binding.pageFilter.imgFilterByBrandArrow.rotation = 0f

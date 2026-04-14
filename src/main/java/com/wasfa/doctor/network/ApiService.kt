@@ -509,7 +509,7 @@ interface ApiService {
     @POST("brandsList")
     suspend fun getBrandList(
         @Header("Authorization") token: String,
-        @Body requestBody: BrandRequest
+        @Body requestBody: BrandRequestNew
     ): Response<ApiResponse<BrandListResponse>>
 
     @GET("influencerList")
@@ -1185,9 +1185,13 @@ interface ApiService {
 
     data class BrandRequest(
         val per_page: String,
-        val page_no: String
+        val page_no: String,
     )
-
+    data class  BrandRequestNew(
+        val per_page: String,
+        val page_no: String,
+        val search: String
+    )
     data class CountRequest(
         val rxCount: String
     )
