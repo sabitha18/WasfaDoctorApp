@@ -134,7 +134,7 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
@@ -149,7 +149,7 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
                             android:text="Date"
@@ -163,7 +163,7 @@
                         <TextView
                             android:layout_width="250dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
                             android:text="Item Name"
@@ -188,29 +188,31 @@
                             android:maxLines="1" />
 
                         <!-- Doctor Appreciation -->
-                        <TextView
-                            android:layout_width="220dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Doctor Appreciation Amount (KD)"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+<!--                        <TextView-->
+<!--                            android:visibility="gone"-->
+<!--                            android:layout_width="220dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:fontFamily="@font/roboto_bold"-->
+<!--                            android:text="Doctor Appreciation Amount (KD)"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:ellipsize="end"-->
+<!--                            android:maxLines="1" />-->
 
                         <!-- Pharmaceutical -->
                         <TextView
                             android:layout_width="140dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/roboto_bold"
                             android:text="Pharmaceutical"
                             android:textColor="@color/white"
                             android:textSize="12sp"
+                            android:layout_gravity="center"
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:maxLines="1" />

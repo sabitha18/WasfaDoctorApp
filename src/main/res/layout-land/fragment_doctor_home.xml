@@ -106,6 +106,7 @@
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:hint="Filter by date"
+                        android:textColor="@color/black"
                         android:textColorHint="#ABB7C2"
                         android:textSize="15sp" />
                     <ImageView
@@ -128,7 +129,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="RX Analytics"
-                android:textColor="#737D93"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -166,7 +167,58 @@
                         android:textSize="14sp" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/black"
+                    app:cardBackgroundColor="#edeeee"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginStart="5dp"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of RX"/>
+            </LinearLayout>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_no_of_rx"
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="30dp" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/black"
+                    app:cardBackgroundColor="#edeeee"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginStart="5dp"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of Order"/>
+            </LinearLayout>
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart_no_of_sales"
                 android:layout_width="match_parent"
@@ -176,14 +228,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart_no_of_rx"
-                android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="30dp" />
+
             <TextView
                 android:id="@+id/txt_top_sell"
                 android:layout_width="wrap_content"

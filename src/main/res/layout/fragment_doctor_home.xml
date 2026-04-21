@@ -190,6 +190,7 @@
                     app:strokeColor="@color/black"
                     app:cardBackgroundColor="#edeeee"/>
                 <TextView
+                    android:textColor="@color/black"
                     android:fontFamily="@font/roboto_regular"
                     android:layout_marginStart="5dp"
                     android:textSize="14sp"
@@ -220,6 +221,7 @@
                     app:strokeColor="@color/black"
                     app:cardBackgroundColor="#edeeee"/>
                 <TextView
+                    android:textColor="@color/black"
                     android:fontFamily="@font/roboto_regular"
                     android:layout_marginStart="5dp"
                     android:textSize="14sp"

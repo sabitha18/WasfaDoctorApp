@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_regular"
-        android:gravity="center_vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:maxLines="1"
@@ -29,7 +30,8 @@
         android:layout_height="match_parent"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_regular"
-        android:gravity="center_vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_marginEnd="10dp"
         android:maxLines="1"
         android:singleLine="true"
@@ -43,7 +45,8 @@
         android:layout_height="match_parent"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_regular"
-        android:gravity="center_vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_marginEnd="10dp"
         android:maxLines="1"
         android:singleLine="true"
@@ -58,6 +61,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/roboto_regular"
         android:gravity="center"
+        android:layout_gravity="center"
         android:layout_marginEnd="10dp"
         android:maxLines="1"
         android:singleLine="true"
@@ -65,18 +69,19 @@
         android:textSize="12sp" />
 
     <!-- Doctor Appreciation -->
-    <TextView
-        android:id="@+id/txt_doctor_appreciation"
-        android:layout_width="220dp"
-        android:layout_height="match_parent"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_regular"
-        android:gravity="center"
-        android:layout_marginEnd="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+<!--    <TextView-->
+<!--        android:visibility="gone"-->
+<!--        android:id="@+id/txt_doctor_appreciation"-->
+<!--        android:layout_width="220dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:ellipsize="end"-->
+<!--        android:fontFamily="@font/roboto_regular"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:maxLines="1"-->
+<!--        android:singleLine="true"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="12sp" />-->
 
     <!-- Pharmaceutical -->
     <TextView

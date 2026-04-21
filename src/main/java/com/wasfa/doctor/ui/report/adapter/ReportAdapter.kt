@@ -31,7 +31,7 @@ class ReportAdapter(
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(data: Report) {
             itemBinding.txtOrderId.text = data?.orderCode
-            itemBinding.txtDoctorAppreciation.text = data?.doctorAppreciationAmount
+          //  itemBinding.txtDoctorAppreciation.text = data?.doctorAppreciationAmount
             itemBinding.txtSellingPrice.text = data?.sellingPriceAfterAllDiscount
             itemBinding.txtPharmaStatus.text = data?.isPharmacutecal
             itemBinding.txtItemName.text = data?.itenname
