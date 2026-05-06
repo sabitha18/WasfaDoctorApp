@@ -67,7 +67,7 @@ class POSRXListAdapter(
                 itemBinding.cardAddCart.isEnabled = true
                 itemBinding.cardAddCart.alpha = 1.0f
                 itemBinding.txtStock.text = "Out of stock"
-                itemBinding.cardStock.visibility = View.VISIBLE
+                itemBinding.cardStock.visibility = View.GONE
                 itemBinding.cardStock.setCardBackgroundColor(Color.parseColor("#A61C5C"))
             } else {
                 itemBinding.cardAddCart.isEnabled = true

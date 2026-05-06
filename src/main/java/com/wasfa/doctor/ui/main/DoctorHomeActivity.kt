@@ -400,9 +400,11 @@ class DoctorHomeActivity : AppCompatActivity() {
 
     fun showBottomNav() {
         if (isTablet()) {
+            println("check ======  ")
             binding.sideTabletView.customBottomNav.visibility = View.VISIBLE
             binding.bottomView.customBottomNav.visibility = View.GONE
         } else {
+            println("check ======  -----")
             binding.sideTabletView.customBottomNav.visibility = View.GONE
             binding.bottomView.customBottomNav.visibility = View.VISIBLE
         }
@@ -580,6 +582,7 @@ class DoctorHomeActivity : AppCompatActivity() {
             binding.bottomView.customBottomNav.visibility = View.GONE
             binding.sideMenu.customBottomNav.visibility = View.GONE
             manageTabletClicks()
+            manageSideMenuClick()
         } else {
             // Use bottom navigation for phones/portrait
             binding.bottomView.customBottomNav.visibility = View.VISIBLE

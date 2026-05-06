@@ -191,6 +191,7 @@
                                         android:hint="Contact Number"
                                         android:inputType="phone"
                                         android:maxLength="8"
+                                        android:textColor="@color/black"
                                         android:textColorHint="#B4ABAB"
                                         android:textSize="12sp" />
                                 </LinearLayout>
@@ -208,6 +209,7 @@
                                 android:gravity="center_vertical"
                                 android:hint="Please Enter Contact Number"
                                 android:singleLine="true"
+                                android:textColor="@color/black"
                                 android:textColorHint="#FF0000"
                                 android:textSize="12sp"
                                 android:visibility="gone" />
@@ -233,6 +235,7 @@
                                     android:hint="Civil ID"
                                     android:inputType="number"
                                     android:singleLine="true"
+                                    android:textColor="@color/black"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
                             </com.google.android.material.card.MaterialCardView>
@@ -272,6 +275,7 @@
                                     android:layout_marginEnd="10dp"
                                     android:background="@android:color/transparent"
                                     android:hint="Full Name"
+                                    android:textColor="@color/black"
                                     android:singleLine="true"
                                     android:textColorHint="#B4ABAB"
                                     android:textSize="12sp" />
@@ -312,6 +316,7 @@
                                     android:layout_marginEnd="10dp"
                                     android:background="@android:color/transparent"
                                     android:hint="Email"
+                                    android:textColor="@color/black"
                                     android:inputType="textEmailAddress"
                                     android:singleLine="true"
                                     android:textColorHint="#B4ABAB"
@@ -363,6 +368,7 @@
                                         android:background="@android:color/transparent"
                                         android:gravity="center_vertical"
                                         android:hint="DOB"
+
                                         android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:textColorHint="#B4ABAB"
@@ -428,6 +434,7 @@
                                         android:gravity="center_vertical"
                                         android:background="@android:color/transparent"
                                         android:hint="Gender"
+                                        android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:textColorHint="#B4ABAB"
                                         android:textSize="12sp" />
@@ -492,6 +499,7 @@
                                         android:gravity="center_vertical"
                                         android:background="@android:color/transparent"
                                         android:hint="Nationality"
+                                        android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:textColorHint="#B4ABAB"
                                         android:textSize="12sp" />
@@ -573,6 +581,7 @@
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center_vertical"
                                         android:hint="Alternative Number"
+                                        android:textColor="@color/black"
                                         android:textColorHint="#B4ABAB"
                                         android:textSize="12sp" />
                                 </LinearLayout>

@@ -27,13 +27,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/img_menu"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/pos_back"/>
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_back"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     app:cardBackgroundColor="#F7F7F7"
-                    app:cardCornerRadius="10dp"
-                    android:visibility="gone">
+                    app:cardCornerRadius="10dp">
 
                     <ImageView
                         android:layout_width="12dp"
@@ -42,12 +47,7 @@
                         android:src="@drawable/brown_back" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:visibility="visible"
-                    android:id="@+id/img_menu"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/menu"/>                <TextView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -60,134 +60,112 @@
 
             </LinearLayout>
 
+
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:fillViewport="true"
                 android:scrollbars="none">
 
                 <LinearLayout
-                    android:gravity="start"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="950dp"
                     android:orientation="vertical">
 
+                    <!-- Header -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginTop="50dp"
+                        android:minWidth="950dp"
                         android:background="#1b1b28"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
 
-                        <!-- Order ID -->
                         <TextView
-                            android:layout_width="170dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1.5"
                             android:gravity="center"
-                            android:textAlignment="center"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Prescription Id"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
-                        <!-- Item Name -->
+                            android:fontFamily="@font/roboto_bold"/>
+
                         <TextView
-                            android:textAlignment="center"
-                            android:layout_width="350dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="2.5"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Patient Name"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold"/>
 
-                        <!-- Selling Price -->
                         <TextView
-                            android:textAlignment="center"
-                            android:layout_width="180dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1.2"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Item Count"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
-                        <!-- Date -->
+                            android:fontFamily="@font/roboto_bold"/>
+
                         <TextView
-                            android:textAlignment="center"
-                            android:layout_width="100dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Date"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold"/>
 
-                        <!-- Pharmaceutical -->
                         <TextView
-                            android:textAlignment="center"
-                            android:layout_width="170dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1.3"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Status"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold"/>
 
-                        <!-- Cleared -->
                         <TextView
-                            android:textAlignment="center"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="0.8"
                             android:gravity="center"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="View"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold"/>
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/txt_no_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:gravity="center"
                         android:text="No Data Available"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:visibility="gone" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:visibility="gone"/>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_pres"
                         android:layout_width="match_parent"
-
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minWidth="950dp"
                         tools:itemCount="3"
-                        tools:listitem="@layout/item_report" />
+                        tools:listitem="@layout/item_report"/>
+
                 </LinearLayout>
             </HorizontalScrollView>
 

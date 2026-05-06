@@ -218,7 +218,7 @@ class HomeViewModel(private val context: Context) : ViewModel() {
                 }
 
                 if (response.isSuccessful) {
-                    if (response.body()?.error == true) {
+                    if (response.body()?.error == false) {
                         _presRXNewData.value = response.body()?.data!!
 
                     } else {

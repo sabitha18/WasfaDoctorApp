@@ -83,51 +83,61 @@ object PrescriptionPdfHelper {
 
 // Draw logo on top-right corner
         logoPath?.let { bitmap ->
+
             val density = context.resources.displayMetrics.density
 
-            val logoSize = (25 * density).toInt()
-            val scaledLogo = Bitmap.createScaledBitmap(bitmap, logoSize, logoSize, true)
-            val circularLogo = getCircularBitmap(scaledLogo)
+            // same visual size, but better rendering
+            val logoBoxSize = (48 * density).toInt()   // outer visible area
+            val innerPadding = (6 * density).toInt()   // safe space inside circle
 
-            // Move everything 10dp upward
             val offsetTop = 8 * density
 
-            // Title + subtitle center
             val titleY = topY + titlePaint.textSize
             val subtitleY = titleY + companyPaint.textSize + 8f
             val blockCenterY = (titleY + subtitleY) / 2f
 
-            // Updated logo Y (10dp up)
-            val logoY = blockCenterY - logoSize / 2f - offsetTop
-            val logoX = pageInfo.pageWidth - logoSize - 40f
+            val logoY = blockCenterY - logoBoxSize / 2f - offsetTop
+            val logoX = pageInfo.pageWidth - logoBoxSize - 28f
 
-            // Draw logo
-            canvas.drawBitmap(circularLogo, logoX, logoY, null)
-
-            // Logo border
-            val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = Color.LTGRAY
-                style = Paint.Style.STROKE
-                strokeWidth = 0.5f * density
+            // draw white circular background
+            val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.WHITE
+                style = Paint.Style.FILL
             }
 
-            val cx = logoX + logoSize / 2f
-            val cy = logoY + logoSize / 2f
-            canvas.drawCircle(cx, cy, logoSize / 2f, borderPaint)
+            val cx = logoX + logoBoxSize / 2f
+            val cy = logoY + logoBoxSize / 2f
+            val radius = logoBoxSize / 2f
 
-            // ----- Powered by Apix (also moved up!) -----
-            val powerText = "Powered by Apix"
+            canvas.drawCircle(cx, cy, radius, bgPaint)
+
+            // draw thin border
+            val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.parseColor("#D8D8D8")
+                style = Paint.Style.STROKE
+                strokeWidth = 1f
+            }
+            canvas.drawCircle(cx, cy, radius, borderPaint)
+
+            // -------- PROFESSIONAL FIT WITHOUT STRETCH --------
+            val fittedLogo = fitBitmapInside(bitmap, logoBoxSize - innerPadding, logoBoxSize - innerPadding)
+
+            val left = cx - fittedLogo.width / 2f
+            val top = cy - fittedLogo.height / 2f
+
+            canvas.drawBitmap(fittedLogo, left, top, Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG))
+
+            // powered by text (same position style)
             val powerPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = Color.LTGRAY
-                textSize = 10f
+                textSize = 9f
                 textAlign = Paint.Align.CENTER
             }
 
-            // Move the text 10dp up along with logo
             canvas.drawText(
-                powerText,
-                cx,                                  // centered
-                cy + (logoSize / 2f) + 15f,   // text moved 10dp up
+                "Powered by Apix",
+                cx,
+                cy + radius + 14f,
                 powerPaint
             )
         }
@@ -686,5 +696,15 @@ object PrescriptionPdfHelper {
             "-"
         }
     }
+    private fun fitBitmapInside(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        val ratio = minOf(
+            maxWidth.toFloat() / bitmap.width,
+            maxHeight.toFloat() / bitmap.height
+        )
 
+        val finalWidth = (bitmap.width * ratio).toInt()
+        val finalHeight = (bitmap.height * ratio).toInt()
+
+        return Bitmap.createScaledBitmap(bitmap, finalWidth, finalHeight, true)
+    }
 }

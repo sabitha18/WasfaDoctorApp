@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFE"
-    android:orientation="vertical">
+    android:background="#FAFAFE">
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
@@ -15,18 +15,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:orientation="vertical">
+
+            <!-- Back -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="#F7F7F7"
-                app:cardCornerRadius="10dp"
-                android:visibility="gone">
+                app:cardCornerRadius="10dp">
 
                 <ImageView
                     android:layout_width="12dp"
@@ -35,48 +35,45 @@
                     android:src="@drawable/brown_back" />
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Header -->
             <LinearLayout
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:visibility="visible"
                     android:id="@+id/img_menu"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/menu"/>
+                    android:src="@drawable/menu" />
+
                 <TextView
                     android:id="@+id/txt_head"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:gravity="center_vertical"
                     android:text="All Prescriptions"
                     android:textColor="@color/black"
                     android:textSize="22sp" />
             </LinearLayout>
 
+            <!-- Search -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginStart="1dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="1dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="25dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/white">
+                app:strokeColor="@color/white"
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -87,11 +84,10 @@
 
                     <EditText
                         android:id="@+id/edit_search"
-                        android:background="@android:color/transparent"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
+                        android:background="@android:color/transparent"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center_vertical"
                         android:hint="Filter By Item Name"
@@ -107,145 +103,109 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
+            <!-- Table -->
             <HorizontalScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:fillViewport="true"
                 android:scrollbars="none">
 
                 <LinearLayout
-                    android:gravity="start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:id="@+id/table_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <!-- Header Row -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginTop="50dp"
                         android:background="#1b1b28"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
 
-                        <!-- Order ID -->
                         <TextView
-                            android:layout_width="120dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1.2"
                             android:gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="OrderID"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold" />
 
-                        <!-- Date -->
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Date"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold" />
 
-                        <!-- Item Name -->
                         <TextView
-                            android:layout_width="250dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="2.2"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Item Name"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold" />
 
-                        <!-- Selling Price -->
                         <TextView
-                            android:layout_width="180dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="2"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Selling Price after all discounts"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold" />
 
-                        <!-- Doctor Appreciation -->
-<!--                        <TextView-->
-<!--                            android:layout_width="220dp"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            android:layout_marginEnd="10dp"-->
-<!--                            android:fontFamily="@font/roboto_bold"-->
-<!--                            android:text="Doctor Appreciation Amount (KD)"-->
-<!--                            android:textColor="@color/white"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:singleLine="true"-->
-<!--                            android:ellipsize="end"-->
-<!--                            android:maxLines="1" />-->
-
-                        <!-- Pharmaceutical -->
                         <TextView
-                            android:layout_width="140dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_weight="1.4"
                             android:gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/roboto_bold"
                             android:text="Pharmaceutical"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold" />
 
-                        <!-- Cleared -->
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:fontFamily="@font/roboto_bold"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
                             android:text="Cleared"
                             android:textColor="@color/white"
                             android:textSize="12sp"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:fontFamily="@font/roboto_bold" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/txt_no_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:gravity="center"
                         android:text="No Data Available"
                         android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:fontFamily="@font/roboto_bold"
                         android:visibility="gone" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_pres"
                         android:layout_width="match_parent"
-
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         tools:itemCount="3"
                         tools:listitem="@layout/item_report" />
+
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -254,22 +214,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#50F9FEFF"
                 android:visibility="gone">
 
                 <ProgressBar
-                    style="?android:attr/progressBarStyle"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:indeterminateDrawable="@drawable/rotating_icon"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:indeterminateDrawable="@drawable/rotating_icon" />
             </RelativeLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -281,18 +233,14 @@
         android:visibility="gone">
 
         <ProgressBar
-            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:indeterminateDrawable="@drawable/rotating_icon"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:indeterminateDrawable="@drawable/rotating_icon" />
     </RelativeLayout>
-    <include android:id="@+id/page_filter"
-        layout="@layout/fragment_filter_report"/>
+
+    <include
+        android:id="@+id/page_filter"
+        layout="@layout/fragment_filter_report" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

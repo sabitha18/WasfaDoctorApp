@@ -141,7 +141,7 @@ class SettingsFragment : Fragment() {
     }
     private fun handleClick() {
         binding.imgMenu.setOnClickListener {
-            (activity as? DoctorHomeActivity)?.toggleBottomNav()
+            (activity as? DoctorHomeActivity)?.toggleSideMenu()
         }
         binding.lytLogOut.setOnClickListener {
 

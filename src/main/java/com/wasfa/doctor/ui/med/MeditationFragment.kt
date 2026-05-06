@@ -128,6 +128,7 @@ class MeditationFragment : Fragment() {
                         !viewModel.isLastPageBrand() &&
                         (visibleItemCount + firstVisibleItemPosition >= totalItemCount)
                     ) {
+
                         loadNextPage(currentSearchQuery)
                     }
                 }
@@ -137,7 +138,7 @@ class MeditationFragment : Fragment() {
     private fun loadNextPage(search: String = "") {
 
         if (viewModel.loadingBrand || viewModel.isLastPageBrand()) return
-
+        binding.pageFilter.progressBar.visibility = View.VISIBLE
         val request = ApiService.BrandRequestNew(
             per_page = "20",
             page_no = viewModel.currentPageBrand.toString(),
@@ -156,15 +157,18 @@ class MeditationFragment : Fragment() {
             searchJob?.cancel()
 
             searchJob = lifecycleScope.launch {
-                delay(1000) // wait for typing
+                delay(500) // wait for typing
 
                 currentSearchQuery = text.toString().trim()
 
                 viewModel.currentPageBrand = 1
+                viewModel.loadingBrand = false
+                viewModel.totalPageCountBrand = 1
+                loadNextPage(currentSearchQuery)
                 brandList.clear()
                 brandAdapter.notifyDataSetChanged()
 
-                loadNextPage(currentSearchQuery)
+
             }
         }
         binding.pageFilter.cardFilterSeller.visibility = View.GONE
@@ -461,6 +465,7 @@ class MeditationFragment : Fragment() {
                 productAdapter.addProducts(data?.products!!)
             }
             if (!isTablet()){
+
                 (activity as? DoctorHomeActivity)?.showBottomNav()
             }else{
                 (activity as? DoctorHomeActivity)?.hideBottomNav()
@@ -472,7 +477,20 @@ class MeditationFragment : Fragment() {
         }
         viewModel.brandList.observe(viewLifecycleOwner) { data ->
 
+            // 🔥 Always hide progress bar when response comes
+            binding.pageFilter.progressBar.visibility = View.GONE
+
             val newList = data?.brands ?: emptyList()
+
+            // 👉 If first page & no data → show "No Data"
+            if (viewModel.currentPageBrand == 1 && newList.isEmpty()) {
+                binding.pageFilter.recyclerFilterByBrand.visibility = View.GONE
+                binding.pageFilter.txtNoData.visibility = View.VISIBLE
+                return@observe
+            } else {
+                binding.pageFilter.recyclerFilterByBrand.visibility = View.VISIBLE
+                binding.pageFilter.txtNoData.visibility = View.GONE
+            }
 
             val start = brandList.size
             brandList.addAll(newList)
@@ -614,7 +632,8 @@ class MeditationFragment : Fragment() {
             callProductAPI()
         }
         binding.imgMenu.setOnClickListener {
-            (activity as? DoctorHomeActivity)?.toggleBottomNav()
+            println("check ======  0002")
+            (activity as? DoctorHomeActivity)?.toggleSideMenu()
         }
         binding.cardFilter.setOnClickListener {
             binding.pageFilter.lytFilter.visibility = View.VISIBLE

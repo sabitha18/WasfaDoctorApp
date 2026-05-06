@@ -112,7 +112,7 @@ class PrescribedRxFragment : Fragment() {
 
     private fun manageClick() {
         binding.imgMenu.setOnClickListener {
-            (activity as? DoctorHomeActivity)?.toggleBottomNav()
+            (activity as? DoctorHomeActivity)?.toggleSideMenu()
         }
         binding.cardBack.setOnClickListener {
             val navController = runCatching { findNavController() }.getOrNull()

@@ -116,6 +116,7 @@
                     android:layout_width="80dp"
                     android:id="@+id/card_filter"
                     app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="@color/white"
                     app:strokeWidth="1dp"
                     app:strokeColor="#B0B0B0"
                     android:layout_height="40dp">

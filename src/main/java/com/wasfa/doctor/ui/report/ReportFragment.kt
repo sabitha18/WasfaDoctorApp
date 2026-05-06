@@ -332,7 +332,7 @@ class ReportFragment : Fragment() {
             }
         }
         binding.imgMenu.setOnClickListener {
-            (activity as? DoctorHomeActivity)?.toggleBottomNav()
+            (activity as? DoctorHomeActivity)?.toggleSideMenu()
         }
         binding.cardFilter.setOnClickListener {
             binding.pageFilter.lytFilter.visibility = View.VISIBLE

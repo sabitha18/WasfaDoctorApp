@@ -589,7 +589,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="Enter Values:"
+                        android:text="Extra Items:"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
                     <com.google.android.material.card.MaterialCardView
@@ -605,7 +605,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/edit_enter_value"
-                            android:hint="Enter value"
+                            android:hint="Extra items"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="5dp"
                             android:singleLine="true"
@@ -636,7 +636,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/edit_doctor_notes"
-                            android:hint="Enter notes..."
+                            android:hint="Doctor notes..."
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="5dp"
                             android:singleLine="true"
